@@ -92,7 +92,14 @@ def validate_text(text: str) -> list[str]:
     require(r"\bIMAGE_NAME\s*=\s*'delivery-api'", text, errors, "missing IMAGE_NAME contract")
     require(r"\bCI_PROVIDER\s*=\s*'jenkins'", text, errors, "missing CI_PROVIDER contract")
     require(r"\bstages\s*\{", text, errors, "missing stages block")
-    for stage in ("Metadata", "Validate", "Build Once", "Staging", "Production Approval", "Production"):
+    for stage in (
+        "Metadata",
+        "Validate",
+        "Build Once",
+        "Staging",
+        "Production Approval",
+        "Production",
+    ):
         require(
             rf"stage\s*\(\s*'{re.escape(stage)}'\s*\)",
             text,

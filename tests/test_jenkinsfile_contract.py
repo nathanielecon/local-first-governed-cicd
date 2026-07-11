@@ -14,8 +14,10 @@ def test_repository_jenkinsfile_satisfies_contract() -> None:
 
 
 def test_missing_submitter_parameter_is_rejected() -> None:
-    text = (ROOT / "Jenkinsfile").read_text(encoding="utf-8").replace(
-        "submitterParameter: 'APPROVED_BY'", "submitterParameter: ''"
+    text = (
+        (ROOT / "Jenkinsfile")
+        .read_text(encoding="utf-8")
+        .replace("submitterParameter: 'APPROVED_BY'", "submitterParameter: ''")
     )
     assert "Production Approval stage must record APPROVED_BY" in validate_text(text)
 

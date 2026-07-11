@@ -49,9 +49,7 @@ def test_builder_stage_creates_wheels_for_runtime_install() -> None:
     assert "COPY src ./src" in instructions
     assert "RUN python -m pip wheel --wheel-dir /wheels ." in instructions
     assert "COPY --from=builder /wheels /wheels" in instructions
-    assert (
-        "RUN python -m pip install --no-cache-dir /wheels/* && rm -rf /wheels" in instructions
-    )
+    assert "RUN python -m pip install --no-cache-dir /wheels/* && rm -rf /wheels" in instructions
 
 
 def test_runtime_release_identity_is_exposed_via_oci_labels_and_env() -> None:
