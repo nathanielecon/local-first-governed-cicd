@@ -54,9 +54,7 @@ jobs:
         run: gitleaks detect --source . --no-git --redact --verbose
       - name: Install trivy
         run: |
-          curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.63.0/trivy_0.63.0_Linux-64bit.tar.gz -o trivy.tar.gz
-          tar -xzf trivy.tar.gz trivy
-          sudo install trivy /usr/local/bin/trivy
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.63.0
       - name: Run trivy
         run: trivy fs --severity CRITICAL,HIGH --exit-code 1 .
 
