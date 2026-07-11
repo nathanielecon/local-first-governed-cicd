@@ -52,11 +52,8 @@ jobs:
           sudo install gitleaks /usr/local/bin/gitleaks
       - name: Run gitleaks
         run: gitleaks detect --source . --no-git --redact --verbose
-      - name: Install trivy
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.63.0
       - name: Run trivy
-        run: trivy fs --severity CRITICAL,HIGH --exit-code 1 .
+        run: docker run --rm -v "${{ github.workspace }}:/workspace" aquasec/trivy:0.63.0 fs --severity CRITICAL,HIGH --exit-code 1 /workspace
 
   container:
     name: Container contract
