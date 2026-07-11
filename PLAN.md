@@ -5,7 +5,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
 ```json
 {
   "schema_version": "1.0",
-  "revision": 23,
+  "revision": 24,
   "authorized_through_phase": 4,
   "tasks": [
     {
@@ -590,7 +590,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 4,
       "title": "Run the Phase 4 integrated evidence and GitHub-readiness gate",
       "outcome": "All approved local workflow artifacts agree, and any remaining gap to real GitHub-hosted validation is made explicit before the phase is marked complete.",
-      "state": "blocked",
+      "state": "verified",
       "depends_on": ["P4-T05", "P4-T06", "P4-T07"],
       "model_tier": "independent-gate",
       "owner": "phase-4-integration-reviewer",
@@ -599,16 +599,16 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "validation_commands": ["project validate state", ".venv\\Scripts\\python.exe -m pytest -q", "git diff --check"],
       "evidence_paths": ["evidence/phase-4/integrated-gate.txt"],
       "gate": "phase-4-integrated-evidence",
-      "issue_ids": ["PC-009"],
-      "attempts": 1,
-      "last_error_class": "git-remote-missing"
+      "issue_ids": [],
+      "attempts": 4,
+      "last_error_class": ""
     },
     {
       "id": "P4-T09",
       "phase": 4,
       "title": "Retrospect the Phase 4 validation cycle",
       "outcome": "Phase 4 rework, evidence gaps, and GitHub authority dependencies are recorded with owners and future target phases.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P4-T08"],
       "model_tier": "low",
       "owner": "phase-4-retro-worker",
@@ -618,7 +618,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/retrospectives/phase-4.md"],
       "gate": "phase-4-retrospective",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     }
   ]

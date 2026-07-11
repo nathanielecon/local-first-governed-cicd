@@ -1,7 +1,7 @@
 # Phase 4 GitHub Validation Boundary
 
 Date: 2026-07-11
-Status: local Phase 4 workflow hardening in progress; this document is not GitHub-hosted validation evidence
+Status: hosted validation captured; this record defines the boundary and points to retained evidence
 
 ## Scope
 
@@ -19,10 +19,16 @@ This record defines the approved boundary for Phase 4 GitHub PR validation work.
 
 ## Hosted evidence boundary
 
-Phase 4 is not complete until the repository retains:
+Phase 4 required the repository to retain:
 
 - a real GitHub-hosted workflow run showing the approved checks;
 - a safe blocked-change demonstration that fails for an intentional, non-destructive reason;
 - a clear record of any required GitHub authority, such as authenticated repository access or branch-protection administration.
 
-If that hosted evidence cannot be collected from the current environment, the orchestrator must record the exact missing authority as a blocker instead of implying success from local-only workflow preparation.
+Retained evidence:
+
+- Passing hosted run: `https://github.com/nathanielecon/project-c-cloud/actions/runs/29166389732`
+- Safe blocked-change demonstration: closed draft PR `#1` at `https://github.com/nathanielecon/project-c-cloud/pull/1`
+- Intentional failing hosted run: `https://github.com/nathanielecon/project-c-cloud/actions/runs/29166442925`
+
+The Phase 4 evidence proves GitHub-hosted validation and blocked-change behavior only. It does not prove Jenkins runtime execution, production approval, rollback recovery, or cloud activity.

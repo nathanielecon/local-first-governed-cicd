@@ -5,7 +5,7 @@ The active Codex task is the immediate notification channel. This ledger is the 
 ```json
 {
   "schema_version": "1.0",
-  "revision": 10,
+  "revision": 11,
   "issues": [
     {
       "id": "PC-008",
@@ -150,15 +150,15 @@ The active Codex task is the immediate notification channel. This ledger is the 
       "task": "GitHub-hosted PR validation evidence",
       "severity": "blocking",
       "category": "environment",
-      "summary": "The local Phase 4 workflow hardening is complete, and GitHub CLI authentication is present, but this repository has no configured Git remote, so no hosted workflow run or blocked-change evidence can be captured from the current workspace.",
-      "evidence": ["evidence/phase-4/integrated-gate.txt", "docs/reviews/phase-4-change-review.md", "docs/reviews/phase-4-security-review.md"],
-      "owner": "human-project-owner",
-      "attempts": 1,
-      "status": "open",
-      "human_question": "Provide the intended GitHub repository remote or explicitly authorize creation/linking of one so the Phase 4 branch can be pushed and hosted workflow evidence can be collected.",
-      "resolution": "",
-      "resolved_at": "",
-      "continue_lanes": ["Phase 5 remediation planning only", "Phase 8 narrative drafting only"]
+      "summary": "Phase 4 needed both a real GitHub-hosted validation pass and a safe blocked-change demonstration before the PR-validation lane could be treated as verified.",
+      "evidence": ["evidence/phase-4/integrated-gate.txt", "docs/change-records/phase-4-github-validation.md", "https://github.com/nathanielecon/project-c-cloud/actions/runs/29166389732", "https://github.com/nathanielecon/project-c-cloud/pull/1", "https://github.com/nathanielecon/project-c-cloud/actions/runs/29166442925"],
+      "owner": "terra-orchestrator",
+      "attempts": 4,
+      "status": "resolved",
+      "human_question": "",
+      "resolution": "Created and linked repository `nathanielecon/project-c-cloud`, repaired hosted workflow blockers until run 29166389732 passed on `main`, then retained a safe blocked-change demonstration through closed draft PR #1 where run 29166442925 failed only `Python quality` because of the intentional Ruff F401 unused-import error in `tests/test_phase4_blocked_demo.py`.",
+      "resolved_at": "2026-07-12T00:08:00Z",
+      "continue_lanes": ["Phase 4 retrospective", "Future Phase 5 authorization decision"]
     }
   ]
 }

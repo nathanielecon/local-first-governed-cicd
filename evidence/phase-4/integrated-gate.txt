@@ -1,6 +1,6 @@
 Phase 4 Integrated Gate
 Date: 2026-07-11
-Scope: local Phase 4 workflow hardening and evidence only
+Scope: Phase 4 workflow hardening plus real GitHub-hosted validation evidence
 
 Validated local evidence:
 - `evidence/phase-4/harness.txt` records the updated authorization boundary: Phase 4 accepted, Phase 5 rejected.
@@ -10,10 +10,13 @@ Validated local evidence:
 - `docs/reviews/phase-4-eng-review.md`, `phase-4-change-review.md`, and `phase-4-security-review.md` agree on the same claim boundary.
 - `./scripts/project.ps1 validate state --json` passes.
 
-Blocking condition:
-- Real GitHub-hosted validation cannot run from the current workspace because `git config --get remote.origin.url` returned no configured remote and `gh repo view --json nameWithOwner,url,defaultBranchRef` failed with `no git remotes found`.
+Hosted evidence:
+- Repository remote: `https://github.com/nathanielecon/project-c-cloud.git`
+- Main-branch hosted pass: GitHub Actions run `29166389732` passed all four jobs (`Python quality`, `Security scans`, `Container contract`, `Jenkinsfile contract`) at commit `e82f4a2`.
+- Safe blocked-change demonstration: draft PR `#1` (`https://github.com/nathanielecon/project-c-cloud/pull/1`) intentionally failed `Python quality` in run `29166442925` because `tests/test_phase4_blocked_demo.py` introduced a disposable Ruff `F401` unused-import failure; `Security scans`, `Container contract`, and `Jenkinsfile contract` still passed.
+- The demonstration PR was then closed to keep the repository clean while preserving the hosted failure record.
 
 Verdict:
-- Local Phase 4 workflow preparation is acceptable.
-- Phase 4 cannot be marked complete until a real GitHub repository remote exists and hosted workflow evidence plus a safe blocked-change demonstration are retained.
+- Phase 4 is complete.
+- Local workflow preparation, the passing hosted run, and the safe blocked-change demonstration agree on the same PR-validation boundary.
 - No Jenkins runtime, production approval, rollback recovery, or cloud claim is supported by this gate.
