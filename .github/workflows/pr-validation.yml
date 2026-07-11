@@ -1,0 +1,90 @@
+name: PR Validation
+
+on:
+  pull_request:
+  push:
+    branches: [master, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff format --check .
+      - run: ruff check .
+      - run: mypy src
+      - run: pytest --junitxml=junit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-reports
+          path: |
+            junit.xml
+            coverage.xml
+
+  security:
+    name: Security scans
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+
+  container:
+    name: Container contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+      - name: Build without credentials
+        run: docker build --build-arg APP_VERSION=ci --build-arg GIT_SHA=${{ github.sha }} -t delivery-api:ci .
+      - name: Start and verify
+        run: |
+          docker run -d --name delivery-api -p 8080:8080 delivery-api:ci
+          for attempt in {1..20}; do curl --fail http://localhost:8080/health/ready && break; sleep 1; done
+          python scripts/smoke_test.py --base-url http://localhost:8080 --expected-sha ${{ github.sha }}
+          test "$(docker inspect --format='{{.Config.User}}' delivery-api)" = "10001:10001"
+      - name: Logs
+        if: always()
+        run: docker logs delivery-api 2>&1 | tee container.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-report
+          path: container.log
+
+  jenkinsfile:
+    name: Jenkinsfile syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify declarative contract
+        run: |
+          grep -q '^pipeline {' Jenkinsfile
+          grep -q "stage('Production Approval')" Jenkinsfile
+          grep -q 'disableConcurrentBuilds' Jenkinsfile
+

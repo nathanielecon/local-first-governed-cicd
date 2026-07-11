@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discover Project"
+  short_description: "Clarify outcomes, constraints, and claim boundaries"
+  default_prompt: "Use $project-discovery to establish the project baseline."

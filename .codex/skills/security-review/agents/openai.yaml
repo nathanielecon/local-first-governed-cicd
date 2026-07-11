@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review CI Security"
+  short_description: "Review delivery credentials and supply-chain controls"
+  default_prompt: "Use $security-review to audit the CI/CD change."

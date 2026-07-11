@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship Delivery Change"
+  short_description: "Gate and prepare a release-ready pull request"
+  default_prompt: "Use $ship to verify and ship the approved change."

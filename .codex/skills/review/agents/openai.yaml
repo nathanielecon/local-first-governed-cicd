@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Delivery Diff"
+  short_description: "Review changes for defects and missing evidence"
+  default_prompt: "Use $review to inspect the current delivery change."

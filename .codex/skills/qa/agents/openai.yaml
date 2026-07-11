@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify Delivery"
+  short_description: "Run the test plan and capture evidence"
+  default_prompt: "Use $qa to verify behavior and record evidence."

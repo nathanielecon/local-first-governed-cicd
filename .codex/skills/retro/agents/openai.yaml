@@ -1,0 +1,4 @@
+interface:
+  display_name: "Retrospect Delivery"
+  short_description: "Record outcomes, failures, and harness improvements"
+  default_prompt: "Use $retro after a delivery cycle."

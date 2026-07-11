@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement Gated Slice"
+  short_description: "Implement one approved issue with evidence"
+  default_prompt: "Use $implement-slice to complete one approved implementation slice."

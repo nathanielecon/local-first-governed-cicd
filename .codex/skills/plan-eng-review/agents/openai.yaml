@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Delivery Plan"
+  short_description: "Gate architecture, security, rollout, and tests"
+  default_prompt: "Use $plan-eng-review to review the delivery plan before implementation."

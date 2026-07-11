@@ -1,0 +1,52 @@
+name: project-c
+services:
+  registry:
+    image: registry:2.8.3
+    restart: unless-stopped
+    ports: ["5000:5000"]
+    volumes: ["registry-data:/var/lib/registry"]
+    networks: [delivery]
+
+  staging:
+    image: ${STAGING_IMAGE:-delivery-api:local}
+    profiles: [deploy]
+    restart: unless-stopped
+    environment:
+      APP_ENVIRONMENT: staging
+      APP_READY: ${STAGING_READY:-true}
+    ports: ["8081:8080"]
+    networks: [delivery]
+
+  production:
+    image: ${PRODUCTION_IMAGE:-delivery-api:local}
+    profiles: [deploy]
+    restart: unless-stopped
+    environment:
+      APP_ENVIRONMENT: production
+      APP_READY: ${PRODUCTION_READY:-true}
+    ports: ["8082:8080"]
+    networks: [delivery]
+
+  jenkins:
+    build: infra/jenkins
+    restart: unless-stopped
+    user: root
+    environment:
+      CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml
+      JENKINS_ADMIN_ID: ${JENKINS_ADMIN_ID:-admin}
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:-change-me-locally}
+    ports: ["8080:8080", "50000:50000"]
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workspace:ro
+    networks: [delivery]
+
+networks:
+  delivery:
+    name: project-c-delivery
+
+volumes:
+  registry-data:
+  jenkins-data:
+

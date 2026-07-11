@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+.env
+evidence/*/reports/
+evidence/*/runtime/
+deploy/state/*.env
+!deploy/state/.gitkeep
+

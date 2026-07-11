@@ -1,0 +1,4 @@
+interface:
+  display_name: "Specify Delivery Work"
+  short_description: "Turn an approved outcome into testable work"
+  default_prompt: "Use $spec to produce executable requirements and backlog slices."

@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "release_id": "example",
+  "status": "template_only",
+  "commit_sha": "replace-with-real-commit",
+  "image": {"reference": "", "digest": ""},
+  "environment": "local",
+  "rollback_digest": "",
+  "pipeline": {"provider": "none", "run_id": "none"},
+  "approvals": [],
+  "reports": [],
+  "updated_at": null
+}
+
