@@ -1,0 +1,4 @@
+NAME                     IMAGE                         COMMAND                  SERVICE      CREATED         STATUS                           PORTS
+project-c-production-1   delivery-api:phase3-runtime   "uvicorn delivery_ap…"   production   3 seconds ago   Up 1 second (health: starting)   0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+project-c-registry-1     registry:2.8.3                "/entrypoint.sh /etc…"   registry     3 seconds ago   Up 1 second                      0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+project-c-staging-1      delivery-api:phase3-runtime   "uvicorn delivery_ap…"   staging      3 seconds ago   Up 1 second (health: starting)   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp

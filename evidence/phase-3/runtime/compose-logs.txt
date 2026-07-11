@@ -1,0 +1,35 @@
+registry-1  | time="2026-07-11T18:27:44.460176336Z" level=warning msg="No HTTP secret provided - generated random secret. This may cause problems with uploads if multiple registries are behind a load-balancer. To provide a shared secret, fill in http.secret in the configuration file or set the REGISTRY_HTTP_SECRET environment variable." go.version=go1.20.8 instance.id=79b91e05-5f3f-4776-a0f1-9184d4a0d23e service=registry version=2.8.3 
+registry-1  | time="2026-07-11T18:27:44.460410833Z" level=info msg="Starting upload purge in 30m0s" go.version=go1.20.8 instance.id=79b91e05-5f3f-4776-a0f1-9184d4a0d23e service=registry version=2.8.3 
+staging-1   | INFO:     Started server process [1]
+staging-1   | INFO:     Waiting for application startup.
+staging-1   | {"timestamp":"2026-07-11T18:27:46.611575+00:00","level":"INFO","logger":"delivery_api.lifecycle","message":"service_started","request_id":"system"}
+staging-1   | INFO:     Application startup complete.
+staging-1   | INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+staging-1   | INFO:     172.18.0.1:54976 - "GET /health/ready HTTP/1.1" 200 OK
+registry-1  | time="2026-07-11T18:27:44.460483478Z" level=info msg="redis not configured" go.version=go1.20.8 instance.id=79b91e05-5f3f-4776-a0f1-9184d4a0d23e service=registry version=2.8.3 
+staging-1   | {"timestamp":"2026-07-11T18:27:46.808894+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"118d79bc-074a-45bc-a652-308e90e0e6df","method":"GET","path":"/health/ready","status_code":200,"duration_ms":1.04}
+registry-1  | time="2026-07-11T18:27:44.460689134Z" level=info msg="using inmemory blob descriptor cache" go.version=go1.20.8 instance.id=79b91e05-5f3f-4776-a0f1-9184d4a0d23e service=registry version=2.8.3 
+staging-1   | {"timestamp":"2026-07-11T18:27:46.818262+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"a2e5a6b1-cdb4-49c2-9177-d96eaae8024c","method":"GET","path":"/version","status_code":200,"duration_ms":0.62}
+registry-1  | time="2026-07-11T18:27:44.46788786Z" level=info msg="listening on [::]:5000" go.version=go1.20.8 instance.id=79b91e05-5f3f-4776-a0f1-9184d4a0d23e service=registry version=2.8.3 
+staging-1   | INFO:     172.18.0.1:54978 - "GET /version HTTP/1.1" 200 OK
+staging-1   | {"timestamp":"2026-07-11T18:27:46.827339+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"smoke-test","method":"POST","path":"/quotes","status_code":200,"duration_ms":2.55}
+staging-1   | INFO:     172.18.0.1:54982 - "POST /quotes HTTP/1.1" 200 OK
+staging-1   | {"timestamp":"2026-07-11T18:27:50.015373+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"e39dbb7f-f50e-401c-abec-4f6a5aadd343","method":"GET","path":"/health/ready","status_code":200,"duration_ms":0.75}
+staging-1   | INFO:     127.0.0.1:53392 - "GET /health/ready HTTP/1.1" 200 OK
+staging-1   | INFO:     127.0.0.1:52312 - "GET /health/ready HTTP/1.1" 200 OK
+staging-1   | {"timestamp":"2026-07-11T18:28:00.625558+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"8babe105-7bcf-42d5-9641-252277dbe191","method":"GET","path":"/health/ready","status_code":200,"duration_ms":0.55}
+production-1  | INFO:     Started server process [1]
+production-1  | INFO:     Waiting for application startup.
+production-1  | {"timestamp":"2026-07-11T18:27:46.619001+00:00","level":"INFO","logger":"delivery_api.lifecycle","message":"service_started","request_id":"system"}
+production-1  | INFO:     Application startup complete.
+production-1  | INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+production-1  | {"timestamp":"2026-07-11T18:27:47.292810+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"7a1dbb50-1b96-40fa-83b7-de5aa2bf5105","method":"GET","path":"/health/ready","status_code":200,"duration_ms":0.92}
+production-1  | INFO:     172.18.0.1:55810 - "GET /health/ready HTTP/1.1" 200 OK
+production-1  | {"timestamp":"2026-07-11T18:27:47.300368+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"e24e4858-4fa2-41bd-a0ba-35555c85919c","method":"GET","path":"/version","status_code":200,"duration_ms":0.81}
+production-1  | INFO:     172.18.0.1:55824 - "GET /version HTTP/1.1" 200 OK
+production-1  | {"timestamp":"2026-07-11T18:27:47.310185+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"smoke-test","method":"POST","path":"/quotes","status_code":200,"duration_ms":3.06}
+production-1  | INFO:     172.18.0.1:55830 - "POST /quotes HTTP/1.1" 200 OK
+production-1  | {"timestamp":"2026-07-11T18:27:50.030435+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"d6d42e39-5abb-49cb-9d1b-ea3da074cdc5","method":"GET","path":"/health/ready","status_code":200,"duration_ms":0.7}
+production-1  | INFO:     127.0.0.1:53396 - "GET /health/ready HTTP/1.1" 200 OK
+production-1  | {"timestamp":"2026-07-11T18:28:00.648380+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"cc7e55c1-4fc0-4e70-985e-6a10b4d56d50","method":"GET","path":"/health/ready","status_code":200,"duration_ms":0.6}
+production-1  | INFO:     127.0.0.1:52320 - "GET /health/ready HTTP/1.1" 200 OK

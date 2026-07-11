@@ -1,0 +1,4 @@
+3.12.11-slim-bookworm: Pulling from library/python
+Digest: sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7
+Status: Downloaded newer image for python:3.12.11-slim-bookworm
+docker.io/library/python:3.12.11-slim-bookworm

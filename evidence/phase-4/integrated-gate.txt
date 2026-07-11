@@ -1,0 +1,19 @@
+Phase 4 Integrated Gate
+Date: 2026-07-11
+Scope: local Phase 4 workflow hardening and evidence only
+
+Validated local evidence:
+- `evidence/phase-4/harness.txt` records the updated authorization boundary: Phase 4 accepted, Phase 5 rejected.
+- `evidence/phase-4/workflow-static.txt` records the static workflow invariants passing.
+- `evidence/phase-4/jenkins-contract.txt` records a passing local Jenkinsfile contract validation.
+- `evidence/phase-4/qa.txt` records the full local pytest suite passing with 38 tests and 96.59 percent total coverage.
+- `docs/reviews/phase-4-eng-review.md`, `phase-4-change-review.md`, and `phase-4-security-review.md` agree on the same claim boundary.
+- `./scripts/project.ps1 validate state --json` passes.
+
+Blocking condition:
+- Real GitHub-hosted validation cannot run from the current workspace because `git config --get remote.origin.url` returned no configured remote and `gh repo view --json nameWithOwner,url,defaultBranchRef` failed with `no git remotes found`.
+
+Verdict:
+- Local Phase 4 workflow preparation is acceptable.
+- Phase 4 cannot be marked complete until a real GitHub repository remote exists and hosted workflow evidence plus a safe blocked-change demonstration are retained.
+- No Jenkins runtime, production approval, rollback recovery, or cloud claim is supported by this gate.

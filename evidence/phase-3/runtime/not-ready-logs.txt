@@ -1,0 +1,11 @@
+staging-1  | INFO:     Started server process [1]
+staging-1  | INFO:     Waiting for application startup.
+staging-1  | {"timestamp":"2026-07-11T18:29:23.703211+00:00","level":"INFO","logger":"delivery_api.lifecycle","message":"service_started","request_id":"system"}
+staging-1  | INFO:     Application startup complete.
+staging-1  | INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+staging-1  | {"timestamp":"2026-07-11T18:29:26.630076+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"0873db53-7a34-40b3-9de0-2361027d3db4","method":"GET","path":"/health/ready","status_code":503,"duration_ms":0.94}
+staging-1  | INFO:     172.18.0.1:53778 - "GET /health/ready HTTP/1.1" 503 Service Unavailable
+staging-1  | INFO:     172.18.0.1:53784 - "GET /version HTTP/1.1" 200 OK
+staging-1  | {"timestamp":"2026-07-11T18:29:26.638315+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"59b94033-e02a-4a0f-bbd2-def053f7d59a","method":"GET","path":"/version","status_code":200,"duration_ms":0.48}
+staging-1  | INFO:     172.18.0.1:53800 - "POST /quotes HTTP/1.1" 200 OK
+staging-1  | {"timestamp":"2026-07-11T18:29:26.657836+00:00","level":"INFO","logger":"delivery_api.requests","message":"request_completed","request_id":"smoke-test","method":"POST","path":"/quotes","status_code":200,"duration_ms":2.05}

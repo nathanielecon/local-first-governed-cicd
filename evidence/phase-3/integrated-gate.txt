@@ -1,0 +1,62 @@
+Timestamp: 2026-07-11T13:50:00-04:00
+Gate: P3-T09 Phase 3 engine-independent integrated evidence
+
+Command: ./scripts/project.ps1 validate state --json
+Result:
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+
+Command: .\.venv\Scripts\python.exe -m pytest -q
+Result:
+..............................                                           [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\routing.py:234: 4 warnings
+tests/test_api.py: 28 warnings
+  C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\fastapi\routing.py:234: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+src\delivery_api\__init__.py       0      0   100%
+src\delivery_api\config.py        14      0   100%
+src\delivery_api\logging.py       17      0   100%
+src\delivery_api\main.py          57      3    95%   52-61
+------------------------------------------------------------
+TOTAL                             88      3    97%
+Coverage XML written to file coverage.xml
+Required test coverage of 90% reached. Total coverage: 96.59%
+30 passed, 32 warnings in 1.48s
+
+Command: git diff --check
+Result:
+warning: in the working copy of 'Dockerfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ISSUES.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PLAN.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'STATUS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'compose.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/smoke_test.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_project_cli.py', LF will be replaced by CRLF the next time Git touches it
+
+Evidence inventory:
+- evidence/phase-3/harness.txt: 7 passed for Phase 3 authorization boundary and full-suite regression baseline
+- evidence/phase-3/image-static.txt: 6 passed for Dockerfile static contract assertions
+- evidence/phase-3/compose-static.txt: 6 passed for Compose topology static contract assertions
+- evidence/phase-3/smoke-static.txt: 4 passed for smoke helper negative-path and release-identity assertions
+- evidence/phase-3/qa.txt: 30 passed for the combined engine-independent QA suite
+- docs/reviews/phase-3-threat-review.md: read-only boundary review preserving PC-001, PC-003, and PC-004
+- docs/reviews/phase-3-change-review.md: independent correctness and claim-boundary review
+- docs/reviews/phase-3-security-review.md: independent security boundary review
+
+Verdict:
+- The Phase 3 engine-independent evidence set is internally consistent and supports only static source and local test conclusions.
+- No Docker runtime, Compose execution, registry publication, Jenkins runtime, deployment, production, rollback, GitHub-hosted validation, or cloud claim is supported by this gate.
+- PC-004 remains the only active Phase 3 runtime blocker. PC-001 and PC-003 remain open future-phase security and rollback boundaries.

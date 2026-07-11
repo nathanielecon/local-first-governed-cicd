@@ -10,6 +10,7 @@ FROM python:3.12.11-slim-bookworm AS runtime
 ARG APP_VERSION=0.1.0
 ARG GIT_SHA=unknown
 LABEL org.opencontainers.image.title="delivery-api" \
+      org.opencontainers.image.description="Governed delivery API runtime image" \
       org.opencontainers.image.version="$APP_VERSION" \
       org.opencontainers.image.revision="$GIT_SHA"
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -26,4 +27,3 @@ HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
   CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health/ready', timeout=2)"]
 STOPSIGNAL SIGTERM
 CMD ["uvicorn", "delivery_api.main:app", "--host", "0.0.0.0", "--port", "8080"]
-

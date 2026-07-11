@@ -1,0 +1,12 @@
+Timestamp: 2026-07-11T13:42:45.8293410-04:00
+Command: .\\.venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py tests/test_api.py tests/test_dockerfile_static.py tests/test_compose_static.py tests/test_smoke_tool.py -q -o addopts=
+
+..............................                                           [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\routing.py:234: 4 warnings
+tests/test_api.py: 28 warnings
+  C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\fastapi\routing.py:234: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+30 passed, 32 warnings in 1.14s

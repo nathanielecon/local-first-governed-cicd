@@ -1,0 +1,258 @@
+[
+    {
+        "Id": "49ccd3b931aefbe2b912f39e053bb40f0cdf5aa18fee02cb98fb52124c22ba8d",
+        "Created": "2026-07-11T18:27:42.999434527Z",
+        "Path": "/entrypoint.sh",
+        "Args": [
+            "/etc/docker/registry/config.yml"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 902,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-07-11T18:27:43.986025011Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:a3d8aaa63ed8681a604f1dea0aa03f100d5895b6a58ace528858a7b332415373",
+        "ResolvConfPath": "/var/lib/docker/containers/49ccd3b931aefbe2b912f39e053bb40f0cdf5aa18fee02cb98fb52124c22ba8d/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/49ccd3b931aefbe2b912f39e053bb40f0cdf5aa18fee02cb98fb52124c22ba8d/hostname",
+        "HostsPath": "/var/lib/docker/containers/49ccd3b931aefbe2b912f39e053bb40f0cdf5aa18fee02cb98fb52124c22ba8d/hosts",
+        "LogPath": "/var/lib/docker/containers/49ccd3b931aefbe2b912f39e053bb40f0cdf5aa18fee02cb98fb52124c22ba8d/49ccd3b931aefbe2b912f39e053bb40f0cdf5aa18fee02cb98fb52124c22ba8d-json.log",
+        "Name": "/project-c-registry-1",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "project-c_registry-data:/var/lib/registry:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "project-c-delivery",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "5000"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "project-c_registry-data",
+                "Source": "/var/lib/docker/volumes/project-c_registry-data/_data",
+                "Destination": "/var/lib/registry",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "49ccd3b931ae",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "5000/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/etc/docker/registry/config.yml"
+            ],
+            "Image": "registry:2.8.3",
+            "Volumes": {
+                "/var/lib/registry": {}
+            },
+            "WorkingDir": "/",
+            "Entrypoint": [
+                "/entrypoint.sh"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "7e6af4b7775ab10a74c7ebde0de8c4b47e690bae5a6e7a109bd548851e0e825e",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:a3d8aaa63ed8681a604f1dea0aa03f100d5895b6a58ace528858a7b332415373",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "project-c",
+                "com.docker.compose.project.config_files": "C:\\Users\\natha\\OneDrive\\Documents\\cloud\\compose.yaml",
+                "com.docker.compose.project.working_dir": "C:\\Users\\natha\\OneDrive\\Documents\\cloud",
+                "com.docker.compose.service": "registry",
+                "com.docker.compose.version": "5.2.0"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "29cbc669ff39ec660f0131a7defec5b674aa3a982b4f54ad8bcd2456f0420e48",
+            "SandboxKey": "/var/run/docker/netns/29cbc669ff39",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "5000"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "5000"
+                    }
+                ]
+            },
+            "Networks": {
+                "project-c-delivery": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "project-c-registry-1",
+                        "registry"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "6324e9cdd857d4577f7b4bd24e9c60bd26cfab8965c069d5bb9addff677adb22",
+                    "EndpointID": "b0be8cfc908deac69690d20df62f548bc688e235aa6fc2354ea69479336320e8",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.4",
+                    "MacAddress": "36:b2:f7:f8:d0:b1",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "project-c-registry-1",
+                        "registry",
+                        "49ccd3b931ae"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:46faa9a1ae6813194b53921a370f2f4f8c5e1aae228a89bceafef5847a6a3278",
+            "size": 1915,
+            "annotations": {
+                "com.docker.official-images.bashbrew.arch": "amd64",
+                "org.opencontainers.image.base.digest": "sha256:fd032399cd767f310a1d1274e81cab9f0fd8a49b3589eba2c3420228cd45b6a7",
+                "org.opencontainers.image.base.name": "alpine:3.18",
+                "org.opencontainers.image.created": "2025-02-14T19:23:30Z",
+                "org.opencontainers.image.revision": "39dd72feaab7066334829d6945c54bc51a0aee98",
+                "org.opencontainers.image.source": "https://github.com/distribution/distribution-library-image.git#39dd72feaab7066334829d6945c54bc51a0aee98:.",
+                "org.opencontainers.image.url": "https://hub.docker.com/_/registry",
+                "org.opencontainers.image.version": "2.8.3"
+            },
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    }
+]

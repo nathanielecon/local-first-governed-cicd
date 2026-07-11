@@ -1,0 +1,24 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260711140312
+Username: DESKTOP-7V889UE\natha
+RunAs User: DESKTOP-7V889UE\natha
+Configuration Name: 
+Machine: DESKTOP-7V889UE (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-3\runtime\install-wsl-elevated.ps1
+Process ID: 636896
+PSVersion: 5.1.26100.8737
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8737
+BuildVersion: 10.0.26100.8737
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-3\runtime\install-wsl-elevated.log
+=== 2026-07-11T14:03:12.1093433-04:00 Elevated WSL repair start ===
+**********************
+Windows PowerShell transcript end
+End time: 20260711140312
+**********************

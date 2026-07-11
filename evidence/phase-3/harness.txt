@@ -1,0 +1,29 @@
+Command: .\\.venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py -q -o addopts=
+
+.......                                                                  [100%]
+7 passed in 0.09s
+
+Command: .\\.venv\\Scripts\\python.exe -m pytest -q
+
+..............                                                           [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\routing.py:234: 4 warnings
+tests/test_api.py: 28 warnings
+  C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\fastapi\routing.py:234: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+src\delivery_api\__init__.py       0      0   100%
+src\delivery_api\config.py        14      0   100%
+src\delivery_api\logging.py       17      0   100%
+src\delivery_api\main.py          57      3    95%   52-61
+------------------------------------------------------------
+TOTAL                             88      3    97%
+Coverage XML written to file coverage.xml
+Required test coverage of 90% reached. Total coverage: 96.59%
+14 passed, 32 warnings in 1.86s

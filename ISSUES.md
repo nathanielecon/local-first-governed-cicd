@@ -5,8 +5,25 @@ The active Codex task is the immediate notification channel. This ledger is the 
 ```json
 {
   "schema_version": "1.0",
-  "revision": 7,
+  "revision": 10,
   "issues": [
+    {
+      "id": "PC-008",
+      "opened_at": "2026-07-11T16:34:16Z",
+      "phase": 3,
+      "task": "P3-T00 engineering-review validation",
+      "severity": "blocking",
+      "category": "defect",
+      "summary": "The CLI phase-authorization regression test still expects Phase 3 to be rejected even though PLAN.md authorizes through Phase 3, so the P3-T00 required pytest check fails.",
+      "evidence": ["tests/test_project_cli.py", "PLAN.md", "docs/reviews/phase-3-eng-review.md"],
+      "owner": "future-phase-3-harness-worker",
+      "attempts": 1,
+      "status": "resolved",
+      "human_question": "",
+      "resolution": "Update the narrow authorization expectation to accept Phase 3 and reject the next unauthorized phase with the documented human-gate exit code, then rerun the narrow and full suites with the project virtual environment.",
+      "resolved_at": "2026-07-11T16:40:00Z",
+      "continue_lanes": ["Phase 3 static container planning", "Phase 3 harness remediation"]
+    },
     {
       "id": "PC-007",
       "opened_at": "2026-07-11T15:38:00Z",
@@ -99,15 +116,15 @@ The active Codex task is the immediate notification channel. This ledger is the 
       "task": "Container runtime verification",
       "severity": "blocking",
       "category": "environment",
-      "summary": "Docker Desktop is installed but its Linux engine did not become available during the earlier verification window.",
-      "evidence": ["STATUS.md"],
+      "summary": "Docker Desktop initially could not start its Linux engine until WSL was installed and Docker Desktop was cleanly restarted.",
+      "evidence": ["evidence/phase-3/runtime/repair-log.txt", "evidence/phase-3/runtime/install-wsl-elevated.log", "evidence/phase-3/runtime/summary.txt"],
       "owner": "future-phase-3-runtime-worker",
-      "attempts": 2,
-      "status": "open",
-      "human_question": "Start or repair Docker Desktop Linux-container support before Phase 3 runtime validation.",
-      "resolution": "",
-      "resolved_at": "",
-      "continue_lanes": ["Phase 1", "Phase 2", "GitHub workflow drafting"]
+      "attempts": 3,
+      "status": "resolved",
+      "human_question": "",
+      "resolution": "WSL 2.7.10 was installed through the approved elevation path, Docker Desktop was cleanly restarted, `docker info` then reported a working Docker Desktop Linux engine, and Phase 3 runtime evidence was captured for build, Compose startup, ready/version/quote smoke, and the not-ready negative path.",
+      "resolved_at": "2026-07-11T19:05:00Z",
+      "continue_lanes": ["Phase 4 GitHub workflow hardening", "Phase 5 remediation planning", "Phase 8 evidence assembly"]
     },
     {
       "id": "PC-005",
@@ -125,6 +142,23 @@ The active Codex task is the immediate notification channel. This ledger is the 
       "resolution": "Project owner removed the Phase 1 administrative human gate. Phase 1 closed conditionally; PC-001 through PC-003 remain hard blockers on their affected future phases.",
       "resolved_at": "2026-07-11T15:30:00Z",
       "continue_lanes": ["No additional implementation; read-only inspection and planning only"]
+    },
+    {
+      "id": "PC-009",
+      "opened_at": "2026-07-11T20:10:00Z",
+      "phase": 4,
+      "task": "GitHub-hosted PR validation evidence",
+      "severity": "blocking",
+      "category": "environment",
+      "summary": "The local Phase 4 workflow hardening is complete, and GitHub CLI authentication is present, but this repository has no configured Git remote, so no hosted workflow run or blocked-change evidence can be captured from the current workspace.",
+      "evidence": ["evidence/phase-4/integrated-gate.txt", "docs/reviews/phase-4-change-review.md", "docs/reviews/phase-4-security-review.md"],
+      "owner": "human-project-owner",
+      "attempts": 1,
+      "status": "open",
+      "human_question": "Provide the intended GitHub repository remote or explicitly authorize creation/linking of one so the Phase 4 branch can be pushed and hosted workflow evidence can be collected.",
+      "resolution": "",
+      "resolved_at": "",
+      "continue_lanes": ["Phase 5 remediation planning only", "Phase 8 narrative drafting only"]
     }
   ]
 }

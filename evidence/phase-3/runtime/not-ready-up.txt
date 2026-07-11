@@ -1,0 +1,6 @@
+ Container project-c-registry-1 Running 
+ Container project-c-production-1 Running 
+ Container project-c-staging-1 Recreate 
+ Container project-c-staging-1 Recreated 
+ Container project-c-staging-1 Starting 
+ Container project-c-staging-1 Started 

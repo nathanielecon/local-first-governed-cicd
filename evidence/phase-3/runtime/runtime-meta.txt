@@ -1,0 +1,2 @@
+git_sha=7f0e2b9afd5a4bc66b6505da89073d8783e16e6a
+app_version=0.1.0

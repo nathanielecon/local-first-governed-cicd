@@ -1,0 +1,1 @@
+{"ready": {"status": "ready"}, "version": {"name": "delivery-api", "version": "0.1.0", "git_sha": "7f0e2b9afd5a4bc66b6505da89073d8783e16e6a", "environment": "staging"}, "quote": {"subtotal": 20.0, "discount": 1.0, "total": 19.0, "currency": "USD"}, "failures": [], "statuses": {"ready": 200, "version": 200, "quote": 200}}

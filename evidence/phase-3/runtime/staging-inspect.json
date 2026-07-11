@@ -1,0 +1,285 @@
+[
+    {
+        "Id": "307457147cde07385c6eff0be657044adb9e6a47df5a56d8e667a5097b12daba",
+        "Created": "2026-07-11T18:27:42.988346734Z",
+        "Path": "uvicorn",
+        "Args": [
+            "delivery_api.main:app",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8080"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 894,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-07-11T18:27:43.979756013Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2026-07-11T18:27:49.36394276Z",
+                        "End": "2026-07-11T18:27:50.055684753Z",
+                        "ExitCode": 0,
+                        "Output": ""
+                    },
+                    {
+                        "Start": "2026-07-11T18:28:00.059823956Z",
+                        "End": "2026-07-11T18:28:00.651678331Z",
+                        "ExitCode": 0,
+                        "Output": ""
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:ee59886d138b612c5cfbec195c783d2cfb386bc2be4993bce4161f7ed2decf21",
+        "ResolvConfPath": "/var/lib/docker/containers/307457147cde07385c6eff0be657044adb9e6a47df5a56d8e667a5097b12daba/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/307457147cde07385c6eff0be657044adb9e6a47df5a56d8e667a5097b12daba/hostname",
+        "HostsPath": "/var/lib/docker/containers/307457147cde07385c6eff0be657044adb9e6a47df5a56d8e667a5097b12daba/hosts",
+        "LogPath": "/var/lib/docker/containers/307457147cde07385c6eff0be657044adb9e6a47df5a56d8e667a5097b12daba/307457147cde07385c6eff0be657044adb9e6a47df5a56d8e667a5097b12daba-json.log",
+        "Name": "/project-c-staging-1",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "project-c-delivery",
+            "PortBindings": {
+                "8080/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "8081"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "307457147cde",
+            "Domainname": "",
+            "User": "10001:10001",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "8080/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "APP_ENVIRONMENT=staging",
+                "APP_READY=true",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+                "PYTHON_VERSION=3.12.11",
+                "PYTHON_SHA256=c30bb24b7f1e9a19b11b55a546434f74e739bb4c271a3e3a80ff4380d49f7adb",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "APP_VERSION=0.1.0",
+                "APP_GIT_SHA=7f0e2b9afd5a4bc66b6505da89073d8783e16e6a"
+            ],
+            "Cmd": [
+                "uvicorn",
+                "delivery_api.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8080"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD",
+                    "python",
+                    "-c",
+                    "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health/ready', timeout=2)"
+                ],
+                "Interval": 10000000000,
+                "Timeout": 3000000000,
+                "StartPeriod": 5000000000,
+                "Retries": 3
+            },
+            "Image": "delivery-api:phase3-runtime",
+            "Volumes": null,
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "Labels": {
+                "com.docker.compose.config-hash": "9489bc91825df1abbf3f84951f30dc9c88afa70dafa3dfc10942c44bb362bfdb",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:ee59886d138b612c5cfbec195c783d2cfb386bc2be4993bce4161f7ed2decf21",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "project-c",
+                "com.docker.compose.project.config_files": "C:\\Users\\natha\\OneDrive\\Documents\\cloud\\compose.yaml",
+                "com.docker.compose.project.working_dir": "C:\\Users\\natha\\OneDrive\\Documents\\cloud",
+                "com.docker.compose.service": "staging",
+                "com.docker.compose.version": "5.2.0",
+                "org.opencontainers.image.description": "Governed delivery API runtime image",
+                "org.opencontainers.image.revision": "7f0e2b9afd5a4bc66b6505da89073d8783e16e6a",
+                "org.opencontainers.image.title": "delivery-api",
+                "org.opencontainers.image.version": "0.1.0"
+            },
+            "StopSignal": "SIGTERM"
+        },
+        "NetworkSettings": {
+            "SandboxID": "c8be15ba749d2caa622401fcc2a9f294e99aafc2a7c7aae986827768fadf75a9",
+            "SandboxKey": "/var/run/docker/netns/c8be15ba749d",
+            "Ports": {
+                "8080/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "8081"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "8081"
+                    }
+                ]
+            },
+            "Networks": {
+                "project-c-delivery": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "project-c-staging-1",
+                        "staging"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "6324e9cdd857d4577f7b4bd24e9c60bd26cfab8965c069d5bb9addff677adb22",
+                    "EndpointID": "21eb3a32fad1de262c9baea839e8c089a0c0c5d29775a1f64adc1430dc0b0ce4",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.2",
+                    "MacAddress": "ca:15:97:8f:cd:79",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "project-c-staging-1",
+                        "staging",
+                        "307457147cde"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:488fdc53c41a66159e3173316d9da0bb86ed6318033c5493ce883e61c96c3389",
+            "size": 1816,
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    }
+]

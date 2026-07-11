@@ -1,0 +1,20 @@
+Phase 3 Runtime Summary
+Date: 2026-07-11
+Baseline SHA: 7f0e2b9afd5a4bc66b6505da89073d8783e16e6a
+
+Repair path:
+- WSL 2.7.10 was installed through the approved elevated repair path.
+- Docker Desktop still reported a starting state until all Docker Desktop processes were stopped and the application was relaunched cleanly.
+- After the clean restart, `docker info` succeeded and the Docker Desktop Linux engine became available for Phase 3 runtime work.
+
+Runtime evidence:
+- `build.txt` records a successful local image build for `delivery-api:phase3-runtime`.
+- `image-inspect.json`, `non-root.txt`, and `runtime-env.txt` record image identity, non-root runtime configuration, and release metadata.
+- `compose-config.txt`, `compose-up.txt`, `compose-ps.txt`, `staging-inspect.json`, `production-inspect.json`, `registry-inspect.json`, and `compose-logs.txt` record local Compose topology and container state.
+- `staging-smoke.txt` and `production-smoke.txt` record passing ready/version/quote smoke checks with the expected baseline SHA.
+- `not-ready-smoke.txt` records the deliberate not-ready negative path: readiness returned HTTP 503 while version and quote remained reachable.
+- `staging-restored-smoke.txt` records the restored ready state after the negative-path check.
+
+Boundaries preserved:
+- This evidence is local Docker runtime validation only.
+- It does not claim GitHub-hosted validation, Jenkins startup, production approval, rollback recovery, or cloud activity.

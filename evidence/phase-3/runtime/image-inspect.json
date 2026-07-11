@@ -1,0 +1,91 @@
+[
+    {
+        "Id": "sha256:ee59886d138b612c5cfbec195c783d2cfb386bc2be4993bce4161f7ed2decf21",
+        "RepoTags": [
+            "delivery-api:phase3-runtime"
+        ],
+        "RepoDigests": [
+            "delivery-api@sha256:ee59886d138b612c5cfbec195c783d2cfb386bc2be4993bce4161f7ed2decf21"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-07-11T18:27:01.506411085Z",
+        "Config": {
+            "User": "10001:10001",
+            "ExposedPorts": {
+                "8080/tcp": {}
+            },
+            "Env": [
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+                "PYTHON_VERSION=3.12.11",
+                "PYTHON_SHA256=c30bb24b7f1e9a19b11b55a546434f74e739bb4c271a3e3a80ff4380d49f7adb",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "APP_VERSION=0.1.0",
+                "APP_GIT_SHA=7f0e2b9afd5a4bc66b6505da89073d8783e16e6a"
+            ],
+            "Cmd": [
+                "uvicorn",
+                "delivery_api.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8080"
+            ],
+            "WorkingDir": "/app",
+            "Labels": {
+                "org.opencontainers.image.description": "Governed delivery API runtime image",
+                "org.opencontainers.image.revision": "7f0e2b9afd5a4bc66b6505da89073d8783e16e6a",
+                "org.opencontainers.image.title": "delivery-api",
+                "org.opencontainers.image.version": "0.1.0"
+            },
+            "StopSignal": "SIGTERM",
+            "ArgsEscaped": true,
+            "Healthcheck": {
+                "Test": [
+                    "CMD",
+                    "python",
+                    "-c",
+                    "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health/ready', timeout=2)"
+                ],
+                "Interval": 10000000000,
+                "Timeout": 3000000000,
+                "StartPeriod": 5000000000,
+                "Retries": 3
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 66975281,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:aca83606673032726b42f8e1396ceb979c32bfb26b602732baf699053e46b33e",
+                "sha256:9cec99e910cbef45442323a31a04c92b5c14dddf236dd769d02c54af99e56d6d",
+                "sha256:4858806d59148b044f1fb5491f84963f5742556eefa0ce9de13717e1a195edae",
+                "sha256:6bcbbe0b3546e8b3e707223aee64fd1c2d220d8d8c6834829e392648f38d5b6e",
+                "sha256:7999bf79a26a1b6e6dcec40d6510c94899ed736303efb7fc13926fb1dc74e936",
+                "sha256:7d060c646464bb51d1218314ecfafdfd8b2f331c130dafde08fa903fb2cf6f4d",
+                "sha256:6247c74d720f5e38c449a354b3ffc3698566861af7b1b3a636fa125c7c0e73d6",
+                "sha256:254eb1ab4bbeea3f515271aabe8f6a4875277dc66f72bf9ce58edfc9a4b22ea3"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-07-11T18:27:05.196222574Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "digest": "sha256:ee59886d138b612c5cfbec195c783d2cfb386bc2be4993bce4161f7ed2decf21",
+            "size": 856
+        },
+        "Identity": {
+            "Build": [
+                {
+                    "Ref": "q0ot24anqhghrzg2g1orogjyr",
+                    "CreatedAt": "2026-07-11T18:27:06.55386204Z"
+                }
+            ]
+        }
+    }
+]

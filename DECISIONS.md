@@ -8,7 +8,7 @@
 | CLI as authoritative control surface | Accepted | UI is limited to external verification and portfolio evidence. |
 | One build, digest promotion | Accepted | Tags are aliases; environment promotion uses immutable identity. |
 | Local-first implementation | Accepted | AWS remains deferred until separately authorized. |
+| Phase 4 execution authorized by the project owner | Accepted | Implementation may continue through GitHub PR-validation work; later phases still require their own blocker resolution and evidence. |
 | Existing scaffold audited and reused selectively | Accepted | File presence never counts as verification. |
 
 Detailed architectural decisions remain under `docs/decisions/`.
-

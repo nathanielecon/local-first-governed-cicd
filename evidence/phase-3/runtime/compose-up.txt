@@ -1,0 +1,50 @@
+ Image registry:2.8.3 Pulling 
+ 6d464ea18732 Pulling fs layer 0B
+ 3493bf46cdec Pulling fs layer 0B
+ 44cf07d57ee4 Pulling fs layer 0B
+ 8e82f80af0de Pulling fs layer 0B
+ bbbdd6c6894b Pulling fs layer 0B
+ 6d464ea18732 Download complete 0B
+ 3493bf46cdec Downloading 370B
+ 32a76c78501f Downloading 14.06kB
+ 3493bf46cdec Download complete 0B
+ 32a76c78501f Download complete 0B
+ b537bf6d1146 Download complete 0B
+ bbbdd6c6894b Download complete 0B
+ 44cf07d57ee4 Downloading 1.049MB
+ 8e82f80af0de Downloading 1.049MB
+ 8e82f80af0de Downloading 2.097MB
+ 44cf07d57ee4 Downloading 2.097MB
+ 8e82f80af0de Downloading 3.146MB
+ 44cf07d57ee4 Download complete 0B
+ 44cf07d57ee4 Extracting 1B
+ 8e82f80af0de Downloading 5.243MB
+ 44cf07d57ee4 Extracting 1B
+ 8e82f80af0de Download complete 0B
+ 44cf07d57ee4 Extracting 1B
+ bbbdd6c6894b Extracting 1B
+ 44cf07d57ee4 Pull complete 0B
+ bbbdd6c6894b Extracting 1B
+ bbbdd6c6894b Pull complete 0B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 6d464ea18732 Pull complete 0B
+ 3493bf46cdec Pull complete 0B
+ 8e82f80af0de Pull complete 0B
+ Image registry:2.8.3 Pulled 
+ Network project-c-delivery Creating 
+ Network project-c-delivery Created 
+ Volume project-c_registry-data Creating 
+ Volume project-c_registry-data Created 
+ Container project-c-staging-1 Creating 
+ Container project-c-registry-1 Creating 
+ Container project-c-production-1 Creating 
+ Container project-c-production-1 Created 
+ Container project-c-registry-1 Created 
+ Container project-c-staging-1 Created 
+ Container project-c-registry-1 Starting 
+ Container project-c-production-1 Starting 
+ Container project-c-staging-1 Starting 
+ Container project-c-staging-1 Started 
+ Container project-c-production-1 Started 
+ Container project-c-registry-1 Started 
