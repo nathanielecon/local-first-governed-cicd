@@ -4,7 +4,6 @@ from pathlib import Path
 
 from scripts.validate_jenkinsfile import validate_text
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 

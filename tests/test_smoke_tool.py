@@ -1,9 +1,8 @@
-import json
 import http.client
+import json
 import urllib.error
 
 import pytest
-
 from scripts import smoke_test
 
 

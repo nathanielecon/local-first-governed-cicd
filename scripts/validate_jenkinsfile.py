@@ -110,7 +110,7 @@ def validate_text(text: str) -> list[str]:
     require(r"docker push", text, errors, "Build Once stage must push the built image")
     require(r"image-digest\.txt", text, errors, "Build Once stage must retain image-digest.txt")
     require(
-        r"input\s+message:\s*\"Promote verified digest\s+\$\{env\.IMAGE_DIGEST\}\s+to production\?\"",
+        r'input\s+message:\s*"Promote verified digest\s+\$\{env\.IMAGE_DIGEST\}\s+to production\?"',
         text,
         errors,
         "Production Approval stage must request human approval for the verified digest",
