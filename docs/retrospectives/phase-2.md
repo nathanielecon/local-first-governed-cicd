@@ -1,7 +1,7 @@
 # Phase 2 Retrospective: Local Application Evidence Cycle
 
-Date: 2026-07-11  
-Scope: Phase 2 local application, CLI-harness, and evidence-readiness work only.  
+Date: 2026-07-11
+Scope: Phase 2 local application, CLI-harness, and evidence-readiness work only.
 Baseline: `9ddc1f978dc5f8307867d74218f775bb6ad0dabb`
 
 ## Expected Versus Actual
