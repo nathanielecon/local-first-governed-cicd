@@ -3,17 +3,17 @@
 ```json
 {
   "schema_version": "1.0",
-  "revision": 4,
+  "revision": 17,
   "current_wave": 1,
   "current_phase": 2,
-  "current_gate": "phase-2-authorized",
+  "current_gate": "phase-2-verified-local",
   "running_tasks": [],
   "blocked_tasks": [],
   "waiting_human": [],
-  "completed_gates": ["phase-1-scaffold", "phase-1-engineering-review"],
+  "completed_gates": ["phase-1-scaffold", "phase-1-engineering-review", "phase-2-application", "phase-2-change-review", "phase-2-qa", "phase-2-security-review", "phase-2-readiness", "phase-2-retrospective", "phase-2-integrated-evidence"],
   "next_actions": [
-    "Create the intentional Git baseline commit",
-    "Dispatch P2-T01 through the required engineering review and implementation lifecycle"
+    "Commit the verified local Phase 2 change set",
+    "Specify and authorize the next Phase 3 work wave without claiming Docker runtime verification"
   ],
   "verified_baseline": [
     "Existing assets inventoried as candidates, not accepted implementation",
@@ -28,7 +28,7 @@
     "Production approval",
     "Rollback recovery"
   ],
-  "updated_at": "2026-07-11T15:24:41Z",
+  "updated_at": "2026-07-11T16:09:00Z",
   "updated_by": "terra-orchestrator"
 }
 ```

@@ -1,0 +1,46 @@
+Phase 2 final integrated evidence gate
+Executed by: phase-2-integration-reviewer
+Scope: independent local verification of P2-T01 through P2-T07 evidence and current authoritative state.
+Model ID: not recorded; the dispatch mechanism did not expose an actual configured model ID.
+
+UTC execution window: 2026-07-11T15:58:58.2182779Z to 2026-07-11T15:59:07.9781366Z
+Baseline reviewed: 9ddc1f978dc5f8307867d74218f775bb6ad0dabb plus the current approved uncommitted Phase 2 change set.
+
+Evidence and review reconciliation
+- P2-T01: retained evidence/phase-2/ruff.txt, mypy.txt, pytest.txt, and coverage.xml exist. The full retained pytest report records 14 passed and 96.59% coverage; current app validation passes.
+- P2-T02: retained evidence/phase-2/cli-harness.txt exists and records 7 passed. The independent change review identifies the corrected boundary as Phase 2 allowed and Phase 3 rejected.
+- P2-T03: docs/reviews/change-review.md exists, cites the current diff and refreshed evidence, and has a clear local-only verdict.
+- P2-T04: evidence/phase-2/qa.txt exists. It records independent local Ruff, mypy, pytest, and application validation success, plus readiness-failure and invalid-request assertion inspection.
+- P2-T05: docs/reviews/security-review.md exists with a clear local-only Phase 2 boundary verdict and preserves PC-001 through PC-003.
+- P2-T06: docs/change-records/phase-2-local.md exists with a clear local-evidence readiness verdict and explicit unverified external boundaries.
+- P2-T07: docs/retrospectives/phase-2.md exists and retains PC-006 and PC-007 as evidence-backed rework with follow-up actions.
+- Required artifacts present: docs/reviews/eng-review.md; docs/reviews/change-review.md; docs/reviews/security-review.md; docs/change-records/phase-2-local.md; docs/retrospectives/phase-2.md; evidence/phase-2/cli-harness.txt; ruff.txt; mypy.txt; pytest.txt; coverage.xml; qa.txt.
+- Authoritative issue ledger has no Phase 2 issue with status open. PC-006 and PC-007 are resolved. PC-001 through PC-004 remain open only for their stated future-phase scopes.
+
+Raw integration commands and outcomes
+
+[2026-07-11T15:58:58.2182779Z] Command
+.\scripts\project.ps1 validate state --json
+Exit code: 0
+Result: {"scope":"state","passed":true,"checks":{"state":[]}}
+
+[2026-07-11T15:58:58.6501865Z] Command
+.\scripts\project.ps1 validate app --json
+Exit code: 0
+Result: {"scope":"app","passed":true,"checks":{"app":[]}}
+
+[2026-07-11T15:59:03.5387209Z] Command
+.\.venv\Scripts\python.exe -m pytest -q
+Exit code: 0
+Result: 14 passed, 32 warnings in 1.31s. Configured coverage threshold passed: 96.59% total coverage. Warnings are FastAPI coroutine deprecation warnings; no test failed.
+
+[2026-07-11T15:59:07.6150019Z] Command
+git diff --check
+Exit code: 0
+Result: no whitespace errors.
+
+Gate verdict
+CLEAR for the local Phase 2 integrated evidence gate only. The current Phase 2 reports, reviews, readiness record, retrospective, authoritative state, and independently executed commands agree on a passing local result. This artifact is evidence for P2-T08 review; it does not itself mutate authoritative task state.
+
+Explicitly unverified boundaries
+Docker/container runtime and image build/inspection; GitHub-hosted validation; Jenkins runtime and authorization; registry interaction; image digest build/promotion; staging or deployment; production approval or verification; rollback recovery; and cloud activity. No claim about any of these boundaries is made or verified by this gate.

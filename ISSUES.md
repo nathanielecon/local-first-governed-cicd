@@ -5,8 +5,42 @@ The active Codex task is the immediate notification channel. This ledger is the 
 ```json
 {
   "schema_version": "1.0",
-  "revision": 3,
+  "revision": 7,
   "issues": [
+    {
+      "id": "PC-007",
+      "opened_at": "2026-07-11T15:38:00Z",
+      "phase": 2,
+      "task": "P2-T03 change review",
+      "severity": "blocking",
+      "category": "evidence",
+      "summary": "The retained Phase 2 pytest report predates PC-006 remediation and records a failing full suite, so it cannot support the current passing-gate claim.",
+      "evidence": ["docs/reviews/change-review.md", "evidence/phase-2/pytest.txt"],
+      "owner": "phase-2-implementation-worker",
+      "attempts": 1,
+      "status": "resolved",
+      "human_question": "",
+      "resolution": "Rerun the approved full pytest command with coverage XML directed to evidence/phase-2/, replace the raw pytest and coverage reports, and repeat independent change review.",
+      "resolved_at": "2026-07-11T15:39:00Z",
+      "continue_lanes": ["Phase 2 evidence repair", "Phase 3 planning only"]
+    },
+    {
+      "id": "PC-006",
+      "opened_at": "2026-07-11T15:32:00Z",
+      "phase": 2,
+      "task": "P2-T01 integrated application gate",
+      "severity": "blocking",
+      "category": "defect",
+      "summary": "The CLI harness still asserts that Phase 2 is unauthorized after the orchestrator recorded authorization through Phase 2, causing the full pytest suite and project validate app gate to fail.",
+      "evidence": ["tests/test_project_cli.py", "PLAN.md", "evidence/phase-2/pytest.txt"],
+      "owner": "future-phase-2-harness-worker",
+      "attempts": 1,
+      "status": "resolved",
+      "human_question": "",
+      "resolution": "P2-T02 must update the narrow harness expectation to accept Phase 2 and reject Phase 3, then rerun the CLI suite and integrated application gate.",
+      "resolved_at": "2026-07-11T15:35:00Z",
+      "continue_lanes": ["Phase 2 harness remediation", "Phase 3 planning only"]
+    },
     {
       "id": "PC-001",
       "opened_at": "2026-07-11T15:00:00Z",
