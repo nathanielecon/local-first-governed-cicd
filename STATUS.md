@@ -3,18 +3,19 @@
 ```json
 {
   "schema_version": "1.0",
-  "revision": 23,
-  "current_wave": 4,
-  "current_phase": 4,
-  "current_gate": "phase-4-complete",
-  "running_tasks": [],
+  "revision": 25,
+  "current_wave": 5,
+  "current_phase": 5,
+  "current_gate": "phase-5-implementation",
+  "running_tasks": ["P5-T01", "P5-T10"],
   "blocked_tasks": [],
   "waiting_human": [],
-  "completed_gates": ["phase-1-scaffold", "phase-1-engineering-review", "phase-2-application", "phase-2-change-review", "phase-2-qa", "phase-2-security-review", "phase-2-readiness", "phase-2-retrospective", "phase-2-integrated-evidence", "phase-3-engineering-review", "phase-3-change-review", "phase-3-qa", "phase-3-security-review", "phase-3-integrated-evidence", "phase-3-retrospective", "phase-3-runtime", "phase-4-engineering-review", "phase-4-change-review", "phase-4-qa", "phase-4-security-review", "phase-4-integrated-evidence", "phase-4-retrospective"],
+  "completed_gates": ["phase-1-scaffold", "phase-1-engineering-review", "phase-2-application", "phase-2-change-review", "phase-2-qa", "phase-2-security-review", "phase-2-readiness", "phase-2-retrospective", "phase-2-integrated-evidence", "phase-3-engineering-review", "phase-3-change-review", "phase-3-qa", "phase-3-security-review", "phase-3-integrated-evidence", "phase-3-retrospective", "phase-3-runtime", "phase-4-engineering-review", "phase-4-change-review", "phase-4-qa", "phase-4-security-review", "phase-4-integrated-evidence", "phase-4-retrospective", "phase-5-engineering-review"],
   "next_actions": [
-    "Phase 4 is complete through real GitHub-hosted evidence; keep `main` as the verified baseline for later phases",
-    "Do not start Phase 5 work unless authorization extends beyond Phase 4",
-    "PC-001, PC-002, and PC-003 remain open future-phase blockers for Jenkins authorization, append-only evidence, and verified rollback recovery"
+    "Authorization now extends through Phase 8; Phase 5 implementation is active",
+    "Complete the Jenkins authorization contract and the Phase 5 harness alignment before dispatching the next approval and unauthorized-denial lanes",
+    "Freeze the shared Phase 6 contract before splitting PC-002 and PC-003 implementation work",
+    "Keep Phase 9 live-cloud and AWS work deferred unless separately authorized"
   ],
   "verified_baseline": [
     "Existing assets inventoried as candidates, not accepted implementation",
@@ -31,7 +32,7 @@
     "Production approval",
     "Rollback recovery"
   ],
-  "updated_at": "2026-07-12T00:08:00Z",
+  "updated_at": "2026-07-12T21:43:00Z",
   "updated_by": "terra-orchestrator"
 }
 ```
