@@ -6,11 +6,43 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: "${JENKINS_ADMIN_ID}"
-          password: "${JENKINS_ADMIN_PASSWORD}"
+        - id: "${JENKINS_LOCAL_ADMIN_ID}"
+          password: "${JENKINS_LOCAL_ADMIN_PASSWORD}"
+        - id: "${JENKINS_LOCAL_APPROVER_ID}"
+          password: "${JENKINS_LOCAL_APPROVER_PASSWORD}"
+        - id: "${JENKINS_LOCAL_VIEWER_ID}"
+          password: "${JENKINS_LOCAL_VIEWER_PASSWORD}"
   authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
+    roleBased:
+      roles:
+        global:
+          - name: "project-admin"
+            description: "Local-only Jenkins administrators for Project C"
+            permissions:
+              - "Overall/Administer"
+            entries:
+              - user: "${JENKINS_LOCAL_ADMIN_ID}"
+          - name: "project-readonly"
+            description: "Read-only observers for Project C delivery"
+            permissions:
+              - "Overall/Read"
+              - "Job/Read"
+              - "View/Read"
+            entries:
+              - user: "${JENKINS_LOCAL_APPROVER_ID}"
+              - user: "${JENKINS_LOCAL_VIEWER_ID}"
+        items:
+          - name: "project-c-approver"
+            description: "Named build operators for the delivery pipeline"
+            pattern: "^project-c-delivery$"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+              - "Job/Workspace"
+            entries:
+              - user: "${JENKINS_LOCAL_ADMIN_ID}"
+              - user: "${JENKINS_LOCAL_APPROVER_ID}"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
@@ -18,6 +50,9 @@ jenkins:
     - envVars:
         env:
           REGISTRY: "localhost:5000"
+          PROJECT_C_LOCAL_ADMIN_ID: "${JENKINS_LOCAL_ADMIN_ID}"
+          PROJECT_C_ALLOWED_APPROVERS: "${JENKINS_LOCAL_APPROVER_ID}"
+          PROJECT_C_READONLY_OBSERVER_ID: "${JENKINS_LOCAL_VIEWER_ID}"
 unclassified:
   location:
     url: "http://localhost:8080/"
