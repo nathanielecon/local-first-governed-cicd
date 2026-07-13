@@ -1,0 +1,41 @@
+BUILD_NUMBER=1
+BUILD_RESULT=SUCCESS
+BUILD_URL=http://localhost:8080/job/project-c-parameter-probe/1/
+Started by user local-admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/project-c-parameter-probe
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (probe)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+PARAMETER_RUNTIME_START
+[Pipeline] echo
+PARAM_REGISTRY=localhost:5000
+[Pipeline] echo
+PARAM_PROJECT_C_LOCAL_ADMIN_ID=local-admin
+[Pipeline] echo
+PARAM_PROJECT_C_ALLOWED_APPROVERS=local-approver
+[Pipeline] echo
+PARAM_PROJECT_C_READONLY_OBSERVER_ID=local-viewer
+[Pipeline] echo
+ENV_REGISTRY=localhost:5000
+[Pipeline] echo
+ENV_PROJECT_C_LOCAL_ADMIN_ID=local-admin
+[Pipeline] echo
+ENV_PROJECT_C_ALLOWED_APPROVERS=local-approver
+[Pipeline] echo
+ENV_PROJECT_C_READONLY_OBSERVER_ID=local-viewer
+[Pipeline] echo
+PARAMETER_RUNTIME_END
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+

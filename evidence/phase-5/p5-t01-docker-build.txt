@@ -1,1 +1,46 @@
-ERROR: failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 587B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/jenkins/jenkins:2.541.3-lts-jdk21
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/jenkins/jenkins:2.541.3-lts-jdk21@sha256:c4098086090ca98491d4bf66182f5e3b015a8232f2acf2df209a212a5801aa8e
+#4 resolve docker.io/jenkins/jenkins:2.541.3-lts-jdk21@sha256:c4098086090ca98491d4bf66182f5e3b015a8232f2acf2df209a212a5801aa8e 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 62B done
+#5 DONE 0.0s
+
+#6 [4/6] RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+#6 CACHED
+
+#7 [5/6] COPY casc.yaml /usr/share/jenkins/ref/casc.yaml
+#7 CACHED
+
+#8 [2/6] RUN apt-get update     && apt-get install --no-install-recommends -y ca-certificates curl docker.io jq make python3 python3-venv     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [3/6] COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+#9 CACHED
+
+#10 [6/6] RUN ln -s /usr/share/jenkins/ref/casc.yaml /usr/share/jenkins/ref/casc.yaml.override || true
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers 0.0s done
+#11 exporting manifest sha256:a0db56ed410e5f9a9daf7a9f6f0e7a82dbeb14a06c3ae712e0e02a7fa4dbe241 done
+#11 exporting config sha256:4cdb0997ff5abaee36b1a6561b5847a8a9570a9c1bc67adee19c31b7cdd1a17c done
+#11 exporting attestation manifest sha256:f1724026c7995a567ca17d66df9e50bc01330fc72f5925753008b226b6c11b9c 0.1s done
+#11 exporting manifest list sha256:5dbfe3cce1bd2f7aa387abb52c855a8483bb2ca3f3f3e8cec78887c543a6a235 0.0s done
+#11 naming to moby-dangling@sha256:5dbfe3cce1bd2f7aa387abb52c855a8483bb2ca3f3f3e8cec78887c543a6a235
+#11 naming to moby-dangling@sha256:5dbfe3cce1bd2f7aa387abb52c855a8483bb2ca3f3f3e8cec78887c543a6a235 done
+#11 unpacking to moby-dangling@sha256:5dbfe3cce1bd2f7aa387abb52c855a8483bb2ca3f3f3e8cec78887c543a6a235 0.0s done
+#11 DONE 0.2s

@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.516.1-lts-jdk21
+FROM jenkins/jenkins:2.541.3-lts-jdk21
 USER root
 ENV CASC_JENKINS_CONFIG=/var/jenkins_home/casc.yaml
 RUN apt-get update \

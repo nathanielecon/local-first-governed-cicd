@@ -6,8 +6,12 @@ services:
       dockerfile: Dockerfile
     environment:
       CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml
-      JENKINS_ADMIN_ID: admin
-      JENKINS_ADMIN_PASSWORD: change-me-locally
+      JENKINS_LOCAL_ADMIN_ID: local-admin
+      JENKINS_LOCAL_ADMIN_PASSWORD: local-admin-password
+      JENKINS_LOCAL_APPROVER_ID: local-approver
+      JENKINS_LOCAL_APPROVER_PASSWORD: local-approver-password
+      JENKINS_LOCAL_VIEWER_ID: local-viewer
+      JENKINS_LOCAL_VIEWER_PASSWORD: local-viewer-password
     networks:
       delivery: null
     ports:

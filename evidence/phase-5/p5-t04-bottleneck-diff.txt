@@ -1,0 +1,80 @@
+warning: in the working copy of 'infra/jenkins/casc.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_jenkins_casc_static.py', LF will be replaced by CRLF the next time Git touches it
+diff --git a/infra/jenkins/casc.yaml b/infra/jenkins/casc.yaml
+index 0c4ed10..54d59c6 100644
+--- a/infra/jenkins/casc.yaml
++++ b/infra/jenkins/casc.yaml
+@@ -46,13 +46,13 @@ jenkins:
+   crumbIssuer:
+     standard:
+       excludeClientIPFromCrumb: false
+-  globalNodeProperties:
+-    - envVars:
+-        env:
+-          REGISTRY: "localhost:5000"
+-          PROJECT_C_LOCAL_ADMIN_ID: "${JENKINS_LOCAL_ADMIN_ID}"
+-          PROJECT_C_ALLOWED_APPROVERS: "${JENKINS_LOCAL_APPROVER_ID}"
+-          PROJECT_C_READONLY_OBSERVER_ID: "${JENKINS_LOCAL_VIEWER_ID}"
++  # Phase 5 placeholder: the previous globalNodeProperties envVars shape crashed
++  # JCasC at boot ("Item isn't a Sequence"). Keep the contract visible here until
++  # a valid replacement is installed by the follow-up fixer.
++  # REGISTRY=localhost:5000
++  # PROJECT_C_LOCAL_ADMIN_ID=${JENKINS_LOCAL_ADMIN_ID}
++  # PROJECT_C_ALLOWED_APPROVERS=${JENKINS_LOCAL_APPROVER_ID}
++  # PROJECT_C_READONLY_OBSERVER_ID=${JENKINS_LOCAL_VIEWER_ID}
+ unclassified:
+   location:
+     url: "http://localhost:8080/"
+diff --git a/tests/test_jenkins_casc_static.py b/tests/test_jenkins_casc_static.py
+index 52129dd..a1885bc 100644
+--- a/tests/test_jenkins_casc_static.py
++++ b/tests/test_jenkins_casc_static.py
+@@ -74,29 +74,39 @@ def test_casc_uses_role_based_authorization_instead_of_blanket_logged_in_admin()
+     assert 'group: "authenticated"' not in text
+ 
+ 
+-def test_casc_scopes_named_approver_permissions_to_the_delivery_job() -> None:
++def test_casc_rejects_the_runtime_invalid_global_node_properties_shape_but_keeps_contract_placeholders() -> None:
+     text = _casc_text()
+ 
+-    assert 'name: "project-c-approver"' in text
+-    assert 'pattern: "^project-c-delivery$"' in text
+-    for expected in ('"Job/Build"', '"Job/Cancel"', '"Job/Read"', '"Job/Workspace"'):
++    assert "globalNodeProperties:" not in text
++    assert "envVars:" not in text
++    assert '- key: "REGISTRY"' not in text
++    assert '- key: "PROJECT_C_LOCAL_ADMIN_ID"' not in text
++    assert '- key: "PROJECT_C_ALLOWED_APPROVERS"' not in text
++    assert '- key: "PROJECT_C_READONLY_OBSERVER_ID"' not in text
++
++    for expected in (
++        "# REGISTRY=localhost:5000",
++        "# PROJECT_C_LOCAL_ADMIN_ID=${JENKINS_LOCAL_ADMIN_ID}",
++        "# PROJECT_C_ALLOWED_APPROVERS=${JENKINS_LOCAL_APPROVER_ID}",
++        "# PROJECT_C_READONLY_OBSERVER_ID=${JENKINS_LOCAL_VIEWER_ID}",
++    ):
+         assert expected in text
+-    assert 'PROJECT_C_ALLOWED_APPROVERS: "${JENKINS_LOCAL_APPROVER_ID}"' in text
+-    assert 'PROJECT_C_LOCAL_ADMIN_ID: "${JENKINS_LOCAL_ADMIN_ID}"' in text
+-    assert 'PROJECT_C_READONLY_OBSERVER_ID: "${JENKINS_LOCAL_VIEWER_ID}"' in text
+ 
+ 
+ def test_plugins_manifest_is_fully_pinned_and_includes_role_strategy() -> None:
+     lines = _plugins_lines()
+ 
+-    assert "role-strategy:878.v6f1d3b_3a_0769" in lines
++    role_strategy_lines = [line for line in lines if line.startswith("role-strategy:")]
++    assert role_strategy_lines == ["role-strategy:848.va_a_ea_673cf0b_c"]
++    assert "configuration-as-code:2077.v41f1011a_5110" in lines
++    assert "credentials-binding:717.v951d49b_5f3a_a_" in lines
+     assert all(re.fullmatch(r"[a-z0-9-]+:[^\s]+", line) for line in lines)
+ 
+ 
+ def test_dockerfile_keeps_jcasc_path_and_does_not_reintroduce_legacy_admin_contract() -> None:
+     text = _dockerfile_text()
+ 
+-    assert "FROM jenkins/jenkins:2.516.1-lts-jdk21" in text
++    assert "FROM jenkins/jenkins:2.541.3-lts-jdk21" in text
+     assert "ENV CASC_JENKINS_CONFIG=/var/jenkins_home/casc.yaml" in text
+     assert "COPY plugins.txt /usr/share/jenkins/ref/plugins.txt" in text
+     assert "RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt" in text

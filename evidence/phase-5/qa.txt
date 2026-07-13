@@ -1,0 +1,139 @@
+P5-T06 Phase 5 local QA gate — independent verification
+========================================================
+task: P5-T06
+gate: phase-5-qa
+worker: phase-5-qa-worker
+recorded_at_utc: 2026-07-13T17:06:15Z
+claim_boundary: local-only; does not assert live production, cloud, digest promotion, PC-002 durable evidence, or PC-003 rollback recovery
+implementation_modifications: none (QA write_scope limited to this file)
+
+----------------------------------------------------------------
+1) Approved static check — full pytest
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe -m pytest -q
+started_at_utc: 2026-07-13T17:04:32.5235621Z
+ended_at_utc: 2026-07-13T17:04:50.0883657Z
+exit_code: 0
+
+raw_output:
+........................................................................ [ 96%]
+...                                                                      [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\routing.py:234: 4 warnings
+tests/test_api.py: 28 warnings
+  C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\fastapi\routing.py:234: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+src\delivery_api\__init__.py       0      0   100%
+src\delivery_api\config.py        14      0   100%
+src\delivery_api\logging.py       17      0   100%
+src\delivery_api\main.py          57      3    95%   52-61
+------------------------------------------------------------
+TOTAL                             88      3    97%
+Coverage XML written to file coverage.xml
+Required test coverage of 90% reached. Total coverage: 96.59%
+75 passed, 32 warnings in 9.27s
+
+result: PASS (75 passed; coverage threshold met at 96.59%)
+
+----------------------------------------------------------------
+2) Approved compose contract check — docker compose config
+----------------------------------------------------------------
+2a) Bare command (no Jenkins identity env injected)
+command: docker compose config
+started_at_utc: 2026-07-13T17:04:33.0584088Z
+ended_at_utc: 2026-07-13T17:05:00.5436647Z
+exit_code: 1
+
+raw_output:
+error while interpolating services.jenkins.environment.JENKINS_LOCAL_VIEWER_ID: required variable JENKINS_LOCAL_VIEWER_ID is missing a value: Set JENKINS_LOCAL_VIEWER_ID in the local environment.
+
+result: EXPECTED FAIL-CLOSED — Compose refuses to render without externally supplied Jenkins local identity variables (no repository credential fallback). This is retained as positive local evidence for P5-T01/P5-T02 externalization, not as a gate defect.
+
+2b) Same command with local-only placeholder identities injected in-shell
+command: docker compose config
+env_note: JENKINS_LOCAL_{ADMIN,APPROVER,VIEWER}_{ID,PASSWORD} set to local-only placeholders for this check; values are not production secrets
+started_at_utc: 2026-07-13T17:05:35.4025138Z
+ended_at_utc: 2026-07-13T17:05:46.7484919Z
+exit_code: 0
+
+raw_output_summary:
+name: project-c
+services.jenkins.environment includes required external placeholders:
+  JENKINS_LOCAL_ADMIN_ID: local-admin
+  JENKINS_LOCAL_ADMIN_PASSWORD: placeholder-admin-password
+  JENKINS_LOCAL_APPROVER_ID: local-approver
+  JENKINS_LOCAL_APPROVER_PASSWORD: placeholder-approver-password
+  JENKINS_LOCAL_VIEWER_ID: local-viewer
+  JENKINS_LOCAL_VIEWER_PASSWORD: placeholder-viewer-password
+services.registry present; deploy profiles for staging/production remain profile-gated
+jenkins volumes include jenkins-data, docker.sock, and read-only ./:/workspace
+
+result: PASS — compose topology renders when required local identities are externally supplied
+
+----------------------------------------------------------------
+3) Unauthorized promotion denial — retained local fixture evidence
+----------------------------------------------------------------
+governing_evidence: evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt
+supporting_review: docs/reviews/phase-5-change-review.md (P5-T05 clear; 400-or-403 accepted with explicit denial header)
+
+observed_markers_from_governing_proof:
+- allowed_approver_id=local-approver
+- unauthorized_user_id=local-viewer
+- unauthorized_status=400
+- X-Error=You need to be local-approver to submit this.
+- console/pause marker FIXTURE_AWAITING_APPROVAL present
+- FIXTURE_ALLOWED_APPROVERS=local-approver
+- final build result=ABORTED
+- no production-continuation success marker observed after unauthorized denial
+
+qa_confirmation: SUPPORTED — unauthorized promotion denial and named-approver gating are supported by the current retained local fixture evidence under the accepted 400-or-403 contract. Local fake-identity only; not a live production claim.
+
+----------------------------------------------------------------
+4) Named-approver / trusted-input gating — retained static evidence
+----------------------------------------------------------------
+named_approver_support:
+- governing fixture identities and denial header require local-approver (section 3)
+- change review maps Jenkinsfile named submitter restriction and casc role separation
+- independent full pytest suite passed in section 1 (includes jenkinsfile contract / fixture regression coverage)
+
+trusted_input_support:
+- evidence/phase-5/p5-t03-pytest.txt: 9 passed (trusted-input remediation refreshed)
+- evidence/phase-5/p5-t03-validate-jenkinsfile.txt: valid=true, errors=[]
+- docs/reviews/phase-5-change-review.md: PC-014 closed; TRUSTED_GIT_SHA immutable 40-char commit binding with pre-fetch refs/ rejection
+- note retained from change review: P5-T04 stub pipeline does not re-exercise TRUSTED_GIT_SHA at runtime; trusted-input assurance for this QA gate rests on Jenkinsfile + validator + contract tests + refreshed P5-T03 evidence
+
+qa_confirmation: SUPPORTED — named-approver gating and trusted-input (immutable SHA / arbitrary-ref rejection) are supported by current static and retained evidence. PC-014 remains resolved in ISSUES.md.
+
+----------------------------------------------------------------
+5) Related prior task evidence inspected (not re-executed as Docker fixture)
+----------------------------------------------------------------
+- evidence/phase-5/p5-t01-pytest.txt (9 passed)
+- evidence/phase-5/p5-t02-pytest.txt (6 passed)
+- evidence/phase-5/p5-t03-pytest.txt (9 passed)
+- evidence/phase-5/p5-t03-validate-jenkinsfile.txt (valid: true)
+- evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt (governing unauthorized denial)
+- docs/reviews/phase-5-change-review.md (verdict: clear)
+
+----------------------------------------------------------------
+6) Out of scope / residual risks (recorded, not expanded)
+----------------------------------------------------------------
+- PC-002 and PC-003 remain out of scope for P5-T06
+- PC-001 integrated closure belongs to later security/integrated gates, not this QA write
+- residual local risks noted by change review (root + docker.sock; stale README phase text) are advisory and non-blocking for this local QA gate
+- no live cloud, production approval, or digest-promotion claims
+
+----------------------------------------------------------------
+7) Gate conclusion
+----------------------------------------------------------------
+defects_found: none
+failed_checks: none (bare compose exit 1 treated as expected fail-closed external-credential behavior; positive compose path exit 0; pytest exit 0)
+
+P5-T06_verdict: PASS
+summary: Independent Phase 5 local QA checks passed. Full pytest is green. Compose fails closed without external Jenkins identities and renders with local placeholders. Unauthorized promotion denial and named-approver gating are supported by the governing P5-T04 proof. Trusted-input SHA gating is supported by refreshed P5-T03 static evidence and the cleared change review. Claim boundary remains local-only.

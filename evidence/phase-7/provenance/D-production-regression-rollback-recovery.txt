@@ -1,0 +1,92 @@
+scenario=D-production-regression
+timestamp_utc=2026-07-13T18:46:26Z
+claim_boundary=local-only / non-cloud; APP_READY=false production-like fixture; digest-targeted rollback; recovery only when four checks pass
+expected=verification failure recorded; rollback selects prior digest; recovery_verified requires digest+health+version+business
+conclusion=PASS: production-like APP_READY=false failure recorded; digest-targeted rollback to prior; recovery suite passed
+injection=APP_READY=false /health/ready 503 on production-like fixture
+recovery_claimed=True
+recovery_checks_required=["deployed_digest", "health", "version", "business_behavior"]
+operator_attested_residual_not_cleared=True
+--- command[1] ---
+argv=['smoke_test', '--base-url', 'http://127.0.0.1:52886', '--expected-environment', 'production', 'APP_READY=false']
+exit_code=1
+stdout<<EOF
+{"live": {"status": "live"}, "ready": {"detail": "service is not ready"}, "version": {"name": "delivery-api", "version": "0.1.0", "git_sha": "regress-commit-sha-cccc", "environment": "production"}, "quote": {"subtotal": 20.0, "discount": 1.0, "total": 19.0, "currency": "USD"}, "failures": ["readiness failed: 503 {'detail': 'service is not ready'}", "readiness error: HTTP Error 503: Service Unavailable"], "checks": {"health": "fail", "version": "pass", "business_behavior": "pass"}, "statuses": {"live": 200, "ready": 503, "version": 200, "quote": 200}}
+EOF
+stderr<<EOF
+
+EOF
+--- command[2] ---
+argv=['select_matching_repo_digest', 'rollback_to=sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reject_candidate=sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc']
+exit_code=0
+stdout<<EOF
+{
+  "rollback_executed": true,
+  "matched_repo_digest": "localhost:5000/delivery-api@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "prior_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "candidate_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+}
+EOF
+stderr<<EOF
+
+EOF
+--- command[3] ---
+argv=['verify_deployment.run_verification', '--mode', 'recovery', '--expected-digest=sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb']
+exit_code=0
+stdout<<EOF
+{
+  "mode": "recovery",
+  "ok": true,
+  "checks": {
+    "deployed_digest": "pass",
+    "health": "pass",
+    "version": "pass",
+    "business_behavior": "pass"
+  },
+  "failures": [],
+  "digest_proof": {
+    "container_id": "p7-recover-fixture",
+    "image_id": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "repo_digests": [
+      "localhost:5000/delivery-api@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "matched_repo_digest": "localhost:5000/delivery-api@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "expected": "localhost:5000/delivery-api@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "smoke": {
+    "live": {
+      "status": "live"
+    },
+    "ready": {
+      "status": "ready"
+    },
+    "version": {
+      "name": "delivery-api",
+      "version": "0.1.0",
+      "git_sha": "prior-commit-sha-bbbb",
+      "environment": "production"
+    },
+    "quote": {
+      "subtotal": 20.0,
+      "discount": 1.0,
+      "total": 19.0,
+      "currency": "USD"
+    },
+    "failures": [],
+    "checks": {
+      "health": "pass",
+      "version": "pass",
+      "business_behavior": "pass"
+    },
+    "statuses": {
+      "live": 200,
+      "ready": 200,
+      "version": 200,
+      "quote": 200
+    }
+  }
+}
+EOF
+stderr<<EOF
+
+EOF

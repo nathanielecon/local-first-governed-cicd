@@ -1,0 +1,171 @@
+P7-T03 Phase 7 integrated evidence gate — independent review
+=============================================================
+task: P7-T03
+gate: phase-7-integrated-evidence
+worker: phase-7-integration-reviewer
+recorded_at_utc: 2026-07-13T18:53:30Z
+claim_boundary: local-only / production-like / non-cloud; does not assert live Jenkins E2E, live cloud, AWS, Phase 9, organizational Jenkins administration, sustained production operation, or clearance of Phase 5/6 residuals
+implementation_modifications: none
+authority_state_modifications: none (STATUS.md machine-readable block and ISSUES.md left for orchestrator)
+recommend_next: P8-T00
+
+----------------------------------------------------------------
+Authority snapshot inspected (read-only)
+----------------------------------------------------------------
+STATUS.md:
+  current_phase=7
+  current_gate=phase-7-integrated-evidence
+  running_tasks=["P7-T03"]
+  completed_gates include phase-7-engineering-review, phase-7-implementation, phase-7-security-review
+  unverified still lists: Phase 7 integrated evidence agreement; Digest promotion beyond local fixture evidence; Production approval beyond the local Phase 5 fixture; Live Jenkins E2E promotion and recovery; Live cloud or AWS validation
+
+PLAN.md:
+  P7-T00..P7-T02 state=verified
+  P7-T03 state=running
+  P8-T00 / later tasks state=planned (depends_on P7-T03)
+  P7-T03 acceptance: all declared Phase 7 evidence exists and supports the same conclusion; no unresolved critical/high Phase 7 finding; preserve non-cloud claim boundary
+
+ISSUES.md (relevant):
+  PC-001 status=resolved (critical; Phase 5 local Jenkins authorization)
+  PC-002 status=resolved (critical; append-only release evidence)
+  PC-003 status=resolved (critical; verified rollback target + recovery)
+  PC-004..PC-014 status=resolved where applicable
+  No open critical/high Phase 7 findings; no new issue ID required by this gate
+  Optional future hardening IDs PC-015 / PC-016 remain not opened (out of Phase 7 failure-injection scope)
+
+Prior Phase 7 gate agreement (read-only):
+  docs/reviews/phase-7-eng-review.md — Verdict: CLEAR (bounded local failure-injection baseline; residuals not cleared)
+  docs/reviews/phase-7-security-review.md — Verdict: CLEAR (no new critical/high; residuals advisory; P7-T03 owns integrated closure)
+  evidence/phase-7/P7-T01-lane-index.txt — timestamp_utc=2026-07-13T18:46:27Z; all_scenarios_ok=True; 12/12 scenarios ok=True blocked=False
+  claim_boundary and residuals_not_cleared strings agree across eng review, security review, lane index, and per-scenario evidence headers
+
+----------------------------------------------------------------
+Declared Phase 7 evidence inventory (existence + agreement)
+----------------------------------------------------------------
+present_and_agreeing:
+  docs/reviews/phase-7-eng-review.md              verdict=CLEAR
+  docs/reviews/phase-7-security-review.md          verdict=CLEAR
+  evidence/phase-7/P7-T01-lane-index.txt           all_scenarios_ok=True
+  evidence/phase-7/supply-chain/A-lint-test-quality-reject.txt
+  evidence/phase-7/supply-chain/A-fake-secret-gitleaks-reject.txt
+  evidence/phase-7/supply-chain/A-vuln-component-trivy-reject.txt   (governing for A-vuln-component)
+  evidence/phase-7/supply-chain/A-vuln-component-exception.txt      (retained early failed attempt; superseded)
+  evidence/phase-7/credential/B-unauthorized-promotion-phase5-reuse-summary.txt
+  evidence/phase-7/credential/B-unauthorized-promotion-source-pointer.txt
+  evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt     (cited source; exists)
+  evidence/phase-7/credential/B-fake-cred-boundary-scan.txt
+  evidence/phase-7/runtime/C-not-ready-smoke-and-gate.txt
+  evidence/phase-7/runtime/C-dependency-unreachable-connectivity-fail.txt
+  evidence/phase-7/provenance/D-missing-provenance-sha-mismatch.txt
+  evidence/phase-7/provenance/D-mutable-tag-drift-digest-identity.txt
+  evidence/phase-7/provenance/D-production-regression-rollback-recovery.txt
+  evidence/phase-7/jenkins-docker/E-docker-permission-socket-fail.txt
+  evidence/phase-7/jenkins-docker/E-runbook-pressure-runbook-steps.txt
+
+missing_declared_evidence: none
+blocking_inconsistencies: none
+
+prior_gate agreement:
+  engineering review and security review both CLEAR under the same local-only / production-like / non-cloud claim boundary
+  lane index and security scenario citation table cover the same 12 catalog scenarios
+  no unaccepted critical/high Phase 7 defects remain
+  residual advisories are consistently accepted and explicitly not cleared across eng review, security review, lane index, and Lane E / D evidence
+
+----------------------------------------------------------------
+Scenario agreement matrix
+----------------------------------------------------------------
+| Scenario | Lane | Index ok | Governing evidence | Independent conclusion | Agree |
+|---|---|---|---|---|---|
+| A-lint-test | supply-chain | True | A-lint-test-quality-reject.txt | quality reject disposable fixture; fixture cleaned | YES |
+| A-fake-secret | supply-chain | True | A-fake-secret-gitleaks-reject.txt | gitleaks fail-closed with redaction; synthetic test signature; fixture cleaned | YES |
+| A-vuln-component | supply-chain | True | A-vuln-component-trivy-reject.txt (governing); exception.txt superseded | trivy CRITICAL/HIGH non-zero; fixture cleaned; early TypeError retained | YES |
+| B-unauthorized-promotion | credential | True | B-*-summary + source-pointer → Phase 5 unauthorized proof | unauthorized_status=400; no production continuation; local-only reuse | YES |
+| B-fake-cred-boundary | credential | True | B-fake-cred-boundary-scan.txt | no unexpected real-secret patterns; findings=[] | YES |
+| C-not-ready | runtime | True | C-not-ready-smoke-and-gate.txt | readiness fail; promotion gate blocked without verified prior/decision | YES |
+| C-dependency-unreachable | runtime | True | C-dependency-unreachable-connectivity-fail.txt | invalid-host connectivity fail; no production continuation | YES |
+| D-missing-provenance | provenance | True | D-missing-provenance-sha-mismatch.txt | SHA/version mismatch rejected; promotion success not claimed | YES |
+| D-mutable-tag-drift | provenance | True | D-mutable-tag-drift-digest-identity.txt | digest remains SoT despite tag retarget | YES |
+| D-production-regression | provenance | True | D-production-regression-rollback-recovery.txt | APP_READY=false fail; digest-targeted rollback; recovery suite (deployed_digest/health/version/business) pass when recovery claimed; operator-attested residual not cleared | YES |
+| E-docker-permission | jenkins-docker | True | E-docker-permission-socket-fail.txt | disposable invalid DOCKER_HOST fail-closed; Docker-socket/root residual advisory retained | YES |
+| E-runbook-pressure | jenkins-docker | True | E-runbook-pressure-runbook-steps.txt | runbook isolation cues present; residual_not_cleared=True | YES |
+
+rollup: 12/12 scenarios present, ok, and agreeing with eng-review catalog + security-review citation table + lane index
+pressure_classes_supported: supply-chain reject; unauthorized deny; fake-cred boundary; readiness/connectivity fail-closed; digest provenance; recovery completeness when claimed; permission/runbook pressure
+
+----------------------------------------------------------------
+Independent validation commands (executed by this reviewer)
+----------------------------------------------------------------
+
+1) project validate state
+command: .venv\Scripts\python.exe scripts\project_cli.py validate state
+started_at_utc: 2026-07-13T18:52:20.0078185Z
+ended_at_utc: 2026-07-13T18:52:20.6136268Z
+exit_code: 0
+
+raw_output:
+Validation passed: state
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+
+result: PASS
+
+2) full pytest
+command: .venv\Scripts\python.exe -m pytest -q
+started_at_utc: 2026-07-13T18:52:38.0610500Z
+ended_at_utc: 2026-07-13T18:52:48.4320749Z
+exit_code: 0
+
+raw_output_tail:
+Required test coverage of 90% reached. Total coverage: 96.59%
+119 passed, 32 warnings in 7.57s
+
+result: PASS (119 passed; coverage 96.59%)
+
+3) git diff --check
+command: git diff --check
+started_at_utc: 2026-07-13T18:53:03.0903821Z
+ended_at_utc: 2026-07-13T18:53:04.0171933Z
+exit_code: 0
+
+raw_notes:
+LF/CRLF conversion warnings only (ISSUES.md, Jenkinsfile, PLAN.md, README.md, STATUS.md, compose.yaml, docs/*, infra/jenkins/*, scripts/*, tests/*). No whitespace conflict errors.
+
+result: PASS
+
+----------------------------------------------------------------
+Residuals retained (explicitly NOT cleared)
+----------------------------------------------------------------
+- Host Docker socket + Compose user:root (Phase 5 controller-isolation residual) — Lane E proves disposable permission-fault identification and runbook usability only; not multi-tenant isolation
+- Operator-attested VERIFIED_ROLLBACK_* parameters (Phase 6 honesty residual) — Lane D recovery does not implement automated prior-evidence binding
+- Hardcoded Jenkinsfile verified/recovery check maps (Phase 6 fidelity residual) — not treated as independent probe proof that residual is gone
+- cpsScm tip load and cleanWs archive-loss residuals remain accepted outside Phase 7 failure-injection claim
+- Phase 7 credential lane reuses retained Phase 5 unauthorized proof; must not be upgraded into live organizational Jenkins E2E
+- Supply-chain lane uses local scanner reproductions; no invented GitHub-merge-block claim for this throwaway evidence set
+- Optional PC-015 / PC-016 hardening trackers remain not opened
+
+----------------------------------------------------------------
+Out of scope / preserved claim boundary
+----------------------------------------------------------------
+- No live Jenkins E2E promotion or recovery runtime claim
+- No live cloud, AWS, organizational Jenkins administration, Phase 9, or sustained production operation claim
+- Digest promotion beyond local fixture evidence remains unverified
+- Production approval beyond the local Phase 5 named-approver fixture remains out of scope
+- Phase 7 does not clear Phase 5/6 residuals listed above
+- Portfolio claim labeling (implemented / locally verified / GitHub-verified / externally approved / deferred) remains Phase 8
+
+----------------------------------------------------------------
+Gate verdict
+----------------------------------------------------------------
+failed_checks: none
+blocking_inconsistencies: none
+claim_overreach_detected: none
+unresolved_critical_or_high_phase7_findings: none
+
+P7-T03_verdict: PASS
+
+summary: Declared Phase 7 engineering review (CLEAR), security review (CLEAR), lane index (12/12 all_scenarios_ok=True), and per-scenario evidence artifacts agree on the same local-only / production-like / non-cloud failure-injection result. Independent validate-state, pytest (119), and git-diff-check all passed. No unresolved critical/high Phase 7 finding remains. Residuals (Docker-socket/root, operator-attested VERIFIED_ROLLBACK_*, hardcoded verify maps) are retained and explicitly not cleared. Recommend orchestrator: mark P7-T03 verified and proceed to P8-T00 portfolio planning. Preserve non-cloud claim boundary.

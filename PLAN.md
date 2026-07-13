@@ -5,7 +5,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
 ```json
 {
   "schema_version": "1.0",
-  "revision": 25,
+  "revision": 62,
   "authorized_through_phase": 8,
   "tasks": [
     {
@@ -85,7 +85,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 2,
       "title": "Re-verify application and test contract",
       "outcome": "The existing Phase 2 candidate passes the new evidence-producing gate.",
-      "state": "review",
+      "state": "blocked",
       "depends_on": ["P1-T04"],
       "model_tier": "medium",
       "owner": "phase-2-implementation-worker",
@@ -103,7 +103,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 2,
       "title": "Align phase-authorization harness expectation",
       "outcome": "The CLI regression test accepts the explicitly authorized Phase 2 while continuing to reject the first unauthorized phase.",
-      "state": "review",
+      "state": "verified",
       "depends_on": ["P1-T04"],
       "model_tier": "low",
       "owner": "phase-2-harness-worker",
@@ -113,7 +113,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-2/cli-harness.txt"],
       "gate": "phase-2-application",
       "issue_ids": ["PC-006"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -121,7 +121,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 2,
       "title": "Independently review the Phase 2 change set",
       "outcome": "The application, API tests, harness correction, and evidence capture receive an independent correctness and claim-boundary review.",
-      "state": "review",
+      "state": "running",
       "depends_on": ["P2-T01", "P2-T02"],
       "model_tier": "independent-gate",
       "owner": "phase-2-change-reviewer",
@@ -131,8 +131,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/change-review.md"],
       "gate": "phase-2-change-review",
       "issue_ids": [],
-      "attempts": 1,
-      "last_error_class": ""
+      "attempts": 2,
+      "last_error_class": "jcasc-globalnodeproperties-runtime-shape"
     },
     {
       "id": "P2-T04",
@@ -240,8 +240,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-3-eng-review.md"],
       "gate": "phase-3-engineering-review",
       "issue_ids": ["PC-004"],
-      "attempts": 1,
-      "last_error_class": ""
+      "attempts": 2,
+      "last_error_class": "jcasc-globalnodeproperties-runtime-shape"
     },
     {
       "id": "P3-T01",
@@ -644,8 +644,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Externalize Jenkins credentials and enforce least-privilege authorization",
       "outcome": "The local Jenkins controller requires externally supplied credentials and a least-privilege authorization model with no shared default administrator path.",
-      "state": "review",
-      "depends_on": ["P5-T00"],
+      "state": "verified",
+      "depends_on": ["P5-T00", "P5-T11"],
       "model_tier": "medium",
       "owner": "phase-5-authz-worker",
       "write_scope": ["infra/jenkins/casc.yaml", "infra/jenkins/plugins.txt", "infra/jenkins/Dockerfile", "tests/test_jenkins_casc_static.py", "evidence/phase-5/"],
@@ -653,9 +653,9 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_jenkins_casc_static.py -q -o addopts=", "docker build -f infra/jenkins/Dockerfile infra/jenkins", "docker compose config"],
       "evidence_paths": ["evidence/phase-5/"],
       "gate": "phase-5-implementation",
-      "issue_ids": ["PC-001"],
+      "issue_ids": ["PC-001", "PC-011"],
       "attempts": 1,
-      "last_error_class": "compose-default-credential-path-and-docker-engine"
+      "last_error_class": ""
     },
     {
       "id": "P5-T10",
@@ -676,11 +676,29 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "last_error_class": ""
     },
     {
+      "id": "P5-T11",
+      "phase": 5,
+      "title": "Validate and correct the Jenkins JCasC node-property runtime shape",
+      "outcome": "The fixed Jenkins image accepts the Phase 5 node-property configuration at runtime, and the static guard matches the runtime-proven shape before broader authorization work resumes.",
+      "state": "verified",
+      "depends_on": ["P5-T00"],
+      "model_tier": "medium",
+      "owner": "phase-5-jcasc-shape-worker",
+      "write_scope": ["infra/jenkins/casc.yaml", "tests/test_jenkins_casc_static.py", "evidence/phase-5/"],
+      "acceptance_criteria": ["The Jenkins startup log no longer fails in ConfigurationAsCode.init on globalNodeProperties or nodeProperties shape", "The static test asserts the runtime-proven node-property shape rather than a stale text snapshot", "Raw narrow pytest and clean-volume Jenkins startup evidence are retained under evidence/phase-5/"],
+      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_jenkins_casc_static.py -q -o addopts=", "docker build -f infra/jenkins/Dockerfile infra/jenkins", "docker compose up -d jenkins", "docker compose logs --tail 200 jenkins", "docker compose down --volumes --remove-orphans"],
+      "evidence_paths": ["evidence/phase-5/"],
+      "gate": "phase-5-implementation",
+      "issue_ids": ["PC-010"],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
       "id": "P5-T02",
       "phase": 5,
       "title": "Remove default Jenkins credentials from compose and docs",
       "outcome": "The local stack and its documentation require external credential injection and no longer advertise shared default Jenkins administrator values.",
-      "state": "running",
+      "state": "verified",
       "depends_on": ["P5-T00"],
       "model_tier": "low",
       "owner": "phase-5-compose-policy-worker",
@@ -690,7 +708,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": [],
       "gate": "phase-5-implementation",
       "issue_ids": ["PC-001"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -698,7 +716,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Gate production approval to named approvers and trusted inputs",
       "outcome": "The Jenkins promotion flow only accepts named approvers and trusted commit inputs before any production-like deployment step can continue.",
-      "state": "running",
+      "state": "verified",
       "depends_on": ["P5-T00"],
       "model_tier": "medium",
       "owner": "phase-5-approval-worker",
@@ -707,8 +725,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_jenkinsfile_contract.py -q -o addopts=", ".venv\\Scripts\\python.exe scripts/validate_jenkinsfile.py --json"],
       "evidence_paths": ["evidence/phase-5/"],
       "gate": "phase-5-implementation",
-      "issue_ids": ["PC-001"],
-      "attempts": 0,
+      "issue_ids": ["PC-001", "PC-014"],
+      "attempts": 2,
       "last_error_class": ""
     },
     {
@@ -716,7 +734,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Prove unauthorized promotion denial in an isolated local fixture",
       "outcome": "A local Jenkins fixture demonstrates that unauthorized users cannot approve production promotion while preserving safe local-only evidence.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T01", "P5-T02", "P5-T03", "P5-T10"],
       "model_tier": "medium",
       "owner": "phase-5-unauthorized-proof-worker",
@@ -725,8 +743,62 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "validation_commands": [".venv\\Scripts\\python.exe -m pytest -q", "docker compose up -d jenkins", "docker compose logs --tail 200 jenkins"],
       "evidence_paths": ["evidence/phase-5/"],
       "gate": "phase-5-implementation",
-      "issue_ids": ["PC-001"],
-      "attempts": 0,
+      "issue_ids": ["PC-001", "PC-013"],
+      "attempts": 3,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T12",
+      "phase": 5,
+      "title": "Disambiguate the local Jenkins fixture runtime load path and evidence chain",
+      "outcome": "The Phase 5 fixture records a single-attempt Jenkins startup with bound image identity and captured runtime casc files so stale image, stale volume, and mixed-log explanations are ruled in or out before unauthorized-denial proof resumes.",
+      "state": "verified",
+      "depends_on": ["P5-T01", "P5-T11"],
+      "model_tier": "medium",
+      "owner": "phase-5-runtime-drift-worker",
+      "write_scope": ["scripts/", "evidence/phase-5/", "tests/"],
+      "acceptance_criteria": ["A single P5-T04-style attempt emits unique non-appended evidence files", "The evidence captures container/image identity plus both /usr/share/jenkins/ref/casc.yaml and /var/jenkins_home/casc.yaml contents on the failure path", "The evidence is sufficient to distinguish stale proof from a real runtime load-path regression before another P5-T04 attempt"],
+      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_p5_t04_unauthorized_fixture.py -q -o addopts=", "pwsh -File \"scripts/Invoke-P5UnauthorizedApprovalFixture.ps1\""],
+      "evidence_paths": ["evidence/phase-5/"],
+      "gate": "phase-5-implementation",
+      "issue_ids": ["PC-011"],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T13",
+      "phase": 5,
+      "title": "Repair the Jenkins fixture image or load chain drift",
+      "outcome": "The P5-T04 Jenkins fixture builds or loads an image whose embedded casc file matches the accepted workspace baseline, so a retried single-attempt diagnostic no longer boots with the stale globalNodeProperties map shape.",
+      "state": "verified",
+      "depends_on": ["P5-T12"],
+      "model_tier": "medium",
+      "owner": "phase-5-image-drift-worker",
+      "write_scope": ["scripts/", "tests/", "evidence/phase-5/"],
+      "acceptance_criteria": ["A retried single-attempt diagnostic binds the running container to a refreshed image identity", "The captured /usr/share/jenkins/ref/casc.yaml and /var/jenkins_home/casc.yaml match the accepted workspace node-property shape", "The resulting evidence is sufficient either to unblock P5-T04 or to prove a new non-ambiguity runtime defect"],
+      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_p5_t04_unauthorized_fixture.py -q -o addopts=", "pwsh -File \"scripts/Invoke-P5UnauthorizedApprovalFixture.ps1\""],
+      "evidence_paths": ["evidence/phase-5/"],
+      "gate": "phase-5-implementation",
+      "issue_ids": ["PC-012"],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T14",
+      "phase": 5,
+      "title": "Diagnose and repair the Jenkins crumb or session path for fixture job updates",
+      "outcome": "The P5-T04 fixture can create or update its Jenkins job configuration without a 403 crumb failure, or it can retain decisive runtime evidence pinpointing the remaining auth or CSRF defect.",
+      "state": "verified",
+      "depends_on": ["P5-T13"],
+      "model_tier": "medium",
+      "owner": "phase-5-crumb-path-worker",
+      "write_scope": ["scripts/", "tests/", "evidence/phase-5/"],
+      "acceptance_criteria": ["A retried single-attempt fixture run no longer fails at /job/project-c-delivery/config.xml because of an invalid crumb or stale session", "Any remaining failure is tied to a precise Jenkins auth or CSRF cause instead of a generic 403", "The fixture evidence remains single-attempt and local-only"],
+      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_p5_t04_unauthorized_fixture.py -q -o addopts=", "pwsh -File \"scripts/Invoke-P5UnauthorizedApprovalFixture.ps1\""],
+      "evidence_paths": ["evidence/phase-5/"],
+      "gate": "phase-5-implementation",
+      "issue_ids": ["PC-013"],
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -734,7 +806,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Independently review the Phase 5 change set",
       "outcome": "The Phase 5 Jenkins authorization remediation receives an independent correctness and claim-boundary review.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T01", "P5-T02", "P5-T03", "P5-T04"],
       "model_tier": "independent-gate",
       "owner": "phase-5-change-reviewer",
@@ -744,7 +816,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-5-change-review.md"],
       "gate": "phase-5-change-review",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -752,7 +824,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Independently verify the Phase 5 local QA gate",
       "outcome": "The approved local Jenkins authorization controls are independently executed and their raw QA evidence is inspectable.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T04", "P5-T05"],
       "model_tier": "medium",
       "owner": "phase-5-qa-worker",
@@ -770,7 +842,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Independently audit the Phase 5 Jenkins security boundary",
       "outcome": "The Jenkins remediation is checked for secret exposure, excessive privileges, unsupported claims, and unresolved authorization risks.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T05", "P5-T06"],
       "model_tier": "independent-gate",
       "owner": "phase-5-security-reviewer",
@@ -788,7 +860,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Run the Phase 5 integrated evidence gate",
       "outcome": "All approved Phase 5 local authorization artifacts agree before Jenkins authorization is treated as locally verified.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T05", "P5-T06", "P5-T07"],
       "model_tier": "independent-gate",
       "owner": "phase-5-integration-reviewer",
@@ -797,8 +869,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "validation_commands": ["project validate state", ".venv\\Scripts\\python.exe -m pytest -q", "git diff --check"],
       "evidence_paths": ["evidence/phase-5/integrated-gate.txt"],
       "gate": "phase-5-integrated-evidence",
-      "issue_ids": ["PC-001"],
-      "attempts": 0,
+      "issue_ids": [],
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -806,7 +878,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 5,
       "title": "Retrospect the Phase 5 remediation cycle",
       "outcome": "Phase 5 rework, authorization gaps, and follow-up improvements are recorded with owners and future target phases.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T08"],
       "model_tier": "low",
       "owner": "phase-5-retro-worker",
@@ -815,8 +887,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "validation_commands": ["git diff --check"],
       "evidence_paths": ["docs/retrospectives/phase-5.md"],
       "gate": "phase-5-retrospective",
-      "issue_ids": ["PC-001"],
-      "attempts": 0,
+      "issue_ids": [],
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -824,7 +896,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Freeze the shared Phase 6 evidence and recovery contract",
       "outcome": "PC-002 and PC-003 share one approved contract for append-only evidence, rollback-target semantics, first-release decisions, and recovery verification.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P5-T08"],
       "model_tier": "medium",
       "owner": "phase-6-spec-worker",
@@ -834,7 +906,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/phase-6-spec.md"],
       "gate": "phase-6-spec",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -842,7 +914,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Independently review the Phase 6 shared design",
       "outcome": "The append-only evidence, digest identity, first-release decision, and recovery verification design is cleared before implementation.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T00"],
       "model_tier": "independent-gate",
       "owner": "phase-6-engineering-reviewer",
@@ -852,7 +924,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-6-eng-review.md"],
       "gate": "phase-6-engineering-review",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -860,7 +932,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Implement append-only release evidence and summary validation",
       "outcome": "The release evidence path records append-only events and validates a derived summary manifest suitable for audit and later recovery checks.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T01"],
       "model_tier": "medium",
       "owner": "phase-6-evidence-worker",
@@ -870,7 +942,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/example/manifest.json"],
       "gate": "phase-6-implementation",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -878,7 +950,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Implement rollback-target gating and recovery verification",
       "outcome": "Production promotion requires a verified rollback target or explicit first-release decision, and recovery must re-verify digest, health, version, and business behavior.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T01"],
       "model_tier": "medium",
       "owner": "phase-6-recovery-worker",
@@ -888,7 +960,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-6/"],
       "gate": "phase-6-implementation",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -896,7 +968,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Integrate Phase 6 Jenkins flow and retain local evidence",
       "outcome": "The Jenkinsfile and local evidence path demonstrate build-once promotion, approval capture, failure injection, rollback, and recovery verification using the shared Phase 6 contract.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T02", "P6-T03"],
       "model_tier": "medium",
       "owner": "phase-6-integration-worker",
@@ -906,7 +978,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-6/", "docs/change-records/phase-6-local.md"],
       "gate": "phase-6-implementation",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -914,7 +986,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Independently review the Phase 6 change set",
       "outcome": "The Phase 6 evidence, recovery, and Jenkins integration changes receive an independent correctness and claim-boundary review.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T04"],
       "model_tier": "independent-gate",
       "owner": "phase-6-change-reviewer",
@@ -924,7 +996,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-6-change-review.md"],
       "gate": "phase-6-change-review",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -932,7 +1004,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Independently verify the Phase 6 QA gate",
       "outcome": "The approved local release-evidence and recovery controls are independently executed and their raw QA evidence is inspectable.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T04", "P6-T05"],
       "model_tier": "medium",
       "owner": "phase-6-qa-worker",
@@ -942,7 +1014,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-6/qa.txt"],
       "gate": "phase-6-qa",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -950,7 +1022,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Independently audit the Phase 6 evidence and recovery security boundary",
       "outcome": "The Phase 6 implementation is checked for secret exposure, unsupported claims, digest-identity drift, and unresolved rollback or approval risks.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T05", "P6-T06"],
       "model_tier": "independent-gate",
       "owner": "phase-6-security-reviewer",
@@ -960,7 +1032,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-6-security-review.md"],
       "gate": "phase-6-security-review",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -968,7 +1040,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Run the Phase 6 integrated evidence gate",
       "outcome": "All approved local Phase 6 artifacts agree before append-only release evidence and rollback recovery are treated as locally verified.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T05", "P6-T06", "P6-T07"],
       "model_tier": "independent-gate",
       "owner": "phase-6-integration-reviewer",
@@ -978,7 +1050,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-6/integrated-gate.txt"],
       "gate": "phase-6-integrated-evidence",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -986,7 +1058,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 6,
       "title": "Retrospect the Phase 6 promotion and recovery cycle",
       "outcome": "Phase 6 rework, release-evidence defects, and recovery improvements are recorded with owners and future target phases.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T08"],
       "model_tier": "low",
       "owner": "phase-6-retro-worker",
@@ -996,7 +1068,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/retrospectives/phase-6.md"],
       "gate": "phase-6-retrospective",
       "issue_ids": ["PC-002", "PC-003"],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1004,7 +1076,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 7,
       "title": "Independently review the Phase 7 security and failure-injection design",
       "outcome": "The supply-chain, credential, runtime, provenance, and Jenkins/Docker failure-injection scope is approved before execution.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P6-T08"],
       "model_tier": "independent-gate",
       "owner": "phase-7-engineering-reviewer",
@@ -1014,7 +1086,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-7-eng-review.md"],
       "gate": "phase-7-engineering-review",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1022,7 +1094,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 7,
       "title": "Run isolated Phase 7 security and failure-injection lanes",
       "outcome": "Local failure scenarios and security probes produce evidence for supply-chain, credential, runtime, provenance, and Jenkins/Docker controls.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P7-T00"],
       "model_tier": "medium",
       "owner": "phase-7-implementation-workers",
@@ -1032,7 +1104,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-7/"],
       "gate": "phase-7-implementation",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 2,
       "last_error_class": ""
     },
     {
@@ -1040,7 +1112,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 7,
       "title": "Consolidate Phase 7 security findings",
       "outcome": "A fresh independent security reviewer consolidates all Phase 7 scenarios into one verdict with explicit residual risk.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P7-T01"],
       "model_tier": "independent-gate",
       "owner": "phase-7-security-reviewer",
@@ -1050,7 +1122,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/reviews/phase-7-security-review.md"],
       "gate": "phase-7-security-review",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1058,7 +1130,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 7,
       "title": "Run the Phase 7 integrated evidence gate",
       "outcome": "All Phase 7 security and failure-injection evidence agrees before the project proceeds to portfolio assembly.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P7-T02"],
       "model_tier": "independent-gate",
       "owner": "phase-7-integration-reviewer",
@@ -1068,7 +1140,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-7/integrated-gate.txt"],
       "gate": "phase-7-integrated-evidence",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1076,7 +1148,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 8,
       "title": "Plan the Phase 8 portfolio evidence package",
       "outcome": "The portfolio narrative, screenshots, change records, metrics, and claim boundaries are approved before assembly.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P7-T03"],
       "model_tier": "low",
       "owner": "phase-8-planning-worker",
@@ -1086,7 +1158,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/portfolio-plan.md"],
       "gate": "phase-8-planning",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1094,7 +1166,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 8,
       "title": "Assemble the Phase 8 portfolio package",
       "outcome": "Architecture artifacts, change and incident narratives, metrics, and screenshots are assembled into a resume-safe project package.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P8-T00"],
       "model_tier": "medium",
       "owner": "phase-8-assembly-worker",
@@ -1104,7 +1176,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/portfolio-walkthrough.md", "docs/metrics.md"],
       "gate": "phase-8-assembly",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1112,7 +1184,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 8,
       "title": "Rehearse the CLI demo and verify project metrics",
       "outcome": "The project demo is reproducible and the headline metrics are traceable to local or GitHub-retained evidence.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P8-T01"],
       "model_tier": "low",
       "owner": "phase-8-demo-worker",
@@ -1122,7 +1194,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["docs/demo-script.md", "evidence/phase-8/"],
       "gate": "phase-8-demo",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -1130,7 +1202,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 8,
       "title": "Run the final portfolio evidence gate",
       "outcome": "All Phase 8 portfolio artifacts agree with the underlying evidence before the project is treated as complete.",
-      "state": "planned",
+      "state": "verified",
       "depends_on": ["P8-T02"],
       "model_tier": "independent-gate",
       "owner": "phase-8-integration-reviewer",
@@ -1140,7 +1212,7 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "evidence_paths": ["evidence/phase-8/integrated-gate.txt"],
       "gate": "phase-8-complete",
       "issue_ids": [],
-      "attempts": 0,
+      "attempts": 1,
       "last_error_class": ""
     }
   ]

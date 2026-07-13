@@ -70,22 +70,44 @@ def test_production_contract_uses_image_reference_and_deploy_profile() -> None:
 def test_jenkins_contract_exposes_expected_ports_workspace_and_network() -> None:
     text = _compose_text()
 
-    expected = """  jenkins:
-    build: infra/jenkins
-    restart: unless-stopped
-    user: root
-    environment:
-      CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml
-      JENKINS_ADMIN_ID: ${JENKINS_ADMIN_ID:-admin}
-      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:-change-me-locally}
-    ports: ["8080:8080", "50000:50000"]
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./:/workspace:ro
-    networks: [delivery]
-"""
+    expected = (
+        "  jenkins:\n"
+        "    build: infra/jenkins\n"
+        "    restart: unless-stopped\n"
+        "    user: root\n"
+        "    environment:\n"
+        "      CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml\n"
+        "      JENKINS_LOCAL_ADMIN_ID: "
+        "${JENKINS_LOCAL_ADMIN_ID:?Set JENKINS_LOCAL_ADMIN_ID "
+        "in the local environment.}\n"
+        "      JENKINS_LOCAL_ADMIN_PASSWORD: "
+        "${JENKINS_LOCAL_ADMIN_PASSWORD:?Set JENKINS_LOCAL_ADMIN_PASSWORD "
+        "in the local environment.}\n"
+        "      JENKINS_LOCAL_APPROVER_ID: "
+        "${JENKINS_LOCAL_APPROVER_ID:?Set JENKINS_LOCAL_APPROVER_ID "
+        "in the local environment.}\n"
+        "      JENKINS_LOCAL_APPROVER_PASSWORD: "
+        "${JENKINS_LOCAL_APPROVER_PASSWORD:?Set JENKINS_LOCAL_APPROVER_PASSWORD "
+        "in the local environment.}\n"
+        "      JENKINS_LOCAL_VIEWER_ID: "
+        "${JENKINS_LOCAL_VIEWER_ID:?Set JENKINS_LOCAL_VIEWER_ID "
+        "in the local environment.}\n"
+        "      JENKINS_LOCAL_VIEWER_PASSWORD: "
+        "${JENKINS_LOCAL_VIEWER_PASSWORD:?Set JENKINS_LOCAL_VIEWER_PASSWORD "
+        "in the local environment.}\n"
+        '    ports: ["8080:8080", "50000:50000"]\n'
+        "    volumes:\n"
+        "      - jenkins-data:/var/jenkins_home\n"
+        "      - /var/run/docker.sock:/var/run/docker.sock\n"
+        "      - ./:/workspace:ro\n"
+        "    networks: [delivery]\n"
+    )
     assert expected in text
+    assert "JENKINS_ADMIN_ID" not in text
+    assert "JENKINS_ADMIN_PASSWORD" not in text
+    assert "change-me-locally" not in text
+    assert ":-admin" not in text
+    assert ":-change-me-locally" not in text
 
 
 def test_deploy_services_remain_image_reference_driven_in_source() -> None:

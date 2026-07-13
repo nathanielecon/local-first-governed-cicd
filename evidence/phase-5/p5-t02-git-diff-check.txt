@@ -1,0 +1,7 @@
+warning: in the working copy of 'Jenkinsfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'compose.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/runbook.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/validate_jenkinsfile.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_compose_static.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_jenkinsfile_contract.py', LF will be replaced by CRLF the next time Git touches it

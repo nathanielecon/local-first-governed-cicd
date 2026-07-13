@@ -1,0 +1,9 @@
+disposition=early-failed-attempt-superseded
+final_authority=A-vuln-component-trivy-reject.txt
+disposition_timestamp_utc=2026-07-13T18:46:04Z
+note=Retained for audit; do not treat as governing FAIL after successful Trivy repair.
+scenario=A-vuln-component
+timestamp_utc=2026-07-13T18:37:30Z
+claim_boundary=local-only / non-cloud
+expected=scenario completes with reject/fail/recover evidence
+conclusion=FAIL: exception TypeError: 'NoneType' object is not subscriptable

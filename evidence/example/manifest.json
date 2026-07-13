@@ -1,14 +1,46 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "6.0",
   "release_id": "example",
-  "status": "template_only",
-  "commit_sha": "replace-with-real-commit",
-  "image": {"reference": "", "digest": ""},
-  "environment": "local",
-  "rollback_digest": "",
-  "pipeline": {"provider": "none", "run_id": "none"},
-  "approvals": [],
+  "status": "production_verified",
+  "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "claim_boundary": "local-only / production-like",
+  "image": {
+    "reference": "local/delivery-api:example",
+    "digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "staging": {
+    "status": "verified",
+    "deployed_at": "2026-07-13T12:05:00Z",
+    "verified_at": "2026-07-13T12:10:00Z"
+  },
+  "approvals": [
+    {
+      "approver_id": "approver.jane",
+      "approved_at": "2026-07-13T12:15:00Z",
+      "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "image_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "event_id": "evt-approval-001"
+    }
+  ],
+  "production": {
+    "status": "verified",
+    "deployed_at": "2026-07-13T12:20:00Z",
+    "verified_at": "2026-07-13T12:25:00Z"
+  },
+  "rollback_target": null,
+  "first_release_decision": {
+    "decision": "first_release_no_rollback_target",
+    "decided_by": "approver.jane",
+    "decided_at": "2026-07-13T12:16:00Z",
+    "rationale": "No verified prior production digest exists for this local example release.",
+    "accepted_risk": "Rollback to a prior verified digest is unavailable for this first release."
+  },
+  "recovery": null,
+  "pipeline": {
+    "provider": "local",
+    "run_id": "example-fixture"
+  },
   "reports": [],
-  "updated_at": null
+  "event_count": 7,
+  "updated_at": "2026-07-13T12:25:00Z"
 }
-

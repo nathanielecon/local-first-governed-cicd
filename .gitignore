@@ -12,4 +12,9 @@ evidence/*/reports/
 evidence/*/runtime/
 deploy/state/*.env
 !deploy/state/.gitkeep
+.playwright-mcp/
+.harness/runtime/
+*.png
+docs/red-bank-sc-hvac-*
+junit.xml
 

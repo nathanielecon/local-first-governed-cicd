@@ -1,0 +1,4 @@
+NAME                     IMAGE                         COMMAND                  SERVICE      CREATED         STATUS                       PORTS
+project-c-jenkins-1      project-c-jenkins             "/usr/bin/tini -- /uΓÇª"   jenkins      3 minutes ago   Up Less than a second        0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:50000->50000/tcp, [::]:50000->50000/tcp
+project-c-production-1   delivery-api:phase3-runtime   "uvicorn delivery_apΓÇª"   production   30 hours ago    Up About an hour (healthy)   0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+project-c-staging-1      delivery-api:phase3-runtime   "uvicorn delivery_apΓÇª"   staging      30 hours ago    Up About an hour (healthy)   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp

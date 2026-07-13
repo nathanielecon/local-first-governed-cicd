@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "failures": [
+    "production promotion blocked: no verified rollback target and no first-release decision"
+  ]
+}

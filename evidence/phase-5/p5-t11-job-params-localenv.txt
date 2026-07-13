@@ -1,0 +1,4 @@
+  File "<string>", line 1
+    import xml.etree.ElementTree as ET; root = ET.parse('/var/jenkins_home/jobs/project-c-delivery/config.xml').getroot(); defs = root.findall('.//parameterDefinitions/*'); print('PARAMETER_DEFINITIONS_START'); [print(f'{d.findtext(\'name\')}={d.findtext(\'defaultValue\')}') for d in defs]; print('PARAMETER_DEFINITIONS_END')
+                                                                                                                                                                                                                                         ^
+SyntaxError: unexpected character after line continuation character

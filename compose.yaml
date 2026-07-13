@@ -35,8 +35,12 @@ services:
     user: root
     environment:
       CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml
-      JENKINS_ADMIN_ID: ${JENKINS_ADMIN_ID:-admin}
-      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:-change-me-locally}
+      JENKINS_LOCAL_ADMIN_ID: ${JENKINS_LOCAL_ADMIN_ID:?Set JENKINS_LOCAL_ADMIN_ID in the local environment.}
+      JENKINS_LOCAL_ADMIN_PASSWORD: ${JENKINS_LOCAL_ADMIN_PASSWORD:?Set JENKINS_LOCAL_ADMIN_PASSWORD in the local environment.}
+      JENKINS_LOCAL_APPROVER_ID: ${JENKINS_LOCAL_APPROVER_ID:?Set JENKINS_LOCAL_APPROVER_ID in the local environment.}
+      JENKINS_LOCAL_APPROVER_PASSWORD: ${JENKINS_LOCAL_APPROVER_PASSWORD:?Set JENKINS_LOCAL_APPROVER_PASSWORD in the local environment.}
+      JENKINS_LOCAL_VIEWER_ID: ${JENKINS_LOCAL_VIEWER_ID:?Set JENKINS_LOCAL_VIEWER_ID in the local environment.}
+      JENKINS_LOCAL_VIEWER_PASSWORD: ${JENKINS_LOCAL_VIEWER_PASSWORD:?Set JENKINS_LOCAL_VIEWER_PASSWORD in the local environment.}
     ports: ["8080:8080", "50000:50000"]
     volumes:
       - jenkins-data:/var/jenkins_home

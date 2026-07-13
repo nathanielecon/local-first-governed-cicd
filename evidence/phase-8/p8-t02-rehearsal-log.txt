@@ -1,0 +1,34 @@
+P8-T02 CLI demo rehearsal log
+=============================
+Task: P8-T02
+Worker: phase-8-demo-worker
+Claim boundary: local-only / production-like / non-AWS
+No AWS / live-cloud / org-production commands executed.
+
+Commands rehearsed
+------------------
+1. .venv\Scripts\python.exe scripts\project_cli.py validate state
+   Result: PASSED (exit 0)
+   Evidence: evidence/phase-8/p8-t02-validate-state.txt
+
+2. .venv\Scripts\python.exe scripts\project_cli.py status --json
+   Result: PASSED (exit 0); current_gate=phase-8-demo; running_tasks includes P8-T02
+   Evidence: evidence/phase-8/p8-t02-cli-status.txt
+
+3. .venv\Scripts\python.exe -m pytest -q
+   Result: PASSED (exit 0); 119 passed; Total coverage: 96.59%
+   Evidence: evidence/phase-8/p8-t02-pytest.txt
+   Note: current suite size is not a docs/metrics.md overwrite (phase-local 14/38 retained)
+
+4. .venv\Scripts\python.exe scripts\project_cli.py evidence phase-6
+   Result: PASSED (exit 0); valid=true; errors=[]
+   Evidence: evidence/phase-8/p8-t02-evidence-phase-6.txt
+
+5. Metrics cross-check against docs/metrics.md
+   Result: 14/14 headline rows PASS
+   Evidence: evidence/phase-8/metrics-trace.txt
+
+Artifacts written (write_scope)
+-------------------------------
+- docs/demo-script.md
+- evidence/phase-8/*

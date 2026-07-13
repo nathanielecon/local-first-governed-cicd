@@ -1,0 +1,16 @@
+scenario=D-missing-provenance
+timestamp_utc=2026-07-13T18:46:25Z
+claim_boundary=local-only / non-cloud; SHA/version mismatch reject
+expected=smoke rejects expected SHA mismatch; promotion success not claimed
+conclusion=PASS: smoke rejected SHA/version provenance mismatch
+observed_git_sha=actual-sha-111
+expected_git_sha=expected-sha-999
+--- command[1] ---
+argv=['python', '-m', 'scripts.smoke_test', '--base-url', 'http://127.0.0.1:52881', '--expected-sha', 'expected-sha-999']
+exit_code=1
+stdout<<EOF
+{"live": {"status": "live"}, "ready": {"status": "ready"}, "version": {"name": "delivery-api", "version": "0.1.0", "git_sha": "actual-sha-111", "environment": "staging"}, "quote": {"subtotal": 20.0, "discount": 1.0, "total": 19.0, "currency": "USD"}, "failures": ["expected SHA expected-sha-999, got actual-sha-111"], "checks": {"health": "pass", "version": "fail", "business_behavior": "pass"}, "statuses": {"live": 200, "ready": 200, "version": 200, "quote": 200}}
+EOF
+stderr<<EOF
+
+EOF

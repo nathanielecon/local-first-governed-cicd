@@ -281,20 +281,36 @@ def command_resume(args: argparse.Namespace) -> int:
 
 
 def command_evidence(args: argparse.Namespace) -> int:
-    path = ROOT / "evidence" / args.release_id / "manifest.json"
-    if not path.exists():
+    try:
+        from scripts.evidence import validate_release_evidence
+    except ModuleNotFoundError:  # running as scripts/project_cli.py
+        from evidence import validate_release_evidence
+
+    directory = ROOT / "evidence" / args.release_id
+    manifest = directory / "manifest.json"
+    events = directory / "events.jsonl"
+    if not directory.exists() and not manifest.exists():
         raise ProjectError(
-            f"evidence manifest not found: {path.relative_to(ROOT)}", EXIT_VALIDATION
+            f"evidence manifest not found: evidence/{args.release_id}/manifest.json",
+            EXIT_VALIDATION,
         )
-    data = json.loads(path.read_text(encoding="utf-8"))
-    required = ("schema_version", "release_id", "commit_sha", "status")
-    missing = [field for field in required if field not in data]
-    emit(
-        {"path": str(path.relative_to(ROOT)), "valid": not missing, "missing": missing},
-        None,
-        args.json,
-    )
-    return EXIT_VALIDATION if missing else EXIT_OK
+    errors = validate_release_evidence(ROOT, args.release_id)
+    payload = {
+        "path": (
+            manifest.relative_to(ROOT).as_posix()
+            if manifest.exists()
+            else f"evidence/{args.release_id}/manifest.json"
+        ),
+        "events_path": (
+            events.relative_to(ROOT).as_posix()
+            if events.exists()
+            else f"evidence/{args.release_id}/events.jsonl"
+        ),
+        "valid": not errors,
+        "errors": errors,
+    }
+    emit(payload, None, args.json)
+    return EXIT_VALIDATION if errors else EXIT_OK
 
 
 def command_bootstrap(args: argparse.Namespace) -> int:

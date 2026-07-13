@@ -1,0 +1,32 @@
+jenkins-1  | Running from: /usr/share/jenkins/jenkins.war
+jenkins-1  | webroot: /var/jenkins_home/war
+jenkins-1  | 2026-07-13 00:13:56.957+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+jenkins-1  | 2026-07-13 00:13:58.242+0000 [id=1]	WARNING	o.e.j.ee9.nested.ContextHandler#setContextPath: Empty contextPath
+jenkins-1  | 2026-07-13 00:13:58.332+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-12.1.5; built: 2025-12-03T22:18:24.732Z; git: 4905d09d7b6801e792d7b73946cf7b66e4be25d6; jvm 21.0.9+10-LTS
+jenkins-1  | 2026-07-13 00:13:58.995+0000 [id=1]	INFO	o.e.j.e.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.ee9.jsp.JettyJspServlet
+jenkins-1  | 2026-07-13 00:13:59.114+0000 [id=1]	INFO	o.e.j.s.DefaultSessionIdManager#doStart: Session workerName=node0
+jenkins-1  | 2026-07-13 00:13:59.773+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+jenkins-1  | 2026-07-13 00:13:59.950+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started oeje9n.ContextHandler$CoreContextHandler@3681037{Jenkins v2.541.3,/,b=file:///var/jenkins_home/war/,a=AVAILABLE,h=oeje9n.ContextHandler$CoreContextHandler$CoreToNestedHandler@2459319c{STARTED}}
+jenkins-1  | 2026-07-13 00:13:59.976+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started oejs.ServerConnector@61f39bb{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+jenkins-1  | 2026-07-13 00:13:59.977+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started oejs.Server@2d0ecb24{STARTING}[12.1.5,sto=0] @1651ms
+jenkins-1  | 2026-07-13 00:13:59.979+0000 [id=55]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+jenkins-1  | 2026-07-13 00:14:00.195+0000 [id=53]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.541.3
+jenkins-1  | 2026-07-13 00:14:00.349+0000 [id=63]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+jenkins-1  | 2026-07-13 00:14:03.144+0000 [id=61]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+jenkins-1  | 2026-07-13 00:14:07.025+0000 [id=75]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+jenkins-1  | 2026-07-13 00:14:07.047+0000 [id=90]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+jenkins-1  | 2026-07-13 00:14:07.050+0000 [id=72]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+jenkins-1  | 2026-07-13 00:14:08.025+0000 [id=82]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+jenkins-1  | Processing provided DSL script
+jenkins-1  | 2026-07-13 00:14:11.082+0000 [id=75]	INFO	j.j.plugin.JenkinsJobManagement#createOrUpdateConfig: createOrUpdateConfig for project-c-delivery
+jenkins-1  | 2026-07-13 00:14:11.388+0000 [id=75]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+jenkins-1  | 2026-07-13 00:14:11.389+0000 [id=73]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+jenkins-1  | 2026-07-13 00:14:11.402+0000 [id=73]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+jenkins-1  | 2026-07-13 00:14:11.427+0000 [id=90]	WARNING	hudson.model.User$AllUsers#scanAll: entry for local-viewer in /var/jenkins_home/users/localviewer_0be1d9e9a6f2778e085ba7ddfcef833af2ff088f2f5f9a31a947c5df002e0764 duplicates one seen earlier for local-viewer
+jenkins-1  | 2026-07-13 00:14:11.438+0000 [id=113]	INFO	hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+jenkins-1  | 2026-07-13 00:14:11.438+0000 [id=90]	WARNING	hudson.model.User$AllUsers#scanAll: entry for local-admin in /var/jenkins_home/users/localadmin_4363920f345229062c118ecbca1e58c184d50c67adf610519c1c93532f94cc9d duplicates one seen earlier for local-admin
+jenkins-1  | 2026-07-13 00:14:11.447+0000 [id=90]	WARNING	hudson.model.User$AllUsers#scanAll: entry for local-approver in /var/jenkins_home/users/localapprover_2a92824ea5a9cecf1b4c2f2c4ff3bfe0dd3fdedd797087e4d0ef33954a6a23cf duplicates one seen earlier for local-approver
+jenkins-1  | 2026-07-13 00:14:14.721+0000 [id=69]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+jenkins-1  | 2026-07-13 00:14:14.765+0000 [id=53]	INFO	hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+jenkins-1  | 2026-07-13 00:14:15.001+0000 [id=113]	INFO	h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+jenkins-1  | 2026-07-13 00:14:15.002+0000 [id=113]	INFO	hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1

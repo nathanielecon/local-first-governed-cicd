@@ -1,0 +1,134 @@
+P8-T02 metrics cross-check
+==========================
+Task: P8-T02 — Rehearse the CLI demo and verify project metrics
+Rehearsal time (local): 2026-07-13T14:59:27 (Windows local clock at validate start)
+Claim boundary: local-only / production-like / non-AWS
+Source artifact: docs/metrics.md
+Method: confirm each headline Source path exists; spot-check cited value against retained file content.
+Verdict legend: PASS = path exists and cited value agrees; NOTE = path exists with disclosed scope caveat (still claim-safe).
+
+Row 1 — PR validation — hosted pass
+  Cited: Run 29166389732 passed all four jobs on main @ e82f4a2
+  Sources: evidence/phase-4/integrated-gate.txt; docs/change-records/phase-4-github-validation.md
+  Path check: EXISTS / EXISTS
+  Value check: integrated-gate cites run 29166389732, four jobs, commit e82f4a2
+  Verdict: PASS
+
+Row 2 — PR validation — intentional fail
+  Cited: Run 29166442925 failed Python quality only (Ruff F401); PR #1
+  Sources: same as Row 1
+  Path check: EXISTS / EXISTS
+  Value check: integrated-gate cites PR #1, run 29166442925, intentional Ruff F401 in tests/test_phase4_blocked_demo.py
+  Verdict: PASS
+
+Row 3 — Local pytest / coverage (Phase 2 gate)
+  Cited: 14 passed; 96.59% total coverage
+  Sources: evidence/phase-2/integrated-gate.txt; docs/change-records/phase-2-local.md
+  Path check: EXISTS / EXISTS
+  Value check: integrated-gate records 14 passed and 96.59% coverage
+  Note: phase-local extract; do not replace with current suite size
+  Verdict: PASS
+
+Row 4 — Local pytest (Phase 4 QA)
+  Cited: 38 passed; 96.59% total coverage
+  Sources: evidence/phase-4/integrated-gate.txt
+  Path check: EXISTS
+  Value check: integrated-gate cites evidence/phase-4/qa.txt with 38 tests and 96.59 percent coverage
+  Note: phase-local extract; current rehearsal suite is larger (see p8-t02-pytest.txt)
+  Verdict: PASS
+
+Row 5 — Failed-change detection — PR lane
+  Cited: Blocked at Python quality (Phase 4 demo); Run 29166442925
+  Sources: Run 29166442925 (via phase-4 integrated-gate / change record)
+  Path check: EXISTS (via Row 2 sources)
+  Value check: same intentional quality failure as Row 2
+  Verdict: PASS
+
+Row 6 — Failed-change detection — approval
+  Cited: Unauthorized submit → HTTP 400 / ABORTED; no production continuation
+  Sources: evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt
+  Path check: EXISTS
+  Value check: unauthorized_status=400; X-Error requires local-approver; result ABORTED
+  Verdict: PASS
+
+Row 7 — Failed-change detection — promotion gates
+  Cited: Rollback-target / first-release fail-closed; staging-as-prior rejected
+  Sources: evidence/phase-6/ promotion-gate proofs; docs/retrospectives/phase-6.md
+  Path check:
+    EXISTS evidence/phase-6/p6-t03-promotion-gate-blocked.txt
+    EXISTS evidence/phase-6/p6-t03-promotion-gate-first-release.txt
+    EXISTS evidence/phase-6/p6-t03-promotion-gate-staging-rejected.txt
+    EXISTS docs/retrospectives/phase-6.md
+  Value check: staging-rejected + first-release / blocked gate files present under phase-6/
+  Verdict: PASS
+
+Row 8 — High/critical findings opened → resolved
+  Cited: PC-001–PC-014 resolved in ISSUES.md (as applicable); residuals remain advisory
+  Sources: ISSUES.md; phase integrated gates
+  Path check: EXISTS ISSUES.md; integrated gates phases 2–7 EXIST
+  Value check: ISSUES.md lists PC-001 through PC-014 with status resolved (PC-009 also resolved)
+  Scope note: residuals remain advisory per metrics disallowed-upgrade column — not zero residual risk
+  Verdict: PASS (NOTE: residuals advisory, not cleared)
+
+Row 9 — Evidence completeness
+  Cited: Integrated-gate present for phases 2–7; Phase 8 assembly indexed pending P8-T03
+  Sources: evidence/phase-*/integrated-gate.txt; docs/change-records/phase-8-portfolio-index.md
+  Path check:
+    EXISTS evidence/phase-2/integrated-gate.txt
+    EXISTS evidence/phase-3/integrated-gate.txt
+    EXISTS evidence/phase-4/integrated-gate.txt
+    EXISTS evidence/phase-5/integrated-gate.txt
+    EXISTS evidence/phase-6/integrated-gate.txt
+    EXISTS evidence/phase-7/integrated-gate.txt
+    EXISTS docs/change-records/phase-8-portfolio-index.md
+    ABSENT evidence/phase-8/integrated-gate.txt (expected until P8-T03)
+  Verdict: PASS (NOTE: Phase 8 gate correctly pending)
+
+Row 10 — Manual / fixture steps
+  Cited: Phase 5 P5-T04 diagnostic loop; Phase 6 pipeline.run_id: manual
+  Sources: docs/retrospectives/phase-5.md; evidence/phase-6/manifest.json
+  Path check: EXISTS / EXISTS
+  Value check: manifest.pipeline.run_id == "manual"; phase-5 retrospective exists
+  Verdict: PASS
+
+Row 11 — Named human approval (fixture)
+  Cited: local-approver @ 2026-07-13T17:15:00Z
+  Sources: evidence/phase-6/events.jsonl; manifest.json; docs/change-records/phase-6-local.md
+  Path check: EXISTS / EXISTS / EXISTS
+  Value check: manifest approvals[0].approver_id=local-approver; approved_at=2026-07-13T17:15:00Z; event_id=p6-local-approval
+  Scope note: Human-approved local fixture — not organizational production approval
+  Verdict: PASS
+
+Row 12 — Recovery verification
+  Cited: All four checks pass; status recovery_verified
+  Sources: evidence/phase-6/manifest.json recovery block; event p6-local-recovery
+  Path check: EXISTS manifest; EXISTS events.jsonl
+  Value check: status=recovery_verified; checks deployed_digest/health/version/business_behavior all pass
+  Scope note: non-E2E / fixture path; no live recovery wall-clock claimed
+  Verdict: PASS
+
+Row 13 — Failure-injection lanes
+  Cited: 12/12 scenarios ok
+  Sources: evidence/phase-7/P7-T01-lane-index.txt; evidence/phase-7/integrated-gate.txt
+  Path check: EXISTS / EXISTS
+  Value check: twelve scenario=... ok=True lines; all_scenarios_ok=True
+  Verdict: PASS
+
+Row 14 — Lead time (phase-local only)
+  Cited: Phase 5 eng-review (2026-07-12) → integrated (2026-07-13); Phase 6 same-day calendar span on 2026-07-13
+  Sources: Phase 5/6 retrospectives; integrated-gate timestamps
+  Path check: EXISTS docs/retrospectives/phase-5.md; EXISTS docs/retrospectives/phase-6.md; EXISTS phase-5/6 integrated gates
+  Value check: phase-local calendar language only; no fabricated multi-release baseline trend
+  Verdict: PASS
+
+SUMMARY
+=======
+Headline rows checked: 14
+PASS: 14
+FAIL: 0
+MISSING_SOURCE: 0
+Unsupported upgrades observed: none in docs/metrics.md citations during this rehearsal
+Current suite rehearsal (not a metrics overwrite): see p8-t02-pytest.txt — 119 passed; Total coverage: 96.59%
+CLI validate state: PASS — p8-t02-validate-state.txt
+CLI evidence phase-6: valid=true — p8-t02-evidence-phase-6.txt
+Overall metrics trace: PASS

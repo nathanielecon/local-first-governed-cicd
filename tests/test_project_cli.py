@@ -50,6 +50,15 @@ def test_evidence_reports_missing_release(capsys: pytest.CaptureFixture[str]) ->
     assert "not found" in capsys.readouterr().err
 
 
+def test_evidence_example_passes_phase6_validation(capsys: pytest.CaptureFixture[str]) -> None:
+    result = project_cli.main(["evidence", "example", "--json"])
+    output = json.loads(capsys.readouterr().out)
+    assert result == project_cli.EXIT_OK
+    assert output["valid"] is True
+    assert output["errors"] == []
+    assert "events_path" in output
+
+
 def test_read_json_block_rejects_missing_file(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

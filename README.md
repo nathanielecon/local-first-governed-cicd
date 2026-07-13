@@ -13,7 +13,7 @@ Prerequisites: Docker Desktop with Linux containers, PowerShell 7, Git, and Pyth
 ./scripts/project.ps1 validate phase-1
 ```
 
-Open the service at `http://localhost:8081`, production at `http://localhost:8082`, and Jenkins at `http://localhost:8080`. The local Jenkins default is `admin` / `change-me-locally`; override both values before any shared use.
+Open the service at `http://localhost:8081`, production at `http://localhost:8082`, and Jenkins at `http://localhost:8080`. Before starting Jenkins, inject the local-only placeholder administrator, approver, and read-only observer identities through `JENKINS_LOCAL_ADMIN_ID`, `JENKINS_LOCAL_ADMIN_PASSWORD`, `JENKINS_LOCAL_APPROVER_ID`, `JENKINS_LOCAL_APPROVER_PASSWORD`, `JENKINS_LOCAL_VIEWER_ID`, and `JENKINS_LOCAL_VIEWER_PASSWORD`. Supply those values from your local shell or an untracked environment file; the repository does not ship a shared default Jenkins username or password.
 
 ## Commands
 

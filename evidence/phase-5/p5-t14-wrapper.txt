@@ -1,0 +1,23 @@
+command=pwsh -File "scripts\Invoke-P5UnauthorizedApprovalFixture.ps1"
+exit_code=
+1
+captured_at=
+2026-07-13T14:35:13.0535754+00:00
+
+Traceback (most recent call last):
+  File "C:\Users\natha\OneDrive\Documents\cloud\scripts\p5_t04_unauthorized_fixture.py", line 579, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\natha\OneDrive\Documents\cloud\scripts\p5_t04_unauthorized_fixture.py", line 573, in main
+    proof_path = run_fixture(args)
+  File "C:\Users\natha\OneDrive\Documents\cloud\scripts\p5_t04_unauthorized_fixture.py", line 463, in run_fixture
+    _wait_for_jenkins(admin_session, timeout_seconds=args.timeout_seconds)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\natha\OneDrive\Documents\cloud\scripts\p5_t04_unauthorized_fixture.py", line 302, in _wait_for_jenkins
+    raise RuntimeError(f"Jenkins did not become ready within {timeout_seconds} seconds (last status: {last_status}).")
+RuntimeError: Jenkins did not become ready within 180 seconds (last status: Failed to reach Jenkins at http://127.0.0.1:8080/login: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>).
+Exception: C:\Users\natha\OneDrive\Documents\cloud\scripts\Invoke-P5UnauthorizedApprovalFixture.ps1:229
+Line |
+ 229 |          throw "P5-T04 fixture runner exited with code $LASTEXITCODE."
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | P5-T04 fixture runner exited with code 1.
