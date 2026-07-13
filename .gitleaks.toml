@@ -15,25 +15,19 @@ regexes = [
 ]
 
 [[allowlists]]
-description = "Allow Jenkins plugin identifiers that resemble generic keys"
+description = "Allow Jenkins plugin pin strings that resemble generic API keys"
 paths = [
-  '''infra/jenkins/plugins\.txt''',
-  '''tests/test_jenkins_casc_static\.py''',
-  '''evidence/phase-5/p5-t11-.*\.txt''',
-  '''evidence/phase-5/p5-t04-bottleneck-diff\.txt''',
-]
-regexes = [
-  '''credentials-binding''',
+  '''(^|/)infra/jenkins/plugins\.txt$''',
+  '''(^|/)tests/test_jenkins_casc_static\.py$''',
+  '''(^|/)evidence/phase-5/p5-t11-.*\.txt$''',
+  '''(^|/)evidence/phase-5/p5-t04-bottleneck-diff\.txt$''',
 ]
 
 [[allowlists]]
-description = "Allow documented Phase 7 synthetic GitHub PAT test signature (not a live credential)"
+description = "Allow documented Phase 7 synthetic credential fixtures (fake PAT / gitleaks test signature only)"
 paths = [
-  '''scripts/phase7_run_lanes\.py''',
-  '''tests/test_phase7_failure_injection\.py''',
-  '''evidence/phase-7/credential/B-fake-cred-boundary-scan\.txt''',
-  '''evidence/phase-7/supply-chain/A-fake-secret-gitleaks-reject\.txt''',
-]
-regexes = [
-  '''ghp_012345678901234567890123456789012345''',
+  '''(^|/)scripts/phase7_run_lanes\.py$''',
+  '''(^|/)tests/test_phase7_failure_injection\.py$''',
+  '''(^|/)evidence/phase-7/credential/B-fake-cred-boundary-scan\.txt$''',
+  '''(^|/)evidence/phase-7/supply-chain/A-fake-secret-gitleaks-reject\.txt$''',
 ]
