@@ -16,13 +16,18 @@ DIGEST_B = "sha256:" + ("b" * 64)
 
 
 def test_fake_secret_fixture_is_documented_example_only() -> None:
-    assert "ghp_012345678901234567890123456789012345" in p7.FAKE_SECRET_BODY
+    assert p7._FAKE_PAT.startswith("ghp_")
+    assert len(p7._FAKE_PAT) == 40
+    assert p7._FAKE_PAT in p7.FAKE_SECRET_BODY
     assert (
         "NOT a real credential" in p7.FAKE_SECRET_BODY
         or "test signature" in p7.FAKE_SECRET_BODY.lower()
     )
     # Single synthetic PAT shape only — no additional live-looking tokens.
     assert p7.FAKE_SECRET_BODY.count("ghp_") == 1
+    # Source must not embed a contiguous PAT literal (keeps Trivy tree-scan clean).
+    source = (ROOT / "scripts" / "phase7_run_lanes.py").read_text(encoding="utf-8")
+    assert p7._FAKE_PAT not in source
 
 
 def test_mutable_tag_drift_keeps_recorded_digest() -> None:
