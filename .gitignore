@@ -17,4 +17,6 @@ deploy/state/*.env
 *.png
 docs/red-bank-sc-hvac-*
 junit.xml
+evidence/phase-5/p5-t04-20260713*
+harness/logs/
 
