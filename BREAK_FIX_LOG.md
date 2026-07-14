@@ -9,6 +9,8 @@
 | 2026-07-13T21:54:00Z | 4 | PR #2 Security: gitleaks false positives | `.gitleaks.toml` path allowlists + `.gitleaksignore` | run 29288447120 → gitleaks cleared | fixed |
 | 2026-07-13T22:04:00Z | 4 | PR #2 Security: Trivy secret on synthetic PAT | Runtime-assemble `_FAKE_PAT`; redact evidence markers | run 29289006884 all pass | fixed |
 | 2026-07-13T22:15:00Z | 4 | S4-10-01 dirty scoreboard files | Commit final SLICES/SCOREBOARD/BREAK_FIX_LOG | this commit | closing |
+| 2026-07-13T23:45:00Z | 5–7 | Unjudged remainder (app/smoke/harness/skills/CI meta) never primary-scored | Freeze slices 5–7 rubrics; accuracy judge loops | harness/rubrics/slice-{5,6,7}-*.md | in_progress |
+| 2026-07-13T23:55:00Z | 5–7 | Accuracy judges (3×3) all must-haves PASS at 10.0; no nixer required | Record averages; close accuracy partition | harness/scores/SCOREBOARD.md; harness/logs/s{5,6,7}j*.md | fixed |
 
 ## Judge scoreboard (final)
 
@@ -18,6 +20,9 @@
 | 2 | #1 #2 #3 | 10.0 / 10.0 / 9.7 | **9.90** | PASS | YES |
 | 3 | #1 #2 #3 | 10.0 / 10.0 / 10.0 | **10.00** | PASS | YES |
 | 4 | final shell | **9.5** | **9.50** | PASS | YES |
+| 5 | #1 #2 #3 | 10.0 / 10.0 / 10.0 | **10.00** | PASS | YES |
+| 6 | #1 #2 #3 | 10.0 / 10.0 / 10.0 | **10.00** | PASS | YES |
+| 7 | #1 #2 #3 | 10.0 / 10.0 / 10.0 | **10.00** | PASS | YES |
 
 ## Remote
 
@@ -32,3 +37,6 @@
 2. Phase 5 Jenkins auth — `harness/rubrics/slice-2-phase5-jenkins-auth.md`
 3. Phase 6–7 promote/verify — `harness/rubrics/slice-3-phase67-promote-verify.md`
 4. Final delivery — `harness/rubrics/slice-4-final-delivery.md`
+5. App API accuracy — `harness/rubrics/slice-5-app-api.md`
+6. Smoke + harness PS accuracy — `harness/rubrics/slice-6-smoke-harness.md`
+7. Skills + CI static + meta accuracy — `harness/rubrics/slice-7-skills-ci-meta.md`

@@ -19,4 +19,11 @@ docs/red-bank-sc-hvac-*
 junit.xml
 evidence/phase-5/p5-t04-20260713*
 harness/logs/
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
+infra/terraform/.terraform.lock.hcl
+infra/terraform/tfplan*
+infra/terraform/*.auto.tfvars
+!infra/terraform/*.tfvars.example
 
