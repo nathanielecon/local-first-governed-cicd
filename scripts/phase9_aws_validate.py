@@ -16,7 +16,9 @@ TF_DIR = ROOT / "infra" / "terraform"
 EVIDENCE = ROOT / "evidence" / "phase-9"
 
 
-def run(cmd: list[str], *, cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess[str]:
+def run(
+    cmd: list[str], *, cwd: Path | None = None, check: bool = True
+) -> subprocess.CompletedProcess[str]:
     print("+", " ".join(cmd), flush=True)
     return subprocess.run(
         cmd,
@@ -139,7 +141,9 @@ def main() -> int:
     if push.returncode != 0:
         combined = (push.stdout or "") + (push.stderr or "")
         if "cannot be overwritten because the tag is immutable" not in combined:
-            raise subprocess.CalledProcessError(push.returncode, push.args, push.stdout, push.stderr)
+            raise subprocess.CalledProcessError(
+                push.returncode, push.args, push.stdout, push.stderr
+            )
         print("ECR immutable tag already present; reusing digest", flush=True)
 
     inspect = run(

@@ -1,0 +1,5 @@
+{
+  "name": "project-c-cloud",
+  "install": "pwsh -NoLogo -NoProfile -Command \"python --version; git --version; gh --version; if (Get-Command terraform -ErrorAction SilentlyContinue) { terraform version } else { Write-Output 'terraform: optional-absent' }; if (Get-Command aws -ErrorAction SilentlyContinue) { aws --version } else { Write-Output 'aws: optional-absent' }; if (Get-Command docker -ErrorAction SilentlyContinue) { docker --version } else { Write-Output 'docker: optional-absent' }\"",
+  "start": "sudo service docker start || true"
+}

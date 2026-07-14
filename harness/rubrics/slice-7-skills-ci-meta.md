@@ -6,7 +6,7 @@
 **Scope:** `.codex/skills/**`, `tests/test_dockerfile_static.py`, `tests/test_github_workflow_static.py`, `.github/workflows/pr-validation.yml`, `Dockerfile`, `Makefile`, `pyproject.toml`, `AGENTS.md`, `PROJECT.md`, `DECISIONS.md`  
 **Out of scope:** App API (Slice 5), smoke/harness PS (Slice 6), Phase 5–7 delivery already judged (Slices 1–4)
 
-**Scoring rule:** All must-haves PASS. Average judge ≥ 9.5/10 to advance.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only. Advance is orchestrator-only.
 
 ---
 

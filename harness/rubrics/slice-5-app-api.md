@@ -6,7 +6,7 @@
 **Scope:** `src/delivery_api/**`, `tests/test_api.py`  
 **Out of scope:** Jenkins/compose, deploy/rollback, portfolio docs, harness PowerShell, `.codex/skills`
 
-**Scoring rule:** All must-haves PASS. Average judge score ≥ 9.5/10 to advance. Judges score only against this frozen artifact and must run the listed commands.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only and must run the listed commands. Advance is orchestrator-only.
 
 ---
 

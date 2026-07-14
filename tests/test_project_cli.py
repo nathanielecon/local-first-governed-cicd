@@ -19,12 +19,15 @@ def test_status_can_filter_phase(capsys: pytest.CaptureFixture[str]) -> None:
 
 
 def test_phase_authorization_boundary(capsys: pytest.CaptureFixture[str]) -> None:
-    result = project_cli.main(["phase", "8", "--dry-run", "--json"])
+    plan = project_cli.read_json_block("PLAN.md")
+    authorized = plan["authorized_through_phase"]
+
+    result = project_cli.main(["phase", str(authorized), "--dry-run", "--json"])
     output = json.loads(capsys.readouterr().out)
     assert result == project_cli.EXIT_OK
-    assert output["phase"] == 8
+    assert output["phase"] == authorized
 
-    result = project_cli.main(["phase", "9", "--dry-run", "--json"])
+    result = project_cli.main(["phase", str(authorized + 1), "--dry-run", "--json"])
     error = json.loads(capsys.readouterr().err)
     assert result == project_cli.EXIT_HUMAN
     assert "not authorized" in error["error"]

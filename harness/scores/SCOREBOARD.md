@@ -1,58 +1,62 @@
-# Slice scoreboard
+# Slice scoreboard (blind reloop)
+
+Contaminated pre-reloop scores archived at `harness/scores/CONTAMINATED-ARCHIVE.md`.  
+Advance decisions are orchestrator-only. Judges must not read this file for gate rules.
 
 ## Slice 1 — core-harness
-| Round | Judge | Score | Must-haves |
-|---|---|---:|---|
-| R1 | B (`c51e07c3`) | 9.0 | PASS |
-| R2 | Orchestrator after residual + score log | 9.7 | PASS |
-| R3 | Final (`fc617aa1`) | 10.0 | PASS |
-| **Average** | | **9.57** | PASS |
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| R1 #1–#3 | 6.4 / 6.5 / 7.0 | FAIL | pre-nix |
+| R2 #1 (`cfb4bbbc`) | 10.0 | PASS | harness/scores/slice-1-blind.md |
+| R2 #2 (`a9e790e9`) | 10.0 | PASS | harness/scores/slice-1-blind.md |
+| R2 #3 (`f487f710`) | 10.0 | PASS | harness/scores/slice-1-blind.md |
+| **Average (R2)** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 2 — phase5-jenkins-auth
-| Judge | Score | Must-haves |
-|---|---:|---|
-| #1 (`7613f19a`) | 10.0 | PASS |
-| #2 (`953b1c12`) | 10.0 | PASS |
-| #3 (`a1bf60a1`) | 9.7 | PASS |
-| **Average** | **9.90** | PASS |
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| R1 #1–#3 | 8.0 / 8.0 / 8.0 | PASS | pre-nix S2-9-01 |
+| R2 #1 (`06e1c355`) | 10.0 | PASS | harness/scores/slice-2-blind.md |
+| R2 #2 (`7e291409`) | 10.0 | PASS | harness/scores/slice-2-blind.md |
+| R2 #3 (`7976522e`) | 10.0 | PASS | harness/scores/slice-2-blind.md |
+| **Average (R2)** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 3 — phase67-promote-verify
-| Judge | Score | Must-haves |
-|---|---:|---|
-| #1 (`d0d2e46a`) | 10.0 | PASS |
-| #2 (`bc4e2979`) | 10.0 | PASS |
-| #3 (`dc3e4f1c`) | 10.0 | PASS |
-| **Average** | **10.00** | PASS |
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| #1 (`56910bb1`) | 10.0 | PASS | harness/scores/slice-3-blind.md |
+| #2 (`bb771d9b`) | 10.0 | PASS | harness/scores/slice-3-blind.md |
+| #3 (`7f5eb6c1`) | 10.0 | PASS | harness/scores/slice-3-blind.md |
+| **Average** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 4 — final-delivery
-| Judge | Score | Notes |
-|---|---:|---|
-| Final (`af80ce56`) | 9.5 | S4-10-01 was dirty scoreboard; closing commit addresses |
-| Remote gate | PASS | `gh pr checks 2` all green |
+| Status | Notes |
+|---|---|
+| reloop pending | Blind Grok×3 in flight (unstick) |
 
 ## Slice 5 — app-api (accuracy partition)
 | Judge | Score | Must-haves | Log |
 |---|---:|---|---|
-| #1 (`7624d7d2`) | 10.0 | PASS | harness/logs/s5j1.md |
-| #2 (`fe36570a`) | 10.0 | PASS | harness/logs/s5j2.md |
-| #3 (`007f68d9`) | 10.0 | PASS | harness/logs/s5j3.md |
-| **Average** | **10.00** | PASS | |
+| #1 (`3f337f13`) | 10.0 | PASS | harness/scores/slice-5-blind.md |
+| #2 (`e7ce2b5c`) | 10.0 | PASS | harness/scores/slice-5-blind.md |
+| #3 (`38cf7747`) | 10.0 | PASS | harness/scores/slice-5-blind.md |
+| **Average** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 6 — smoke-harness (accuracy partition)
 | Judge | Score | Must-haves | Log |
 |---|---:|---|---|
-| #1 (`f1c254e7`) | 10.0 | PASS | harness/logs/s6j1.md |
-| #2 (`ee7c49f2`) | 10.0 | PASS | harness/logs/s6j2.md |
-| #3 (`ab003d05`) | 10.0 | PASS | harness/logs/s6j3.md |
-| **Average** | **10.00** | PASS | |
+| #1 (`06e881b3`) | 10.0 | PASS | harness/scores/slice-6-blind.md |
+| #2 (`cdb97a7f`) | 10.0 | PASS | harness/scores/slice-6-blind.md |
+| #3 (`8075f0d7`) | 10.0 | PASS | harness/scores/slice-6-blind.md |
+| **Average** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 7 — skills-ci-meta (accuracy partition)
 | Judge | Score | Must-haves | Log |
 |---|---:|---|---|
-| #1 (`32f021e3`) | 10.0 | PASS | harness/logs/s7j1.md |
-| #2 (`c4fbb28f`) | 10.0 | PASS | harness/logs/s7j2.md |
-| #3 (`9aa08c87`) | 10.0 | PASS | harness/logs/s7j3.md |
-| **Average** | **10.00** | PASS | |
+| #1 (`b0133ca8`) | 10.0 | PASS | harness/scores/slice-7-blind.md |
+| #2 (`70c77f74`) | 10.0 | PASS | harness/scores/slice-7-blind.md |
+| #3 (`1681bb93`) | 10.0 | PASS | harness/scores/slice-7-blind.md |
+| **Average** | **10.00** | **PASS** | orch: advance |
 
 ## Local + remote verification commands
 ```
