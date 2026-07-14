@@ -2,6 +2,10 @@
 
 A local-first delivery platform that separates credential-free GitHub pull-request validation from controlled Jenkins promotion of one immutable image digest—with staging verification, named human approval, append-only evidence, and rollback to the previous verified image.
 
+![Project C governed delivery infographic](docs/screenshots/project-c-delivery-infographic.png)
+
+*Portfolio infographic (Slice 9c): architecture flow GitHub PR → CI → Jenkins digest promote → staging verify → approval → prod verify → rollback, plus story chapter cards. Claim boundary: local-first / production-like phases 2–8; optional AWS staging (`us-east-1` ECR→ECS/Fargate→ALB) only as evidenced ephemeral smoke—not sustained production ops. See [`docs/screenshots/README.md`](docs/screenshots/README.md) and [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json).*
+
 ## Quick start
 
 Prerequisites: Docker Desktop with Linux containers, PowerShell 7 (Windows), Git, and Python 3.12+.
@@ -33,12 +37,6 @@ project evidence <release-id>
 - Production promotion requires a human decision.
 - Failed deployment verification restores the previous recorded image.
 - Local validation is never described as live-cloud production.
-
-## Delivery path (portfolio)
-
-![Project C delivery path: GitHub PR validation through Jenkins digest promotion, verification, approval, evidence/rollback, with optional evidenced AWS staging strip](docs/screenshots/project-c-delivery-infographic.png)
-
-Caption: Local-first governed delivery architecture. Optional ECR/ECS/ALB strip reflects evidenced `us-east-1` staging only—not sustained production cloud operation. Source: [`docs/screenshots/project-c-delivery-infographic.png`](docs/screenshots/project-c-delivery-infographic.png).
 
 ## Read next
 

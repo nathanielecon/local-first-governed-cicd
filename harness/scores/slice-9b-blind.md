@@ -1,12 +1,19 @@
 # Slice 9b — blind scores
 
-| Judge | Agent | Score | Must-haves |
-|---|---|---:|---|
-| #1 | `10d33805` (panel) | 10.0 | PASS |
-| #2 | `10d33805` (panel) | 9.0 | PASS |
-| #3 | `10d33805` (panel) | 9.0 | PASS |
-| **Average** | | **9.33** | **PASS** |
+## Round R1
+| Judge | Score | Must-haves |
+|---|---:|---|
+| #1 | 10.0 | PASS |
+| #2 | 9.0 | PASS |
+| #3 | 9.0 | PASS |
+| **Average** | **9.33** | **PASS** |
 
-Misses (10-rows only): first-viewport density / naming readiness wording.
+## Round R2 (post hero compress)
+| Judge | Score | Must-haves |
+|---|---:|---|
+| #1 | 10.0 | PASS |
+| #2 | 9.0 | PASS |
+| #3 | 10.0 | PASS |
+| **Average** | **9.67** | **PASS** |
 
-**Orchestrator decision:** no-advance → compress README hero claim line → rejudge.
+**Orchestrator decision:** advance (must-haves PASS; orch private gate cleared).
