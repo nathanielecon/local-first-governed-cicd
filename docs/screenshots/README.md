@@ -2,7 +2,20 @@
 
 **Policy:** Do not fabricate UI. Prefer real captures from local or GitHub surfaces, or substitute with retained evidence paths and hosted run URLs. No AWS console, production traffic, or fabricated user-analytics images.
 
-**Claim boundary:** local-only / production-like / non-AWS.
+**Claim boundary:** local-only / production-like for S1–S6. Phase 9 AWS staging architecture is linked below as an evidence-backed diagram pointer only — not a sustained-production claim.
+
+---
+
+## Phase 9 architecture (AWS staging diagram)
+
+| Asset | Path | Notes |
+| --- | --- | --- |
+| draw.io source | `docs/project-c-phase9-staging-architecture.drawio` | Canonical: ECR digest → ECS/Fargate behind ALB in `us-east-1` |
+| Architecture / SRE write-up | `docs/architecture/phase-9-aws.md` | Digest orientation, GitOps apply boundary, OIDC path, residuals, tear-down |
+| Governing evidence | `evidence/phase-9/governing-manifest.json` | Digest + smoke PASS + claim residuals |
+| Validation notes | `docs/aws-validation.md` | Procedure and cost posture |
+
+Do not fabricate AWS console screenshots. Prefer the draw.io diagram and retained `evidence/phase-9/` paths.
 
 ---
 
