@@ -41,6 +41,8 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 | **Average (R3)** | **9.00** | **PASS** | clean-tree commit → R4 |
 | R4 #1–#3 (`01efd833`) | 9.0 / 9.0 / 9.0 | PASS | S4-10-01 scorebook WIP dirty |
 | **Average (R4)** | **9.00** | **PASS** | commit → R5 |
+| R5 #1–#3 (`eec08b61`) | 10.0 / 10.0 / 10.0 | PASS | harness/scores/slice-4-blind.md |
+| **Average (R5)** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 5 — app-api (accuracy partition)
 | Judge | Score | Must-haves | Log |

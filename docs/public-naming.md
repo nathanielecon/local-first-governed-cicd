@@ -1,7 +1,7 @@
 # Public naming proposal
 
-**Status:** Ready for orchestrator `gh repo edit` after the full Slice 9 gate clears.  
-**Do not run** live `gh repo edit` from workers—orchestration-owned. Homepage remains omitted until a canonical portfolio URL exists.
+**Status:** Applied by orchestrator after the full Slice 9 gate cleared (`gh repo edit` description only; slug unchanged).  
+Homepage remains omitted until a canonical portfolio URL exists. Workers must not run live `gh repo edit`.
 
 ## Recommendation
 
