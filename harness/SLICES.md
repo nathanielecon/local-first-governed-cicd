@@ -5,7 +5,7 @@
 | 1 | core-harness | harness/rubrics/slice-1-core-harness.md | blind advance (avg 10.00 R2) |
 | 2 | phase5-jenkins-auth | harness/rubrics/slice-2-phase5-jenkins-auth.md | blind advance (avg 10.00 R2) |
 | 3 | phase67-promote-verify | harness/rubrics/slice-3-phase67-promote-verify.md | blind advance (avg 10.00) |
-| 4 | final-delivery | harness/rubrics/slice-4-final-delivery.md | R4 avg 9.00 (scorebook dirty); R5 after clean commit |
+| 4 | final-delivery | harness/rubrics/slice-4-final-delivery.md | blind advance (avg 10.00 R5) |
 | 5 | app-api | harness/rubrics/slice-5-app-api.md | blind advance (avg 10.00) |
 | 6 | smoke-harness | harness/rubrics/slice-6-smoke-harness.md | blind advance (avg 10.00) |
 | 7 | skills-ci-meta | harness/rubrics/slice-7-skills-ci-meta.md | blind advance (avg 10.00) |

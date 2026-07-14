@@ -41,3 +41,14 @@ Shared miss: S4-10-01 (resume-paste / infographic / 9* score drafts uncommitted)
 Shared miss: S4-10-01 (9c/9d advance logs uncommitted mid-panel).
 
 **Orchestrator decision:** commit scorebook → R5 on clean tree.
+
+## Round blind-R5 — advancing
+| Judge | Agent | Score | Must-haves |
+|---|---|---:|---|
+| #1 | `eec08b61` | 10.0 | PASS |
+| #2 | `eec08b61` | 10.0 | PASS |
+| #3 | `eec08b61` | 10.0 | PASS |
+| **Average** | | **10.00** | **PASS** |
+
+**Orchestrator decision:** advance.
+

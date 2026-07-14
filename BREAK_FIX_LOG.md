@@ -32,6 +32,8 @@
 | 2026-07-14T22:30:00Z | 9d | Post-nix R2 blind | Three judges 10/10 must-haves PASS; orch advance Slice 9d | harness/scores/slice-9d-blind.md | advanced |
 | 2026-07-14T22:24:00Z | 4 | R3 avg 9.00; S4-10-01 dirty during 9* WIP | Commit scores/infographic/links → R4 | harness/scores/slice-4-blind.md | remediating |
 | 2026-07-14T22:35:00Z | 4 | R4 avg 9.00; S4-10-01 dirty from mid-panel 9c/9d scorebook writes | Commit all harness score advances → R5 clean-tree rejudge | harness/scores/* | remediating |
+| 2026-07-14T22:40:00Z | 4 | Post-clean R5 blind | Three judges 10/10 must-haves PASS; orch advance Slice 4 | harness/scores/slice-4-blind.md | advanced |
+| 2026-07-14T22:41:00Z | 9d | Full Slice 9 gate clear | Orch `gh repo edit` description per docs/public-naming.md (no slug rename) | docs/public-naming.md | applying |
 
 ## Judge scoreboard (contaminated — archived, non-authoritative)
 
