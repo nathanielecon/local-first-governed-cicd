@@ -1,8 +1,8 @@
 # Phase 8 Portfolio Evidence Package Plan
 
-Authority: `PROJECT.md` claim boundaries, `STATUS.md` verified baseline (revision 59), Phases 2–7 retained evidence, and `docs/TERRA_ORCHESTRATOR_PROMPT.md` Phase 8. This plan approves narrative labels and artifact inventory before assembly (`P8-T01`). It does not authorize Phase 9, live AWS, organizational Jenkins administration, or sustained production claims.
+Authority: `PROJECT.md` claim boundaries, `STATUS.md` verified baseline, Phases 2–7 retained evidence, Phase 9 staging evidence under `evidence/phase-9/`, and `docs/TERRA_ORCHESTRATOR_PROMPT.md` Phase 8. This plan approves narrative labels and artifact inventory before assembly (`P8-T01`). It does not authorize organizational Jenkins administration, sustained production AWS, or production-promotion claims.
 
-Claim boundary for the entire package: **local-only / production-like / non-AWS**. Every portfolio sentence must map to one taxonomy label below. Fabricating users, production traffic, metrics, screenshots, or cloud operation is forbidden.
+Claim boundary for the Phase 8 package: **local-first / production-like**. Core portfolio arcs stay local + retained GitHub Actions. Phase 9 `us-east-1` staging smoke is an **evidenced optional strip** (not “AWS deferred / never done,” and not “completed production cloud”). Every portfolio sentence must map to one taxonomy label below. Fabricating users, production traffic, metrics, screenshots, or promotion authority is forbidden.
 
 ---
 
@@ -63,20 +63,33 @@ Named approval or explicit human authority events that are retained and correctl
 
 Portfolio assembly must surface the Phase 6 `local-approver` event as the **named human approval event** required by `P8-T01`, with the local-fixture scope label mandatory in prose.
 
+### Evidenced optional strip (Phase 9 staging)
+
+Owner-authorized ephemeral AWS staging validation retained under `evidence/phase-9/`. Cite only what the governing manifest records. Do **not** upgrade this strip into sustained production, org multi-account GitOps, or cleared residuals.
+
+| Claim | Governing evidence |
+| --- | --- |
+| Phase 9 `us-east-1` staging smoke PASS (ECR digest on ECS/Fargate behind ALB) | `evidence/phase-9/governing-manifest.json` (`smoke: PASS`); `docs/aws-validation.md`; `docs/architecture/phase-9-aws.md` |
+
+Non-claims for this strip: production cloud completion; GitHub OIDC already enabled; TLS-terminated public hostname; least-privilege operator principal already in use; cost tear-down already executed as a verified gate.
+
 ### Deferred claims
 
-Explicitly out of scope for Phase 8 completion. Label as deferred; never imply completion.
+Still out of scope or unverified. Label as deferred; never imply completion. Do **not** re-label the evidenced Phase 9 staging strip as “Live AWS Deferred.”
 
 | Deferred claim | Pointer |
 | --- | --- |
-| Live AWS / cloud validation (Phase 9 / optional AWS) | `docs/aws-validation.md`; `STATUS.md` unverified |
-| Digest promotion beyond local fixture evidence | `STATUS.md` unverified |
-| Production approval beyond the local Phase 5/6 fixture | `STATUS.md` unverified |
+| Sustained / production AWS operation | `PROJECT.md`; Phase 9 is ephemeral staging only |
+| GitHub OIDC short-lived AWS credentials (not used for retained smoke) | `STATUS.md` unverified; `docs/architecture/phase-9-aws.md` |
+| TLS-terminated public staging hostname | `STATUS.md` unverified; `docs/architecture/phase-9-aws.md` |
+| Least-privilege non-root AWS operator principal | `STATUS.md` unverified; `docs/architecture/phase-9-aws.md` |
+| Cost tear-down / destroy after proof window | `docs/architecture/phase-9-aws.md` (teardown); `evidence/phase-9/governing-manifest.json` `teardown` |
+| Digest promotion beyond local fixture evidence (org production) | Phase 6/8 local boundary |
+| Production approval beyond the local Phase 5/6 fixture | Local fixture scope only |
 | Live Jenkins E2E promotion and recovery | Phase 6/7 residuals; synthetic `pipeline.run_id: manual` fixtures are not E2E |
 | Organizational-scale Jenkins administration | `PROJECT.md` |
 | Sustained production use / production traffic | `PROJECT.md` |
-| Zero-risk security / clearance of residual advisories | Phase 5 Docker-socket/root; Phase 6 operator-attested rollback + hardcoded verify maps; Phase 7 retained advisories |
-| Phase 8 package itself (until `P8-T01`–`P8-T03` complete) | `STATUS.md` unverified |
+| Zero-risk security / clearance of residual advisories | Phase 5 Docker-socket/root; Phase 6 operator-attested rollback + hardcoded verify maps; Phase 7 retained advisories; Phase 9 residuals above |
 
 ---
 
@@ -86,7 +99,7 @@ Assemble English narrative artifacts in `P8-T01` (`docs/portfolio-walkthrough.md
 
 ### Core walkthrough arcs (mandatory)
 
-1. **Architecture / authorship** — Controlled delivery path: GitHub PR validation → immutable digest → staging verify → human approval → production verify → rollback target. Cite `PROJECT.md` mermaid; keep local-only / non-AWS boundary in the opening claim statement.
+1. **Architecture / authorship** — Controlled delivery path: GitHub PR validation → immutable digest → staging verify → human approval → production verify → rollback target. Cite `PROJECT.md` mermaid; keep **local-first** for the Phase 8 package; mention Phase 9 only as an evidenced optional strip with `evidence/phase-9/governing-manifest.json`.
 2. **Blocked change** — Phase 4 intentional quality failure stopped the PR lane without deployment credentials or cloud activity. Cite PR `#1` / run `29166442925`.
 3. **Authorization and unauthorized denial** — Phase 5 named approvers + immutable `TRUSTED_GIT_SHA`; unauthorized submitter denied; no production continuation.
 4. **Named human approval** — Phase 6 event-backed approval by `local-approver` with timestamps in append-only evidence (local fixture scope).
@@ -166,7 +179,7 @@ No AWS console, production traffic, or fabricated user-analytics screenshots.
 
 | Portfolio theme | Primary evidence | Supporting narrative |
 | --- | --- | --- |
-| Objective & boundaries | `PROJECT.md` | `docs/aws-validation.md` (deferred) |
+| Objective & boundaries | `PROJECT.md` | `docs/aws-validation.md` (Phase 9 optional strip) |
 | Verified baseline index | `STATUS.md` `verified_baseline` / `unverified` | `ISSUES.md` resolutions |
 | Phase 2 local app | `evidence/phase-2/integrated-gate.txt` | `docs/change-records/phase-2-local.md`; retrospective |
 | Phase 3 runtime | `evidence/phase-3/integrated-gate.txt` | Phase 3 retrospective |
@@ -174,8 +187,9 @@ No AWS console, production traffic, or fabricated user-analytics screenshots.
 | Phase 5 authz + denial | `evidence/phase-5/integrated-gate.txt`; unauthorized proof | `docs/retrospectives/phase-5.md`; Phase 5 reviews |
 | Phase 6 approval + recovery | `evidence/phase-6/integrated-gate.txt`; `events.jsonl`; `manifest.json` | `docs/change-records/phase-6-local.md`; `docs/retrospectives/phase-6.md` |
 | Phase 7 failure injection | `evidence/phase-7/integrated-gate.txt`; lane index | `docs/reviews/phase-7-*.md` |
+| Phase 9 staging smoke (optional strip) | `evidence/phase-9/governing-manifest.json` | `docs/aws-validation.md`; `docs/architecture/phase-9-aws.md` |
 | Metrics schema | `docs/metrics.md` | Populate only from rows above |
-| Runbook / operator path | `docs/runbook.md` | Do not expand into live-cloud ops claims |
+| Runbook / operator path | `docs/runbook.md` | Local promote path + Phase 9 GitOps residuals; no production-promotion authority |
 
 ---
 
@@ -188,25 +202,25 @@ No AWS console, production traffic, or fabricated user-analytics screenshots.
    - **One recovery:** Phase 6 rollback + `recovery_verified` (locally verified; non-E2E).
    - **One named human approval event:** Phase 6 `local-approver` at `2026-07-13T17:15:00Z` (human-approved local fixture).
 2. Every claim is traceable to a path or hosted run ID listed in this plan.
-3. Preserve **local-only** and **non-AWS** wording in the walkthrough headline and metrics preamble.
-4. Label deferred items explicitly; do not soft-imply Phase 9 readiness.
-5. Do not fabricate users, production traffic, screenshots, or cloud operation.
+3. Preserve **local-first** wording for the Phase 8 package headline and metrics preamble; if Phase 9 appears, label it **evidenced optional strip** and cite `evidence/phase-9/governing-manifest.json`.
+4. Label deferred / unverified residuals explicitly (OIDC, TLS hostname, least-privilege operator, cost tear-down); do not soft-imply production AWS completion; do not restate Phase 9 staging as “Deferred / never done.”
+5. Do not fabricate users, production traffic, screenshots, or promotion authority.
 6. Root Codex PNGs, if included, stay captioned as tooling context only.
-7. Residual advisories (Docker socket/root; operator-attested rollback params; hardcoded verify maps) remain disclosed, not cleared.
+7. Residual advisories (Docker socket/root; operator-attested rollback params; hardcoded verify maps; Phase 9 OIDC/TLS/least-privilege/tear-down) remain disclosed, not cleared.
 8. Write scope for assembly remains `docs/portfolio-walkthrough.md`, `docs/metrics.md`, `docs/change-records/`, `docs/screenshots/` — authority files (`STATUS.md`, `PLAN.md`, `ISSUES.md`) stay orchestrator-owned.
-9. **Stop before Phase 9** unless separately authorized.
+9. Do not invent promotion authority or sustained-production claims from the Phase 9 strip.
 
-Suggested assembly order: claim table in walkthrough → mandatory trio sections → phase evidence map → metrics extract → screenshots/substitutes → deferred/out-of-scope close.
+Suggested assembly order: claim table in walkthrough → mandatory trio sections → phase evidence map → optional Phase 9 strip → metrics extract → screenshots/substitutes → deferred/residuals close.
 
 ---
 
 ## Out of scope / deferred
 
-- Phase 9 Terraform / ECR / ECS / OIDC / live AWS evidence (`docs/aws-validation.md`)
+- Sustained production AWS, org multi-account GitOps, or production-promotion authority (Phase 9 strip is ephemeral staging smoke only)
+- Enabling GitHub OIDC, TLS hostname, least-privilege operator, or evidenced cost tear-down as completed claims (`STATUS.md` unverified; `docs/architecture/phase-9-aws.md`)
 - Live Jenkins controller E2E promotion/recovery beyond synthetic fixtures
 - Organizational production approval, branch-protection administration claims beyond retained Phase 4 hosted runs
-- Clearing Phase 5/6/7 residual advisories
-- Portfolio demo rehearsal (`P8-T02`) and final integrated gate (`P8-T03`) — planned after assembly, not part of this planning artifact
+- Clearing Phase 5/6/7/9 residual advisories
 - Any statement that Project C proves sustained production use or zero-risk security
 
-This planning document (`P8-T00`) approves the package shape and claim labels only. Assembly and verification remain subsequent Phase 8 tasks.
+This planning document (`P8-T00`) approves the package shape and claim labels only. Assembly and verification remain subsequent Phase 8 tasks (Phase 9 staging evidence is cited when present under `evidence/phase-9/`).
