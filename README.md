@@ -1,8 +1,6 @@
 # Project C — Governed CI/CD Delivery
 
-A local-first delivery platform that separates credential-free GitHub pull-request validation from controlled Jenkins promotion of one immutable image digest—with staging verification, named human approval, append-only evidence, and rollback that restores the previous verified image.
-
-**Claim boundary:** production-like local delivery is the primary proof. Optional AWS staging in `us-east-1` is evidenced and scoped; this repository does not claim sustained production cloud operation. Naming: public title vs slug `project-c-cloud` is recorded in [`docs/public-naming.md`](docs/public-naming.md).
+A local-first delivery platform that separates credential-free GitHub pull-request validation from controlled Jenkins promotion of one immutable image digest—with staging verification, named human approval, append-only evidence, and rollback to the previous verified image.
 
 ## Quick start
 
@@ -49,6 +47,7 @@ project evidence <release-id>
 
 ## Scope notes
 
+- **Claim boundary:** Local/production-like delivery is the primary proof. Optional AWS staging in `us-east-1` is evidence-scoped—not sustained production cloud operation. Public title vs slug: [`docs/public-naming.md`](docs/public-naming.md).
 - **Local platform:** Phases 2–8 retain production-like CI/CD, approval, evidence, and failure-injection proof under local / GitHub-hosted claim boundaries. Start with the portfolio walkthrough.
 - **AWS staging (optional):** Owner-authorized ephemeral staging smoke in `us-east-1` (ECR digest on ECS/Fargate behind ALB) is retained under [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json) and summarized in [`docs/aws-validation.md`](docs/aws-validation.md). That is staging validation evidence—not sustained production SRE.
 - **Disclosed residuals (not cleared by the portfolio story):** local Jenkins Docker-socket / root controller privilege; operator-attested rollback parameters and hardcoded verify maps; Phase 9 apply used a login session (not least-privilege OIDC), and the ALB was HTTP-only for the short-lived proof. Details stay in the linked AWS note and phase security reviews.
