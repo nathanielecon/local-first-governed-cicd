@@ -39,6 +39,8 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 | **Average (R2)** | **9.00** | **PASS** | clean-tree → R3 |
 | R3 #1–#3 (`3194b7e2`) | 9.0 / 9.0 / 9.0 | PASS | S4-10-01 still dirty (9* WIP) |
 | **Average (R3)** | **9.00** | **PASS** | clean-tree commit → R4 |
+| R4 #1–#3 (`01efd833`) | 9.0 / 9.0 / 9.0 | PASS | S4-10-01 scorebook WIP dirty |
+| **Average (R4)** | **9.00** | **PASS** | commit → R5 |
 
 ## Slice 5 — app-api (accuracy partition)
 | Judge | Score | Must-haves | Log |
@@ -79,11 +81,15 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 | Judge | Score | Must-haves | Log |
 |---|---:|---|---|
 | R1 #1–#3 (`7dac07fd`) | 8.5 / 9.5 / 9.0 | PASS | avg 9.00; S9c-9-01 size → resize 2048×1152 → R2 |
+| R2 #1–#3 (`82ef4e10`) | 10.0 / 9.0 / 10.0 | PASS | harness/scores/slice-9c-blind.md |
+| **Average (R2)** | **9.67** | **PASS** | orch: advance |
 
 ## Slice 9d — portfolio-resume
 | Judge | Score | Must-haves | Log |
 |---|---:|---|---|
 | R1 #1–#3 (`7dac07fd`) | 8.0 / 8.5 / 8.3 | PASS | avg 8.27; links + clean tree → R2 |
+| R2 #1–#3 (`8a356639`) | 10.0 / 10.0 / 10.0 | PASS | harness/scores/slice-9d-blind.md |
+| **Average (R2)** | **10.00** | **PASS** | orch: advance |
 
 ## Local + remote verification commands
 ```
