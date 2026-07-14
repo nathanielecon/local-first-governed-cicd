@@ -12,6 +12,7 @@ Status: **live staging validated** (owner-authorized 2026-07-14; evidence retain
 | Service URL | `http://project-c-stg-117678206.us-east-1.elb.amazonaws.com` |
 | Smoke | PASS (live/ready/version/quotes + expected SHA/env) |
 | Governing evidence | `evidence/phase-9/governing-manifest.json` |
+| Architecture diagram | `docs/project-c-phase9-staging-architecture.drawio` |
 
 ## Scope
 

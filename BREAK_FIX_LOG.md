@@ -10,7 +10,8 @@
 | 2026-07-13T22:04:00Z | 4 | PR #2 Security: Trivy secret on synthetic PAT | Runtime-assemble `_FAKE_PAT`; redact evidence markers | run 29289006884 all pass | fixed |
 | 2026-07-13T22:15:00Z | 4 | S4-10-01 dirty scoreboard files | Commit final SLICES/SCOREBOARD/BREAK_FIX_LOG | this commit | closing |
 | 2026-07-13T23:45:00Z | 5–7 | Unjudged remainder (app/smoke/harness/skills/CI meta) never primary-scored | Freeze slices 5–7 rubrics; accuracy judge loops | harness/rubrics/slice-{5,6,7}-*.md | in_progress |
-| 2026-07-13T23:55:00Z | 5–7 | Accuracy judges (3×3) all must-haves PASS at 10.0; no nixer required | Record averages; close accuracy partition | harness/scores/SCOREBOARD.md; harness/logs/s{5,6,7}j*.md | fixed |
+| 2026-07-14T14:00:00Z | harness | Future loop note | If setters are Grok and still have plenty of context left, reuse them for another slice as setter (do not spawn fresh setter when context remains) | BREAK_FIX_LOG / orchestrator convention | recorded |
+| 2026-07-14T14:05:00Z | harness | Model ban | No Composer models under any circumstances for Project C loops/councils | owner directive | recorded |
 
 ## Judge scoreboard (final)
 
