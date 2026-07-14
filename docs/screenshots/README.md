@@ -6,11 +6,11 @@
 
 ---
 
-## Portfolio infographic (16:9)
+## Primary portfolio infographic (Slice 9c)
 
 | Asset | Path | Notes |
 | --- | --- | --- |
-| Delivery path poster | `docs/screenshots/project-c-delivery-infographic.png` | Top: architecture flowchart; bottom: story chapters. Embedded in root `README.md` with honest caption. |
+| Primary landscape poster | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary ~16:9 asset. TOP: architecture flowchart (GitHub PR → CI → Jenkins digest promote → staging verify → approval → prod verify → rollback; evidenced ECR→ECS/Fargate→ALB strip). BOTTOM: story chapter cards. Claim boundary: local-first; AWS staging only as evidenced ephemeral smoke—not sustained production. Embedded in root `README.md`. |
 
 ---
 

@@ -32,10 +32,11 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 ## Slice 4 — final-delivery
 | Judge | Score | Must-haves | Log |
 |---|---:|---|---|
-| #1 (`a9cc7fb3`) | 7.0 | FAIL | harness/scores/slice-4-blind.md |
-| #2 (`33eec9a7`) | 7.0 | FAIL | harness/scores/slice-4-blind.md |
-| #3 (`7a7f4bf7`) | 6.5 | FAIL | harness/scores/slice-4-blind.md |
-| **Average** | **6.83** | **FAIL** | orch: no-advance → nix (CI now green) |
+| R1 #1–#3 | 7.0 / 7.0 / 6.5 | FAIL | pre-nix |
+| R2 #1 (`971af0d5`) | 9.0 | PASS | S4-10-01 dirty tree only |
+| R2 #2 (`89c24474`) | 9.0 | PASS | S4-10-01 dirty tree only |
+| R2 #3 (`71ba1365`) | 9.0 | PASS | S4-10-01 dirty tree only |
+| **Average (R2)** | **9.00** | **PASS** | clean-tree → R3 |
 
 ## Slice 5 — app-api (accuracy partition)
 | Judge | Score | Must-haves | Log |

@@ -8,6 +8,14 @@
 | #3 | `7a7f4bf7` | 6.5 | FAIL |
 | **Average** | | **6.83** | **FAIL** |
 
-Shared misses: S4-M07 (PR Python quality — fixed at `645bf18`, CI now green), S4-M12 (verify remote — configured; was red during judge), S4-M01 (portfolio still “AWS Deferred” vs Phase 9 evidence).
+## Round blind-R2 (post-nix) — pending orch gate on 10-row
+| Judge | Agent | Score | Must-haves |
+|---|---|---:|---|
+| #1 | `971af0d5` | 9.0 | PASS |
+| #2 | `89c24474` | 9.0 | PASS |
+| #3 | `71ba1365` | 9.0 | PASS |
+| **Average** | | **9.00** | **PASS** |
 
-**Orchestrator decision:** no-advance → nix portfolio honesty + commit remaining docs → rejudge.
+Shared 10-row miss: S4-10-01 dirty working tree. Must-haves cleared (CI green, portfolio honesty, remote verify).
+
+**Orchestrator decision:** one more clean-tree commit → quick rejudge for 10-row.
