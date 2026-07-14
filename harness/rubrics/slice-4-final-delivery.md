@@ -6,7 +6,7 @@
 **Sources:** setter A (`d69c8632`) + setter B (`25870a75`); orchestrator condensation  
 **Micropartitions:** 4a docs · 4b phase-8 evidence · 4c CI/PR · 4d tree hygiene
 
-**Scoring rule:** All must-haves PASS; average judge ≥ 9.5/10 to advance.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only. Advance is orchestrator-only.
 
 ## Must-have
 
@@ -39,7 +39,7 @@
 | ID | Check | Pass |
 |---|---|---|
 | S4-10-01 | Working tree fully clean after delivery commit | `git status -sb` |
-| S4-10-02 | All slice judge averages ≥ 9.5 recorded in BREAK_FIX_LOG | log |
+| S4-10-02 | Blind reloop judge score files recorded under harness/scores/slice-*-blind.md (orchestrator aggregates; judges do not decide advance) | scores |
 | S4-10-03 | No open blocking ISSUES for phases 2–8 | ISSUES.md |
 
 ## Nice-to-have

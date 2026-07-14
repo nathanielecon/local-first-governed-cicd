@@ -3,7 +3,7 @@
 ```json
 {
   "schema_version": "1.0",
-  "revision": 65,
+  "revision": 66,
   "current_wave": 9,
   "current_phase": 9,
   "current_gate": "phase-9-aws-staging-verified",
@@ -60,7 +60,8 @@
     "Phase 9 us-east-1 staging smoke PASS retained under evidence/phase-9/",
     "Tear down with terraform destroy when finished to stop ALB/Fargate charges",
     "Optional: enable_github_oidc=true and replace root/login session with least-privilege role",
-    "Accepted residuals from phases 5-8 remain disclosed"
+    "Accepted residuals from phases 5-8 remain disclosed",
+    "PLAN-row residual (S1-10-01): STATUS narrative that Phases 2-8 are complete refers to authorized claim-boundary gates and verified_baseline evidence; the PLAN.md task ledger still retains historical non-terminal row states for some phase 2-8 tasks and is not a second source of gate truth until an explicit ledger cleanup task runs"
   ],
   "verified_baseline": [
     "Existing assets inventoried as candidates, not accepted implementation",
@@ -85,8 +86,8 @@
     "TLS-terminated public staging hostname",
     "Least-privilege non-root AWS operator principal for Terraform applies"
   ],
-  "updated_at": "2026-07-14T01:25:48.737769Z",
-  "updated_by": "cursor-orchestrator-phase9"
+  "updated_at": "2026-07-14T21:15:00Z",
+  "updated_by": "cursor-orchestrator-blind-reloop"
 }
 ```
 

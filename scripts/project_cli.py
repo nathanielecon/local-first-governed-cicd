@@ -327,6 +327,16 @@ def command_bootstrap(args: argparse.Namespace) -> int:
     return EXIT_SCHEMA if errors or not all(tools.values()) else EXIT_OK
 
 
+def phase_arg_choices() -> range:
+    """CLI phase numbers include at least one slot above PLAN authorization."""
+    try:
+        authorized = int(read_json_block("PLAN.md")["authorized_through_phase"])
+    except (ProjectError, KeyError, TypeError, ValueError):
+        authorized = 9
+    # Always accept authorized+1 so auth can return EXIT_HUMAN; floor at 11.
+    return range(1, max(authorized + 1, 11) + 1)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="project")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -349,7 +359,7 @@ def build_parser() -> argparse.ArgumentParser:
     issues.set_defaults(handler=command_issues)
 
     phase = subparsers.add_parser("phase")
-    phase.add_argument("phase", type=int, choices=range(1, 10))
+    phase.add_argument("phase", type=int, choices=phase_arg_choices())
     phase.add_argument("--task")
     phase.add_argument("--dry-run", action="store_true")
     phase.add_argument("--json", action="store_true")

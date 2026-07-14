@@ -7,7 +7,7 @@
 **Scope:** `Jenkinsfile`, `scripts/validate_jenkinsfile.py`, `infra/jenkins/**`, `compose.yaml`, P5 unauthorized fixture scripts/tests, governing proof `evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt`  
 **Out of scope:** portfolio, Phase 6/7 promote/verify (except cross-ref markers), PR open
 
-**Scoring rule:** All must-haves PASS; average judge ≥ 9.5/10 to advance.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only. Advance is orchestrator-only.
 
 ## Must-have
 

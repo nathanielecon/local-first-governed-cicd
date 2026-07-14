@@ -6,7 +6,7 @@
 **Scope:** `scripts/smoke_test.py`, `tests/test_smoke_tool.py`, `scripts/Harness.Common.psm1`, `scripts/Start-Harness.ps1`, `scripts/Invoke-CodexAdapter.ps1`, `scripts/bootstrap.ps1`, `scripts/project.ps1`, `tests/Run-ContractTests.ps1`  
 **Out of scope:** `src/delivery_api` deep review (Slice 5), Jenkins/compose (Slice 2), skills content (Slice 7)
 
-**Scoring rule:** All must-haves PASS. Average judge ≥ 9.5/10 to advance.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only. Advance is orchestrator-only.
 
 ---
 

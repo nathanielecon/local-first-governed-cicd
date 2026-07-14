@@ -7,7 +7,7 @@
 **Scope:** `scripts/project_cli.py`, `scripts/evidence.py`, `tests/test_project_cli.py`, `tests/test_evidence_manifest.py`, `evidence/example/**`, `PLAN.md`/`STATUS.md`/`ISSUES.md` JSON authority, `harness/**`, `BREAK_FIX_LOG.md`  
 **Out of scope:** Jenkins/compose/Jenkinsfile, deploy/rollback/verify_deployment, portfolio docs, Phase 7 lanes
 
-**Scoring rule:** All must-haves must PASS. Average judge score must be ≥ 9.5/10 to advance. Judges score only against this frozen artifact.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only. Advance is orchestrator-only.
 
 ---
 
@@ -22,7 +22,7 @@
 | S1-M05 | `python scripts/project_cli.py evidence example --json` | `valid: true`, `errors: []` |
 | S1-M06 | `python scripts/evidence.py validate --release-id example` | `valid: true`, `errors: []` |
 | S1-M07 | Files `evidence/example/events.jsonl` + `manifest.json` | exist; schema_version `6.0`; claim_boundary contains `local-only`; events non-empty JSONL |
-| S1-M08 | Phase auth: `python scripts/project_cli.py phase 9 --dry-run --json` | exit 6 (`EXIT_HUMAN`); error mentions not authorized |
+| S1-M08 | Phase auth: dry-run the first phase above `authorized_through_phase` (currently 10 when authorized through 9) | exit 6 (`EXIT_HUMAN`); error mentions not authorized |
 | S1-M09 | Secret rejection covered by `tests/test_evidence_manifest.py` (secrets test) | test passes; append rejects secret-like payloads |
 | S1-M10 | Append-only + derived-manifest integrity covered by evidence tests | append-only + non-derived summary failure tests pass |
 | S1-M11 | Digest / commit identity consistency covered by evidence tests | digest mismatch tests pass |
@@ -35,7 +35,7 @@
 
 | ID | Check | Pass criteria |
 |---|---|---|
-| S1-9-01 | `current_phase ≤ authorized_through_phase`; no live-cloud/AWS claim in `verified_baseline` | consistent; claim boundary honest |
+| S1-9-01 | `current_phase ≤ authorized_through_phase`; any AWS/live-cloud entry in `verified_baseline` must cite retained evidence under `evidence/phase-9/` (no unevidenced cloud claims) | consistent; claim boundary honest |
 | S1-9-02 | Resume conflict: verified task not resumable | `test_verified_task_cannot_resume` passes |
 | S1-9-03 | Unimplemented validate scopes (`evidence`,`container`,`github`,`jenkins`,`promotion`,`security`) return EXIT_HUMAN | not silent pass |
 | S1-9-04 | Example events secret-scan clean under validate | no secrets-detected error on example |

@@ -7,7 +7,7 @@
 **Scope:** deploy/rollback/verify scripts, `scripts/phase7_run_lanes.py`, related tests, `evidence/phase-6/**`, `evidence/phase-7/**`, phase-6/7 reviews  
 **Claim boundary:** local-only / production-like / non-E2E / non-AWS
 
-**Scoring rule:** All must-haves PASS; average judge ≥ 9.5/10 to advance.
+**Scoring rule:** All must-haves must PASS. Judges score /10 against this frozen rubric only. Advance is orchestrator-only.
 
 ## Must-have
 

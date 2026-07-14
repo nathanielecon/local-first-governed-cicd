@@ -109,3 +109,53 @@ If any recovery check fails or is skipped, treat it as a critical incident: keep
 - The summary manifest is derived from events; it is not an independent place to silently drop staging, approval, or production facts.
 - Change records must cite the same commit, digest, approver/time, and rollback target or first-release decision as the evidence artifacts.
 - Never place secrets in events, manifests, change records, or retained logs.
+
+## Phase 9 AWS / GitOps (staging)
+
+Authority for the staging path: `docs/architecture/phase-9-aws.md`, `docs/aws-validation.md`, and `evidence/phase-9/governing-manifest.json`. Local Phase 6 digest promotion rules above still apply; AWS staging consumes the **same** immutable digest — no rebuild between environments.
+
+### Control plane
+
+- Cursor Cloud Agents and coding agents **edit the repo only**. They are not the AWS apply plane.
+- Live `terraform apply` / `destroy`, ECR push with live creds, and ECS/ALB mutation require human authorization (and preferably CI / GitOps with short-lived credentials).
+- Do not bake secrets into `.cursor/environment.json`, Dockerfiles, or committed tfvars.
+
+### Digest on ECS/Fargate
+
+Governing staging claim (ephemeral proof, not sustained production): ECR digest `sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229` served on ECS/Fargate behind ALB in `us-east-1` with smoke PASS — see `evidence/phase-9/`.
+
+Terraform under `infra/terraform/` takes `container_image` as a digest-preferring reference, keeps ECR tags immutable, and gates ALB/service creation behind `create_service` after a digest exists.
+
+### GitHub OIDC (documented path; not claimed live for the efficacy run)
+
+1. Confirm no conflicting account OIDC provider for GitHub Actions.
+2. Human-gated apply with `-var enable_github_oidc=true`.
+3. Use output role ARN `github_actions_role_arn` from Actions via `AssumeRoleWithWebIdentity` for short-lived ECR push.
+4. Keep `enable_github_oidc=false` until that follow-on is intentionally authorized.
+
+Phase 9 evidence used `auth_mode: operator-aws-session`, not OIDC.
+
+### Least-privilege operator (path only)
+
+Replace root/login session applies with a dedicated staging operator role (scoped ECR/ECS/ELB/Logs/IAM-pass). Do **not** claim this principal is already live; it remains an honesty residual until evidenced.
+
+### Tear-down / cost-stop
+
+Stop ALB hourly and Fargate charges when the proof window ends:
+
+```powershell
+cd infra/terraform
+terraform destroy -auto-approve `
+  -var "git_sha=376b7e18c5cc94e67ff180ca2f42b8eb05535be3" `
+  -var "create_service=true" `
+  -var "container_image=283077380808.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229"
+```
+
+Commands match `evidence/phase-9/governing-manifest.json` → `teardown`. Architecture diagram: `docs/project-c-phase9-staging-architecture.drawio`.
+
+### Phase 9 residuals (disclosed)
+
+- Root/login AWS session used for apply (not least-privilege operator).
+- GitHub OIDC not enabled for the retained smoke.
+- HTTP-only ALB (no TLS hostname).
+- Do not clear these residuals in narrative without new evidence.
