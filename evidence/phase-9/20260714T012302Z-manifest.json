@@ -1,0 +1,11 @@
+{
+  "auth_mode": "operator-aws-session",
+  "region": "us-east-1",
+  "smoke": "PASS",
+  "note": "reverified after service re-apply",
+  "recorded_at": "2026-07-14T01:23:04.4620576Z",
+  "git_sha": "376b7e18c5cc94e67ff180ca2f42b8eb05535be3",
+  "phase": 9,
+  "image_ref": "000000000000.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229",
+  "service_base_url": "http://project-c-stg-117678206.us-east-1.elb.amazonaws.com"
+}

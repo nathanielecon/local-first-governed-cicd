@@ -238,11 +238,6 @@ resource "aws_ecs_service" "delivery_api" {
 
 # GitHub OIDC is optional: enable after confirming no conflicting account provider.
 # This validation apply uses the operator AWS session; wire CI to the role when enabled.
-variable "enable_github_oidc" {
-  type    = bool
-  default = false
-}
-
 data "tls_certificate" "github" {
   count = var.enable_github_oidc ? 1 : 0
   url   = "https://token.actions.githubusercontent.com"

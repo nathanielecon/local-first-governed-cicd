@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import time
@@ -43,7 +44,20 @@ def write_evidence(name: str, body: str) -> Path:
     return path
 
 
+def export_aws_login_credentials() -> None:
+    """Bridge `aws login` session credentials into env vars Terraform understands."""
+    raw = run(["aws", "configure", "export-credentials"], cwd=ROOT)
+    payload = json.loads(raw.stdout)
+    os.environ["AWS_ACCESS_KEY_ID"] = payload["AccessKeyId"]
+    os.environ["AWS_SECRET_ACCESS_KEY"] = payload["SecretAccessKey"]
+    if payload.get("SessionToken"):
+        os.environ["AWS_SESSION_TOKEN"] = payload["SessionToken"]
+    os.environ.setdefault("AWS_DEFAULT_REGION", "us-east-1")
+    os.environ.setdefault("AWS_REGION", "us-east-1")
+
+
 def main() -> int:
+    export_aws_login_credentials()
     git_sha = run(["git", "rev-parse", "HEAD"], cwd=ROOT).stdout.strip()
     short = git_sha[:12]
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
@@ -121,7 +135,12 @@ def main() -> int:
         ]
     )
     run_live(["docker", "tag", local_tag, remote_tag])
-    run_live(["docker", "push", remote_tag])
+    push = run(["docker", "push", remote_tag], check=False)
+    if push.returncode != 0:
+        combined = (push.stdout or "") + (push.stderr or "")
+        if "cannot be overwritten because the tag is immutable" not in combined:
+            raise subprocess.CalledProcessError(push.returncode, push.args, push.stdout, push.stderr)
+        print("ECR immutable tag already present; reusing digest", flush=True)
 
     inspect = run(
         [
