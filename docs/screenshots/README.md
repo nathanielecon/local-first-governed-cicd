@@ -2,7 +2,15 @@
 
 **Policy:** Do not fabricate UI. Prefer real captures from local or GitHub surfaces, or substitute with retained evidence paths and hosted run URLs. No AWS console, production traffic, or fabricated user-analytics images.
 
-**Claim boundary:** local-only / production-like for S1–S6. Phase 9 AWS staging architecture is linked below as an evidence-backed diagram pointer only — not a sustained-production claim.
+**Claim boundary:** local-first / production-like for S1–S6. Phase 9 AWS staging is an evidence-backed optional strip only — not a sustained-production claim.
+
+---
+
+## Portfolio infographic (16:9)
+
+| Asset | Path | Notes |
+| --- | --- | --- |
+| Delivery path poster | `docs/screenshots/project-c-delivery-infographic.png` | Top: architecture flowchart; bottom: story chapters. Embedded in root `README.md` with honest caption. |
 
 ---
 
