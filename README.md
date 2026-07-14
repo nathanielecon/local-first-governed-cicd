@@ -34,6 +34,12 @@ project evidence <release-id>
 - Failed deployment verification restores the previous recorded image.
 - Local validation is never described as live-cloud production.
 
+## Delivery path (portfolio)
+
+![Project C delivery path: GitHub PR validation through Jenkins digest promotion, verification, approval, evidence/rollback, with optional evidenced AWS staging strip](docs/screenshots/project-c-delivery-infographic.png)
+
+Caption: Local-first governed delivery architecture. Optional ECR/ECS/ALB strip reflects evidenced `us-east-1` staging only—not sustained production cloud operation. Source: [`docs/screenshots/project-c-delivery-infographic.png`](docs/screenshots/project-c-delivery-infographic.png).
+
 ## Read next
 
 | Path | Why |
