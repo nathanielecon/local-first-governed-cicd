@@ -1,14 +1,14 @@
 # Project C — Portfolio Walkthrough
 
-**Claim boundary (headline):** local-only / production-like / non-AWS. This package demonstrates controlled delivery engineering with retained evidence. It does **not** claim live AWS, organizational production approval, sustained production traffic, or zero-risk security.
+**Claim boundary (headline):** local-first / production-like for the Phase 8 package. Core arcs are local + retained GitHub Actions. Phase 9 `us-east-1` staging smoke is an **evidenced optional strip** (`evidence/phase-9/governing-manifest.json`) — not “AWS never done,” and not completed production cloud. This package does **not** claim organizational production approval, sustained production traffic, production-promotion authority, or zero-risk security.
 
-Authority for labels and inventory: `docs/portfolio-plan.md`. Every claim below uses the portfolio-plan claim taxonomy (`Implemented`, `Locally verified`, `GitHub-verified`, `Human-approved`, or `Deferred`).
+Authority for labels and inventory: `docs/portfolio-plan.md`. Every claim below uses the portfolio-plan claim taxonomy (`Implemented`, `Locally verified`, `GitHub-verified`, `Human-approved`, `Evidenced optional strip`, or `Deferred`).
 
 ---
 
 ## 1. Architecture and authorship
 
-**Taxonomy:** Implemented (delivery path contracts) + Locally verified (phases 2–7 gates) + Deferred (live cloud).
+**Taxonomy:** Implemented (delivery path contracts) + Locally verified (phases 2–7 gates) + Evidenced optional strip (Phase 9 staging smoke) + Deferred (production AWS / OIDC / TLS hostname / least-privilege operator / cost tear-down).
 
 Controlled delivery path (from `PROJECT.md`):
 
@@ -36,7 +36,7 @@ flowchart LR
 | Rollback target | Prior verified digest or first-release decision | Phase 6 recovery contract |
 | Evidence | Append-only events + derived summary | `scripts/evidence.py`; `evidence/phase-6/` |
 
-GitHub Actions answers whether a change is safe to merge. Jenkins independently answers whether an approved commit can be built, promoted, verified, and recovered — under the **local-only / non-AWS** boundary for this package.
+GitHub Actions answers whether a change is safe to merge. Jenkins independently answers whether an approved commit can be built, promoted, verified, and recovered — under the **local-first** boundary for the Phase 8 package. Optional Phase 9 AWS staging is cited separately below and does not upgrade this package into production cloud.
 
 ---
 
@@ -54,7 +54,8 @@ GitHub Actions answers whether a change is safe to merge. Jenkins independently 
 | Named approval (`local-approver`) | Human-approved **local fixture** | `docs/change-records/phase-6-local.md`; event `p6-local-approval` |
 | Rollback + `recovery_verified` | Locally verified (non-E2E) | Phase 6 recovery section; event `p6-local-recovery` |
 | Failure-injection 12/12 lanes | Locally verified | `evidence/phase-7/integrated-gate.txt` |
-| Live AWS / org production / live Jenkins E2E | Deferred | `docs/aws-validation.md`; `STATUS.md` unverified |
+| Phase 9 `us-east-1` staging smoke PASS (ECR→ECS/Fargate/ALB) | Evidenced optional strip | `evidence/phase-9/governing-manifest.json`; `docs/aws-validation.md` |
+| Org production AWS / live Jenkins E2E / OIDC / TLS hostname / least-privilege operator / cost tear-down | Deferred | `STATUS.md` unverified; `docs/architecture/phase-9-aws.md` |
 
 ---
 
@@ -167,23 +168,43 @@ Residual advisories still disclosed (Docker socket/root; operator-attested rollb
 | 5 | `evidence/phase-5/integrated-gate.txt` | `docs/change-records/phase-5-local.md` |
 | 6 | `evidence/phase-6/integrated-gate.txt` | `docs/change-records/phase-6-local.md` |
 | 7 | `evidence/phase-7/integrated-gate.txt` | `docs/change-records/phase-7-local.md` |
-| 8 (this package) | Assembly index only until `P8-T03` | `docs/change-records/phase-8-portfolio-index.md` |
+| 8 (this package) | Assembly index + demo / integrated gate records | `docs/change-records/phase-8-portfolio-index.md` |
+| 9 (optional strip) | `evidence/phase-9/governing-manifest.json` | `docs/aws-validation.md`; `docs/architecture/phase-9-aws.md` |
 
 Metrics extract: `docs/metrics.md`. Screenshot / evidence substitutes: `docs/screenshots/README.md`.
 
 ---
 
-## 8. Deferred / out of scope
+## 8. Phase 9 evidenced optional strip
 
-Explicitly **Deferred** (do not imply completion):
+**Taxonomy:** Evidenced optional strip — ephemeral owner-authorized staging validation, not production cloud.
 
-- Live AWS / Terraform / ECR / ECS / OIDC (`docs/aws-validation.md`; Phase 9)
-- Digest promotion beyond local fixture evidence
+| Field | Value (from governing manifest) |
+| --- | --- |
+| Region | `us-east-1` |
+| Image digest | `sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229` |
+| Smoke | `PASS` |
+| Auth mode | `operator-aws-session` (not OIDC) |
+| Governing pointer | `evidence/phase-9/governing-manifest.json` |
+
+Narrative docs: `docs/aws-validation.md`; architecture / residuals: `docs/architecture/phase-9-aws.md`. Do not invent screenshots, user traffic, or promotion authority from this strip.
+
+---
+
+## 9. Deferred / residuals / out of scope
+
+Explicitly **Deferred** or unverified (do not imply completion; do **not** restate Phase 9 staging smoke as “Live AWS Deferred”):
+
+- Sustained / production AWS operation
+- GitHub OIDC short-lived AWS credentials — `STATUS.md` unverified; `docs/architecture/phase-9-aws.md`
+- TLS-terminated public staging hostname — `STATUS.md` unverified; `docs/architecture/phase-9-aws.md`
+- Least-privilege non-root AWS operator principal — `STATUS.md` unverified; `docs/architecture/phase-9-aws.md`
+- Cost tear-down after the proof window — `docs/architecture/phase-9-aws.md`; manifest `teardown`
+- Digest promotion beyond local fixture evidence (org production)
 - Production approval beyond the Phase 5/6 local fixture
 - Live Jenkins E2E promotion and recovery
 - Organizational-scale Jenkins administration
 - Sustained production use / production traffic
-- Clearance of residual security advisories
-- Portfolio demo rehearsal (`P8-T02`) and Phase 8 integrated gate (`P8-T03`)
+- Clearance of residual security advisories (Phases 5–7 local + Phase 9 residuals above)
 
 Root Codex / ChatGPT connector PNGs (`codex-landing.png`, `codex-cloud-current.png`, `github-connect.png`, `env-create-after-auth.png`), if shown, are **tooling-context only** — not GitHub Actions, Jenkins, recovery, or cloud proofs. See `docs/screenshots/README.md`.

@@ -1,6 +1,6 @@
 # Project C — CLI Demo Script (P8-T02)
 
-**Claim boundary:** local-only / production-like / non-AWS. This rehearsal exercises the project CLI, local pytest, and retained evidence pointers. It does **not** claim live AWS, organizational production approval, live Jenkins E2E promotion, sustained production traffic, or clearance of residual advisories.
+**Claim boundary:** local-first / production-like for this Phase 8 rehearsal. Exercises the project CLI, local pytest, and retained evidence pointers. Phase 9 `us-east-1` staging may be mentioned only as an **evidenced optional strip** (`evidence/phase-9/governing-manifest.json`) — do not re-run AWS, and do not claim production cloud. This demo does **not** claim organizational production approval, live Jenkins E2E promotion, sustained production traffic, or clearance of residual advisories.
 
 **Audience:** resume / portfolio walkthrough operators.  
 **Authority:** `docs/portfolio-plan.md`, `docs/portfolio-walkthrough.md`, `docs/metrics.md`.  
@@ -12,7 +12,7 @@
 
 1. Work from the repository root on Windows PowerShell.
 2. Use the project virtualenv: `.venv\Scripts\python.exe`.
-3. Do not start live cloud, AWS, or organizational Jenkins changes during the demo.
+3. Do not start live cloud apply/destroy, AWS CLI mutations, or organizational Jenkins changes during the demo. Phase 9 is pointer-only if mentioned.
 4. Optional deep dives (Compose / local Jenkins) stay read-only against retained Phase 5–7 evidence unless a later authorized task says otherwise.
 
 ---
@@ -23,7 +23,7 @@
 
 State the boundary out loud:
 
-> This package is local-only / production-like / non-AWS. Hosted claims are limited to retained GitHub Actions runs. Approval and recovery shown here are local fixtures.
+> This Phase 8 package is local-first / production-like. Hosted claims are limited to retained GitHub Actions runs. Approval and recovery shown here are local fixtures. Phase 9 staging smoke is an optional evidenced strip, not this demo's runtime.
 
 Point at:
 
@@ -116,20 +116,25 @@ Confirm every headline row has an existing source path and matching retained val
 
 ### Step 8 — Close the claim boundary
 
-Explicitly label **Deferred**:
+Optional one-liner (pointer only, no AWS commands): Phase 9 `us-east-1` staging smoke is an **evidenced optional strip** — cite `evidence/phase-9/governing-manifest.json` / `docs/aws-validation.md`. Do **not** call it “Live AWS Deferred” and do **not** call it completed production cloud.
 
-- Live AWS / Terraform / ECR / ECS / OIDC
+Explicitly label **Deferred / unverified residuals**:
+
+- GitHub OIDC not enabled for the retained smoke
+- TLS-terminated public staging hostname
+- Least-privilege non-root AWS operator principal
+- Cost tear-down after the proof window
 - Organizational production approval beyond the local fixture
 - Live Jenkins E2E promotion and recovery
 - Sustained production traffic / zero residual risk
 
-Pointer: `docs/aws-validation.md`; `STATUS.md` unverified entries for live cloud.
+Pointers: `STATUS.md` unverified; `docs/architecture/phase-9-aws.md`.
 
 ---
 
 ## Commands operators should not run in this demo
 
-- Any AWS CLI / Terraform apply / live registry push
+- Any AWS CLI / Terraform apply or destroy / live registry push (Phase 9 stays pointer-only)
 - Changing branch protection, credentials, or production promotion authority
 - Rebuilding and re-tagging as if it were a new production promotion between environments
 - Treating Codex / connector PNGs as GitHub Actions, Jenkins, or cloud proofs
@@ -145,7 +150,7 @@ Pointer: `docs/aws-validation.md`; `STATUS.md` unverified entries for live cloud
 | Pytest | 1–2 |
 | Phase 6 evidence + trio | 3–4 |
 | Authz denial + Phase 7 lanes | 2 |
-| Metrics trace + deferred close | 1–2 |
+| Metrics trace + optional Phase 9 strip + residuals close | 1–2 |
 
 ---
 

@@ -30,9 +30,12 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 | **Average** | **10.00** | **PASS** | orch: advance |
 
 ## Slice 4 — final-delivery
-| Status | Notes |
-|---|---|
-| reloop pending | Blind Grok×3 in flight (unstick) |
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| #1 (`a9cc7fb3`) | 7.0 | FAIL | harness/scores/slice-4-blind.md |
+| #2 (`33eec9a7`) | 7.0 | FAIL | harness/scores/slice-4-blind.md |
+| #3 (`7a7f4bf7`) | 6.5 | FAIL | harness/scores/slice-4-blind.md |
+| **Average** | **6.83** | **FAIL** | orch: no-advance → nix (CI now green) |
 
 ## Slice 5 — app-api (accuracy partition)
 | Judge | Score | Must-haves | Log |
