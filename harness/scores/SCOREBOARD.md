@@ -37,6 +37,8 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 | R2 #2 (`89c24474`) | 9.0 | PASS | S4-10-01 dirty tree only |
 | R2 #3 (`71ba1365`) | 9.0 | PASS | S4-10-01 dirty tree only |
 | **Average (R2)** | **9.00** | **PASS** | clean-tree → R3 |
+| R3 #1–#3 (`3194b7e2`) | 9.0 / 9.0 / 9.0 | PASS | S4-10-01 still dirty (9* WIP) |
+| **Average (R3)** | **9.00** | **PASS** | clean-tree commit → R4 |
 
 ## Slice 5 — app-api (accuracy partition)
 | Judge | Score | Must-haves | Log |
@@ -61,6 +63,27 @@ Advance decisions are orchestrator-only. Judges must not read this file for gate
 | #2 (`70c77f74`) | 10.0 | PASS | harness/scores/slice-7-blind.md |
 | #3 (`1681bb93`) | 10.0 | PASS | harness/scores/slice-7-blind.md |
 | **Average** | **10.00** | **PASS** | orch: advance |
+
+## Slice 9a — sre-gitops
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| #1–#3 (`7dac07fd`) | 10.0 / 9.7 / 10.0 | PASS | harness/scores/slice-9a-blind.md |
+| **Average** | **9.90** | **PASS** | orch: advance |
+
+## Slice 9b — recruiter-readme
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| R2 avg | **9.67** | **PASS** | harness/scores/slice-9b-blind.md · orch: advance |
+
+## Slice 9c — infographic
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| R1 #1–#3 (`7dac07fd`) | 8.5 / 9.5 / 9.0 | PASS | avg 9.00; S9c-9-01 size → resize 2048×1152 → R2 |
+
+## Slice 9d — portfolio-resume
+| Judge | Score | Must-haves | Log |
+|---|---:|---|---|
+| R1 #1–#3 (`7dac07fd`) | 8.0 / 8.5 / 8.3 | PASS | avg 8.27; links + clean tree → R2 |
 
 ## Local + remote verification commands
 ```

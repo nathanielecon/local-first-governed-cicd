@@ -18,4 +18,14 @@
 
 Shared 10-row miss: S4-10-01 dirty working tree. Must-haves cleared (CI green, portfolio honesty, remote verify).
 
-**Orchestrator decision:** one more clean-tree commit → quick rejudge for 10-row.
+## Round blind-R3 — non-advancing (dirty tree during 9* WIP)
+| Judge | Agent | Score | Must-haves |
+|---|---|---:|---|
+| #1 | `3194b7e2` | 9.0 | PASS |
+| #2 | `3194b7e2` | 9.0 | PASS |
+| #3 | `3194b7e2` | 9.0 | PASS |
+| **Average** | | **9.00** | **PASS** |
+
+Shared miss: S4-10-01 (resume-paste / infographic / 9* score drafts uncommitted).
+
+**Orchestrator decision:** commit clean tree → R4 rejudge.

@@ -8,4 +8,6 @@ Honest bullets for a Cloud / Platform / DevOps resume. Scope is local-first gove
 4. Retained phase evidence and portfolio artifacts under an explicit claim boundary; residuals (Docker-socket/root controller, operator-attested rollback parameters) disclosed rather than cleared by narrative.
 5. Validated an optional owner-authorized AWS staging path in `us-east-1` (ECR → ECS/Fargate → ALB) with smoke evidence; OIDC least-privilege apply and TLS hostname remain follow-ons.
 
+**Links:** [Delivery infographic](screenshots/project-c-delivery-infographic.png) · [Public naming](public-naming.md) · [Portfolio walkthrough](portfolio-walkthrough.md) · [README](../README.md)
+
 **Do not claim:** continuous production AWS ops, org-wide Jenkins admin, or zero-risk security.
