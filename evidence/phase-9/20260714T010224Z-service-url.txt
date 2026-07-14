@@ -1,0 +1,1 @@
+service_base_url=http://project-c-stg-1738567119.us-east-1.elb.amazonaws.com

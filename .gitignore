@@ -22,8 +22,8 @@ harness/logs/
 infra/terraform/.terraform/
 infra/terraform/*.tfstate
 infra/terraform/*.tfstate.*
-infra/terraform/.terraform.lock.hcl
 infra/terraform/tfplan*
 infra/terraform/*.auto.tfvars
 !infra/terraform/*.tfvars.example
+!infra/terraform/.terraform.lock.hcl
 

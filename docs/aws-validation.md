@@ -1,20 +1,31 @@
 # Optional AWS Validation
 
-Status: **authorized and in progress** (owner explicit authorization 2026-07-14).
+Status: **live staging validated** (owner-authorized 2026-07-14; evidence retained).
+
+## Result
+
+| Field | Value |
+|---|---|
+| Region | `us-east-1` |
+| Image | `…/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229` |
+| Git SHA | `376b7e18c5cc94e67ff180ca2f42b8eb05535be3` |
+| Service URL | `http://project-c-stg-117678206.us-east-1.elb.amazonaws.com` |
+| Smoke | PASS (live/ready/version/quotes + expected SHA/env) |
+| Governing evidence | `evidence/phase-9/governing-manifest.json` |
 
 ## Scope
 
-Minimal Terraform in `infra/terraform/` for:
+Minimal Terraform in `infra/terraform/`:
 
-- Amazon ECR repository (immutable tags, scan on push)
-- ECS/Fargate staging service behind an ALB
-- Default VPC public subnets with `assign_public_ip=true` (no NAT gateway)
-- Region: **us-east-1** (lowest-cost default for this account)
+- ECR (immutable tags, scan on push)
+- ECS/Fargate 256 CPU / 512 MB behind ALB
+- Default VPC public subnets with `assign_public_ip=true` (**no NAT gateway**)
+- Region **us-east-1**
 
 ## Auth modes
 
-- **This validation run:** operator AWS CLI session (account credentials present on the workstation).
-- **Follow-on:** optional GitHub Actions OIDC role via `enable_github_oidc=true` (not required for first efficacy proof).
+- **This validation run:** operator `aws login` session exported for Terraform (`aws configure export-credentials`).
+- **Follow-on:** `enable_github_oidc=true` creates a GitHub Actions OIDC role for short-lived ECR push.
 
 ## Procedure
 
@@ -22,25 +33,22 @@ Minimal Terraform in `infra/terraform/` for:
 python scripts/phase9_aws_validate.py
 ```
 
-That script:
+## Cost posture
 
-1. `terraform apply` bootstrap (ECR + cluster + IAM + log group)
-2. Builds the repo Dockerfile and pushes an immutable tag
-3. Records the ECR image digest
-4. `terraform apply` with `create_service=true` and `container_image=<repo>@sha256:...`
-5. Runs `scripts/smoke_test.py` against the ALB with `--expected-sha` and `--expected-environment staging`
-6. Writes evidence under `evidence/phase-9/`
+Ephemeral staging: Fargate task + ALB + ECR storage + 7-day logs. No NAT. Tear down when finished to stop ALB hourly charges.
 
 ## Teardown
 
 ```powershell
 cd infra/terraform
 terraform destroy -auto-approve `
-  -var "git_sha=<full-sha>" `
+  -var "git_sha=376b7e18c5cc94e67ff180ca2f42b8eb05535be3" `
   -var "create_service=true" `
-  -var "container_image=<ecr-url>@sha256:..."
+  -var "container_image=283077380808.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229"
 ```
 
-## Claims
+## Residuals (disclosed)
 
-Live AWS success claims require retained `evidence/phase-9/` artifacts (digest, smoke PASS, manifest). Until those exist, AWS remains unverified in `STATUS.md`.
+- Root/login session credentials used for apply (not least-privilege IAM role)
+- OIDC not used for this efficacy run
+- HTTP-only ALB (no ACM/TLS) for short-lived proof

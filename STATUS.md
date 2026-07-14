@@ -3,10 +3,10 @@
 ```json
 {
   "schema_version": "1.0",
-  "revision": 64,
+  "revision": 65,
   "current_wave": 9,
   "current_phase": 9,
-  "current_gate": "phase-9-aws-validation",
+  "current_gate": "phase-9-aws-staging-verified",
   "running_tasks": [],
   "blocked_tasks": [],
   "waiting_human": [],
@@ -53,12 +53,13 @@
     "phase-8-planning",
     "phase-8-assembly",
     "phase-8-demo",
-    "phase-8-complete"
+    "phase-8-complete",
+    "phase-9-aws-staging-verified"
   ],
   "next_actions": [
-    "Phase 9 live AWS validation authorized by owner on 2026-07-14",
-    "Apply Terraform ECR+ECS/Fargate in us-east-1 and retain smoke+digest evidence",
-    "Document cost and teardown; do not claim success until evidence/phase-9 exists",
+    "Phase 9 us-east-1 staging smoke PASS retained under evidence/phase-9/",
+    "Tear down with terraform destroy when finished to stop ALB/Fargate charges",
+    "Optional: enable_github_oidc=true and replace root/login session with least-privilege role",
     "Accepted residuals from phases 5-8 remain disclosed"
   ],
   "verified_baseline": [
@@ -76,12 +77,15 @@
     "Phase 6 verified rollback-target or first-release gating and recovery verification are locally verified; PC-002 and PC-003 are resolved",
     "Phase 6 change, QA, security, integrated, and retrospective gates passed under a local-only / production-like / non-E2E claim boundary",
     "Phase 7 engineering, implementation, security, and integrated gates passed for local failure-injection evidence with residual Docker-socket/root, operator-attested rollback, and hardcoded verify-map advisories retained",
-    "Phase 8 portfolio plan, assembled package, demo rehearsal, metrics-trace 14/14, and final integrated gate passed; Phases 2\u20138 are complete within the authorized claim boundary"
+    "Phase 8 portfolio plan, assembled package, demo rehearsal, metrics-trace 14/14, and final integrated gate passed; Phases 2\u20138 are complete within the authorized claim boundary",
+    "Phase 9 AWS staging validation verified in us-east-1: ECR digest sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229 served on ECS/Fargate behind ALB; smoke_test PASS for git SHA 376b7e18c5cc94e67ff180ca2f42b8eb05535be3 and environment staging (evidence/phase-9/governing-manifest.json)"
   ],
   "unverified": [
-    "Live cloud or AWS validation"
+    "GitHub OIDC short-lived credential path for AWS (optional follow-on)",
+    "TLS-terminated public staging hostname",
+    "Least-privilege non-root AWS operator principal for Terraform applies"
   ],
-  "updated_at": "2026-07-14T00:58:40.126614Z",
+  "updated_at": "2026-07-14T01:25:48.737769Z",
   "updated_by": "cursor-orchestrator-phase9"
 }
 ```

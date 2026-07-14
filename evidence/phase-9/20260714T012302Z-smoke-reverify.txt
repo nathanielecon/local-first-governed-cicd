@@ -1,0 +1,5 @@
+PASS
+base_url=http://project-c-stg-117678206.us-east-1.elb.amazonaws.com
+expected_sha=376b7e18c5cc94e67ff180ca2f42b8eb05535be3
+image_ref=283077380808.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229
+reverified_at=20260714T012302Z
