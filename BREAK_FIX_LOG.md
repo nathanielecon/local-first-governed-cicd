@@ -24,6 +24,7 @@
 | 2026-07-14T21:35:00Z | 2 | Post-nix blind rejudge | Three Grok judges 10/10 must-haves PASS; orch advance Slice 2 | harness/scores/slice-2-blind.md | advanced |
 | 2026-07-14T22:00:00Z | 3 | Blind reloop | Three Grok judges 10/10 must-haves PASS; orch advance Slice 3 | harness/scores/slice-3-blind.md | advanced |
 | 2026-07-14T22:01:00Z | goal | cursor-goal was blocked (Plan mode) | User /goal resume; pytest now 119 passed; continue blind reloops 4–7 then 9* | cursor-goal | resumed |
+| 2026-07-14T22:10:00Z | 4 | Blind judges FAIL S4-M07 (PR Python quality on phase9 format) + S4-M12 (cursor-goal verify not remote) | Pushed `645bf18` with format+harness; cursor-goal verify now includes `gh pr checks 2`; await CI + rejudge | origin/phase-5-remediation | remediating |
 
 ## Judge scoreboard (contaminated — archived, non-authoritative)
 
