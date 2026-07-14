@@ -4,6 +4,8 @@
 
 Authority for labels and inventory: `docs/portfolio-plan.md`. Every claim below uses the portfolio-plan claim taxonomy (`Implemented`, `Locally verified`, `GitHub-verified`, `Human-approved`, `Evidenced optional strip`, or `Deferred`).
 
+**Portfolio links:** [Delivery infographic](screenshots/project-c-delivery-infographic.png) · [Resume paste](resume-paste.md) · [Public naming](public-naming.md) · [Demo script](demo-script.md)
+
 ---
 
 ## 1. Architecture and authorship

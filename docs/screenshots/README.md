@@ -10,7 +10,7 @@
 
 | Asset | Path | Notes |
 | --- | --- | --- |
-| Primary landscape poster | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary ~16:9 asset. TOP: architecture flowchart (GitHub PR → CI → Jenkins digest promote → staging verify → approval → prod verify → rollback; evidenced ECR→ECS/Fargate→ALB strip). BOTTOM: story chapter cards. Claim boundary: local-first; AWS staging only as evidenced ephemeral smoke—not sustained production. Embedded in root `README.md`. |
+| Primary landscape poster | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary 16:9 asset (2048×1152). TOP: architecture flowchart (GitHub PR → CI → Jenkins digest promote → staging verify → approval → prod verify → rollback; evidenced ECR→ECS/Fargate→ALB strip). BOTTOM: story chapter cards. Claim boundary: local-first; AWS staging only as evidenced ephemeral smoke—not sustained production. Embedded in root `README.md`. |
 
 ---
 

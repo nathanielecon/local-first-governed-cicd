@@ -25,6 +25,10 @@
 | 2026-07-14T22:00:00Z | 3 | Blind reloop | Three Grok judges 10/10 must-haves PASS; orch advance Slice 3 | harness/scores/slice-3-blind.md | advanced |
 | 2026-07-14T22:01:00Z | goal | cursor-goal was blocked (Plan mode) | User /goal resume; pytest now 119 passed; continue blind reloops 4–7 then 9* | cursor-goal | resumed |
 | 2026-07-14T22:10:00Z | 4 | Blind judges FAIL S4-M07 (PR Python quality on phase9 format) + S4-M12 (cursor-goal verify not remote) | Pushed `645bf18` with format+harness; cursor-goal verify now includes `gh pr checks 2`; await CI + rejudge | origin/phase-5-remediation | remediating |
+| 2026-07-14T22:20:00Z | 9a | Blind panel | Must-haves PASS avg 9.90; orch advance | harness/scores/slice-9a-blind.md | advanced |
+| 2026-07-14T22:22:00Z | 9c | R1 avg 9.00; S9c-9-01 1536×1024 (~3:2) vs prefer 16:9 | Resize primary PNG to 2048×1152; rejudge | docs/screenshots/project-c-delivery-infographic.png | remediating |
+| 2026-07-14T22:23:00Z | 9d | R1 avg 8.27; resume/portfolio missing infographic+naming links; dirty tree 10-rows | Links in resume-paste + walkthrough; clean commit; rejudge | docs/resume-paste.md; docs/portfolio-walkthrough.md | remediating |
+| 2026-07-14T22:24:00Z | 4 | R3 avg 9.00; S4-10-01 dirty during 9* WIP | Commit scores/infographic/links → R4 | harness/scores/slice-4-blind.md | remediating |
 
 ## Judge scoreboard (contaminated — archived, non-authoritative)
 
