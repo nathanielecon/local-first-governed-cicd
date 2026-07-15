@@ -10,7 +10,8 @@
 
 | Asset | Path | Notes |
 | --- | --- | --- |
-| Primary landscape poster | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary 16:9 asset (2048×1152). Recruiter/ELI5 labels: Open a PR → Robots check it → Build one sealed image → Try it in staging → A person approves → Keep receipts or undo; optional ECR→ECS/Fargate→ALB strip; four plain chapter cards. Claim boundary: local-first; AWS staging only as evidenced ephemeral smoke, not sustained production. Embedded prominently in root `README.md` with a step walkthrough under the image. |
+| Primary landscape poster (Image2) | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary 16:9 asset (2048×1152). TOP: architecture flowchart (Developer → GitHub PR → Actions → Jenkins digest → staging verify → named approval → evidence/rollback; optional ECR→ECS/Fargate→ALB strip). BOTTOM: story chapter cards. Embedded first in root `README.md` with ELI5 walkthrough. |
+| Phase 9 staging architecture (export) | `docs/screenshots/phase9-architecture.png` | PNG export of `docs/project-c-phase9-staging-architecture.drawio`. Embedded on README under optional AWS staging. Must stay force-tracked (see `.gitignore` exceptions). |
 
 ---
 
