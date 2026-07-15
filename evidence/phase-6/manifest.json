@@ -1,0 +1,56 @@
+{
+  "schema_version": "6.0",
+  "release_id": "phase-6",
+  "status": "recovery_verified",
+  "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "claim_boundary": "local-only / production-like",
+  "image": {
+    "reference": "localhost:5000/delivery-api:sha-bbbbbbbbbbbb",
+    "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "staging": {
+    "status": "verified",
+    "deployed_at": "2026-07-13T17:05:00Z",
+    "verified_at": "2026-07-13T17:10:00Z"
+  },
+  "approvals": [
+    {
+      "approver_id": "local-approver",
+      "approved_at": "2026-07-13T17:15:00Z",
+      "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "event_id": "p6-local-approval"
+    }
+  ],
+  "production": {
+    "status": "verified",
+    "deployed_at": "2026-07-13T17:20:00Z",
+    "verified_at": "2026-07-13T17:25:00Z"
+  },
+  "rollback_target": {
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "verified_at": "2026-07-12T18:00:00Z",
+    "source_release_id": "phase-6-prior-fixture",
+    "environment": "production"
+  },
+  "first_release_decision": null,
+  "recovery": {
+    "verified_at": "2026-07-13T17:40:00Z",
+    "image_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "checks": {
+      "deployed_digest": "pass",
+      "health": "pass",
+      "version": "pass",
+      "business_behavior": "pass"
+    },
+    "rollback_event_id": "p6-local-rollback"
+  },
+  "pipeline": {
+    "provider": "local",
+    "run_id": "manual"
+  },
+  "reports": [],
+  "event_count": 10,
+  "updated_at": "2026-07-13T18:02:00Z"
+}

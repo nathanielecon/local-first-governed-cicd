@@ -1,0 +1,60 @@
+ Image project-c-p5-t11-proof-jenkins Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 607B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 587B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/jenkins/jenkins:2.541.3-lts-jdk21
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/jenkins/jenkins:2.541.3-lts-jdk21@sha256:c4098086090ca98491d4bf66182f5e3b015a8232f2acf2df209a212a5801aa8e
+#5 resolve docker.io/jenkins/jenkins:2.541.3-lts-jdk21@sha256:c4098086090ca98491d4bf66182f5e3b015a8232f2acf2df209a212a5801aa8e 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 62B done
+#6 DONE 0.0s
+
+#7 [2/6] RUN apt-get update     && apt-get install --no-install-recommends -y ca-certificates curl docker.io jq make python3 python3-venv     && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [3/6] COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+#8 CACHED
+
+#9 [4/6] RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+#9 CACHED
+
+#10 [5/6] COPY casc.yaml /usr/share/jenkins/ref/casc.yaml
+#10 CACHED
+
+#11 [6/6] RUN ln -s /usr/share/jenkins/ref/casc.yaml /usr/share/jenkins/ref/casc.yaml.override || true
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers done
+#12 exporting manifest sha256:53e2a5508a5be90d3d752c0903dbb00371d12deb755735df65b9c2553f2c1652 0.0s done
+#12 exporting config sha256:74ea95110f64a2452d2ab52cd4e6145733f0193f3d540f9dfb1c1933e50b4962
+#12 exporting config sha256:74ea95110f64a2452d2ab52cd4e6145733f0193f3d540f9dfb1c1933e50b4962 0.0s done
+#12 exporting attestation manifest sha256:b617e91636fbba1789124ccdf339e1359d7c8bc82a7f3df1843c72da5589078c 0.0s done
+#12 exporting manifest list sha256:31248131372af82b864cd99847c8646d06de294d4690fe272aded6a710abc81c 0.0s done
+#12 naming to docker.io/library/project-c-p5-t11-proof-jenkins:latest done
+#12 unpacking to docker.io/library/project-c-p5-t11-proof-jenkins:latest 0.0s done
+#12 DONE 0.2s
+
+#13 resolving provenance for metadata file
+#13 DONE 0.0s
+ Image project-c-p5-t11-proof-jenkins Built 
+time="2026-07-12T20:39:53-04:00" level=warning msg="a network with name project-c-delivery exists but was not created for project \"project-c-p5-t11-proof\".\nSet `external: true` to use an existing network"
+ Volume project-c-p5-t11-proof_jenkins-data Creating 
+ Volume project-c-p5-t11-proof_jenkins-data Created 
+ Container project-c-p5-t11-proof-jenkins-1 Creating 
+ Container project-c-p5-t11-proof-jenkins-1 Created 
+ Container project-c-p5-t11-proof-jenkins-1 Starting 
+ Container project-c-p5-t11-proof-jenkins-1 Started 

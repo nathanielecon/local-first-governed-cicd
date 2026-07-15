@@ -1,0 +1,64 @@
+name: project-c
+services:
+  jenkins:
+    build:
+      context: C:\Users\natha\OneDrive\Documents\cloud\infra\jenkins
+      dockerfile: Dockerfile
+    environment:
+      CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml
+      JENKINS_LOCAL_ADMIN_ID: local-admin
+      JENKINS_LOCAL_ADMIN_PASSWORD: placeholder-admin-password
+      JENKINS_LOCAL_APPROVER_ID: local-approver
+      JENKINS_LOCAL_APPROVER_PASSWORD: placeholder-approver-password
+      JENKINS_LOCAL_VIEWER_ID: local-viewer
+      JENKINS_LOCAL_VIEWER_PASSWORD: placeholder-viewer-password
+    networks:
+      delivery: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+      - mode: ingress
+        target: 50000
+        published: "50000"
+        protocol: tcp
+    restart: unless-stopped
+    user: root
+    volumes:
+      - type: volume
+        source: jenkins-data
+        target: /var/jenkins_home
+        volume: {}
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        bind: {}
+      - type: bind
+        source: C:\Users\natha\OneDrive\Documents\cloud
+        target: /workspace
+        read_only: true
+        bind: {}
+  registry:
+    image: registry:2.8.3
+    networks:
+      delivery: null
+    ports:
+      - mode: ingress
+        target: 5000
+        published: "5000"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: registry-data
+        target: /var/lib/registry
+        volume: {}
+networks:
+  delivery:
+    name: project-c-delivery
+volumes:
+  jenkins-data:
+    name: project-c_jenkins-data
+  registry-data:
+    name: project-c_registry-data

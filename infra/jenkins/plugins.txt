@@ -1,9 +1,10 @@
-configuration-as-code:1985.vdda_32d0c4ea_b_
-credentials-binding:687.v619cb_15e923f
+configuration-as-code:2099.ve3a_6e23f4960
+credentials-binding:717.v951d49b_5f3a_a_
 docker-workflow:621.va_73f881d9232
 git:5.7.0
 job-dsl:1.93
 pipeline-model-definition:2.2255.v56a_15e805f12
+role-strategy:848.va_a_ea_673cf0b_c
 workflow-aggregator:608.v67378e9d3db_1
 ws-cleanup:0.48
 

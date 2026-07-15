@@ -1,0 +1,1 @@
+error while interpolating services.jenkins.environment.JENKINS_LOCAL_ADMIN_PASSWORD: required variable JENKINS_LOCAL_ADMIN_PASSWORD is missing a value: Set JENKINS_LOCAL_ADMIN_PASSWORD in the local environment.

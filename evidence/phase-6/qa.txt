@@ -1,0 +1,214 @@
+P6-T06 Phase 6 local QA gate — independent verification
+========================================================
+task: P6-T06
+gate: phase-6-qa
+worker: phase-6-qa-worker
+recorded_at_utc: 2026-07-13T18:21:30Z
+claim_boundary: local-only / production-like / non-E2E; does not assert live Jenkins runtime promotion, live cloud, AWS, organizational Jenkins administration, or sustained production operation
+implementation_modifications: none (QA write_scope limited to this file)
+open_issues_unchanged: PC-002=open; PC-003=open (this task must not close them)
+
+----------------------------------------------------------------
+1) Approved static check — full pytest
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe -m pytest -q
+started_at_utc: 2026-07-13T18:10:54.575Z
+ended_at_utc: 2026-07-13T18:11:13.594Z
+exit_code: 0
+
+raw_output:
+........................................................................ [ 64%]
+.......................................                                  [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\routing.py:234: 4 warnings
+tests/test_api.py: 28 warnings
+  C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\fastapi\routing.py:234: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+src\delivery_api\__init__.py       0      0   100%
+src\delivery_api\config.py        14      0   100%
+src\delivery_api\logging.py       17      0   100%
+src\delivery_api\main.py          57      3    95%   52-61
+------------------------------------------------------------
+TOTAL                             88      3    97%
+Coverage XML written to file coverage.xml
+Required test coverage of 90% reached. Total coverage: 96.59%
+111 passed, 32 warnings in 5.96s
+
+result: PASS (111 passed; coverage threshold met at 96.59%)
+
+----------------------------------------------------------------
+2) Approved state check — project validate state
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe scripts/project_cli.py validate state
+started_at_utc: 2026-07-13T18:11:13.595Z
+ended_at_utc: 2026-07-13T18:11:22.570Z
+exit_code: 0
+
+raw_output:
+Validation passed: state
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+
+result: PASS
+
+----------------------------------------------------------------
+3) Additional contract check — evidence validate example
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe scripts/evidence.py validate --release-id example
+started_at_utc: 2026-07-13T18:13:10.801Z
+ended_at_utc: 2026-07-13T18:17:13.616Z
+exit_code: 0
+
+raw_output:
+{
+  "release_id": "example",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS — first-release happy-path fixture validates (append-only events + derived summary)
+
+----------------------------------------------------------------
+4) Additional contract check — evidence validate phase-6
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe scripts/evidence.py validate --release-id phase-6
+started_at_utc: 2026-07-13T18:17:13.620Z
+ended_at_utc: 2026-07-13T18:19:26.144Z
+exit_code: 0
+
+raw_output:
+{
+  "release_id": "phase-6",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS — recovery-demo fixture validates (append-only events + derived summary with rollback/recovery fields)
+
+----------------------------------------------------------------
+5) Additional contract check — project_cli evidence example
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe scripts/project_cli.py evidence example
+started_at_utc: 2026-07-13T18:19:26.146Z
+ended_at_utc: 2026-07-13T18:19:55.034Z
+exit_code: 0
+
+raw_output:
+{
+  "path": "evidence/example/manifest.json",
+  "events_path": "evidence/example/events.jsonl",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS
+
+----------------------------------------------------------------
+6) Additional contract check — validate_jenkinsfile
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe scripts/validate_jenkinsfile.py --json
+started_at_utc: 2026-07-13T18:19:55.035Z
+ended_at_utc: 2026-07-13T18:20:11.206Z
+exit_code: 0
+
+raw_output:
+{
+  "path": "Jenkinsfile",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS
+
+----------------------------------------------------------------
+7) Additional focused Phase 6 pytest (no coverage addopts)
+----------------------------------------------------------------
+command: .venv\Scripts\python.exe -m pytest tests/test_evidence_manifest.py tests/test_verify_deployment.py tests/test_jenkinsfile_contract.py tests/test_smoke_tool.py -q -o addopts=
+started_at_utc: 2026-07-13T18:20:11.208Z
+ended_at_utc: 2026-07-13T18:20:17.734Z
+exit_code: 0
+
+raw_output:
+.................................................                        [100%]
+49 passed in 2.38s
+
+result: PASS (49 passed)
+
+----------------------------------------------------------------
+8) Append-only evidence semantics — QA confirmation from retained evidence
+----------------------------------------------------------------
+inspected_artifacts:
+- evidence/example/events.jsonl (7 events; first_release_decision path)
+- evidence/example/manifest.json (derived summary; status=production_verified; approvals include approver.jane)
+- evidence/phase-6/events.jsonl (10 events; recovery path)
+- evidence/phase-6/manifest.json (derived summary; status=recovery_verified; rollback_target + recovery checks)
+- docs/change-records/phase-6-local.md (agrees on commit, digest, approver, rollback target, recovery)
+- docs/reviews/phase-6-change-review.md (P6-T05 verdict: clear; local-only / non-E2E boundary)
+
+observed_support:
+- example release reconstructs build → staging → approval → first_release_decision → production from append-only JSONL; validator reports valid=true
+- phase-6 release reconstructs build → staging → approval → rollback_target_bound → production → failure injection → rollback_executed → recovery_verified from append-only JSONL; validator reports valid=true
+- phase-6 derived manifest exposes approvals[].approver_id=local-approver, rollback_target.digest=sha256:aaa…, recovery.checks all pass for deployed_digest/health/version/business_behavior
+- change record cites the same event-backed identities and states PC-002/PC-003 remain open
+- independent validators (evidence.py / project_cli) fail-close on invalid evidence per focused tests; current retained fixtures pass
+
+qa_confirmation: SUPPORTED — append-only evidence semantics (events as SoT; regenerable summary; approver persistence; digest consistency) are supported by current retained local fixtures and independent validation runs. This is NOT a live Jenkins E2E promotion claim and does NOT close PC-002.
+
+----------------------------------------------------------------
+9) Recovery / rollback-target gating — QA confirmation from retained evidence
+----------------------------------------------------------------
+inspected_artifacts:
+- evidence/phase-6/p6-t03-promotion-gate-blocked.txt (ok=false; blocked without target+decision)
+- evidence/phase-6/p6-t03-promotion-gate-first-release.txt (ok=true with first-release decision)
+- evidence/phase-6/p6-t03-promotion-gate-staging-rejected.txt (ok=false; staging-as-prior forbidden)
+- evidence/phase-6/events.jsonl recovery sequence (production_verification_failed → rollback_executed → recovery_verified)
+- evidence/phase-6/manifest.json recovery block
+- focused tests: test_verify_deployment.py / test_smoke_tool.py (included in sections 1 and 7)
+
+observed_support:
+- promotion blocked when neither verified rollback target nor first-release decision is present
+- first-release decision path allowed
+- staging-as-prior rejected for production rollback target
+- recovery-demo fixture binds prior verified digest sha256:aaa… and records recovery checks (deployed_digest/health/version/business_behavior)=pass after rollback
+- full and focused pytest suites covering promotion gate and recovery verification passed independently in this QA run
+
+qa_confirmation: SUPPORTED — rollback-target gating and recovery verification behavior are supported by current retained local evidence plus independent pytest. This is NOT a live Jenkins recovery runtime claim and does NOT close PC-003.
+
+----------------------------------------------------------------
+10) Related prior task evidence inspected (not re-executed as Jenkins E2E)
+----------------------------------------------------------------
+- evidence/example/p6-t02-pytest.txt / p6-t02-cli-evidence.txt
+- evidence/phase-6/p6-t03-pytest.txt / promotion-gate-*.txt / compose-config.txt
+- evidence/phase-6/p6-t04-pytest.txt / p6-t04-validate-jenkinsfile.txt / p6-t04-validate-state.txt / p6-t04-evidence-validate.txt
+- docs/change-records/phase-6-local.md
+- docs/reviews/phase-6-change-review.md (verdict: clear)
+- docs/phase-6-spec.md (governing contract)
+
+----------------------------------------------------------------
+11) Out of scope / residual risks (recorded, not expanded)
+----------------------------------------------------------------
+- PC-002 and PC-003 remain OPEN; closure is reserved for later integrated evidence (P6-T08), not this QA write
+- no Jenkins end-to-end runtime promotion/recovery was executed in this QA lane; fixture + static/unit evidence only
+- change-review advisories retained as residual (hardcoded verify maps in Jenkinsfile event payloads; operator-attested VERIFIED_ROLLBACK_* params; local control-plane docker.sock/root risks)
+- claim boundary remains local-only / production-like / non-E2E
+
+----------------------------------------------------------------
+12) Gate conclusion
+----------------------------------------------------------------
+defects_found: none
+failed_checks: none
+
+P6-T06_verdict: PASS
+summary: Independent Phase 6 local QA checks passed. Full pytest (111) and project validate state are green. Evidence validators accept both example (first-release) and phase-6 (recovery) fixtures. Jenkinsfile validator and focused Phase 6 contract tests pass. Append-only evidence semantics and recovery/rollback-target gating are supported by retained local evidence under an explicit non-E2E claim boundary. PC-002 and PC-003 remain open.

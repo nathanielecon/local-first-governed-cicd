@@ -1,0 +1,74 @@
+jenkins:
+  systemMessage: "Project C governed delivery controller. Configuration is managed as code."
+  numExecutors: 1
+  mode: NORMAL
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "${JENKINS_LOCAL_ADMIN_ID}"
+          password: "${JENKINS_LOCAL_ADMIN_PASSWORD}"
+        - id: "${JENKINS_LOCAL_APPROVER_ID}"
+          password: "${JENKINS_LOCAL_APPROVER_PASSWORD}"
+        - id: "${JENKINS_LOCAL_VIEWER_ID}"
+          password: "${JENKINS_LOCAL_VIEWER_PASSWORD}"
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "project-admin"
+            description: "Local-only Jenkins administrators for Project C"
+            permissions:
+              - "Overall/Administer"
+            entries:
+              - user: "${JENKINS_LOCAL_ADMIN_ID}"
+          - name: "project-readonly"
+            description: "Read-only observers for Project C delivery"
+            permissions:
+              - "Overall/Read"
+              - "Job/Read"
+              - "View/Read"
+            entries:
+              - user: "${JENKINS_LOCAL_APPROVER_ID}"
+              - user: "${JENKINS_LOCAL_VIEWER_ID}"
+        items:
+          - name: "project-c-approver"
+            description: "Named build operators for the delivery pipeline"
+            pattern: "^project-c-delivery$"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+              - "Job/Workspace"
+            entries:
+              - user: "${JENKINS_LOCAL_ADMIN_ID}"
+              - user: "${JENKINS_LOCAL_APPROVER_ID}"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+jobs:
+  - script: >
+      pipelineJob('project-c-delivery') {
+        description('Build-once, digest-based delivery pipeline for Project C')
+        parameters {
+          stringParam('REGISTRY', 'localhost:5000', 'Local registry for Project C delivery images')
+          stringParam('PROJECT_C_LOCAL_ADMIN_ID', '${JENKINS_LOCAL_ADMIN_ID}', 'Local Jenkins administrator identity')
+          stringParam('PROJECT_C_ALLOWED_APPROVERS', '${JENKINS_LOCAL_APPROVER_ID}', 'Comma-separated local Jenkins approver identities')
+          stringParam('PROJECT_C_READONLY_OBSERVER_ID', '${JENKINS_LOCAL_VIEWER_ID}', 'Local Jenkins read-only observer identity')
+        }
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url('file:///workspace') }
+                branch('*/master')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }
+

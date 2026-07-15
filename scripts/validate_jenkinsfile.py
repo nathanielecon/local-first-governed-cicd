@@ -9,6 +9,35 @@ import re
 import sys
 from pathlib import Path
 
+TRUSTED_GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+ARBITRARY_REF_RE = re.compile(r"^refs/(heads|tags)/[0-9A-Za-z._/-]+$")
+
+REQUIRED_PHASE6_EVENT_TYPES = (
+    "build_published",
+    "staging_deployed",
+    "staging_verified",
+    "production_approval",
+    "production_deployed",
+    "production_verified",
+    "production_verification_failed",
+    "rollback_executed",
+    "recovery_verified",
+)
+
+
+def is_trusted_release_input(value: str) -> bool:
+    """Return True only for an immutable 40-character lowercase commit SHA.
+
+    Syntactically valid branch/tag refs are intentionally rejected so release
+    input cannot be an arbitrary operator-chosen ref.
+    """
+    candidate = value.strip().lower()
+    if candidate.startswith("refs/"):
+        return False
+    if ARBITRARY_REF_RE.fullmatch(value.strip()):
+        return False
+    return bool(TRUSTED_GIT_SHA_RE.fullmatch(candidate))
+
 
 def strip_strings(text: str) -> str:
     result: list[str] = []
@@ -70,6 +99,11 @@ def require(pattern: str, text: str, errors: list[str], message: str) -> None:
         errors.append(message)
 
 
+def forbid(pattern: str, text: str, errors: list[str], message: str) -> None:
+    if re.search(pattern, text, re.MULTILINE | re.DOTALL):
+        errors.append(message)
+
+
 def validate_text(text: str) -> list[str]:
     errors = validate_braces(text)
     require(r"^\s*pipeline\s*\{", text, errors, "missing top-level declarative pipeline block")
@@ -88,6 +122,24 @@ def validate_text(text: str) -> list[str]:
         errors,
         "missing PROMOTE_PRODUCTION boolean parameter",
     )
+    require(
+        r"stringParam\s*\(\s*name:\s*'TRUSTED_GIT_SHA'",
+        text,
+        errors,
+        "missing TRUSTED_GIT_SHA immutable commit parameter",
+    )
+    require(
+        r"booleanParam\s*\(\s*name:\s*'FIRST_RELEASE'",
+        text,
+        errors,
+        "missing FIRST_RELEASE parameter for first-release decision gating",
+    )
+    require(
+        r"booleanParam\s*\(\s*name:\s*'DEMONSTRATE_RECOVERY'",
+        text,
+        errors,
+        "missing DEMONSTRATE_RECOVERY parameter for failure-injection rollback demo",
+    )
     require(r"\benvironment\s*\{", text, errors, "missing environment block")
     require(r"\bIMAGE_NAME\s*=\s*'delivery-api'", text, errors, "missing IMAGE_NAME contract")
     require(r"\bCI_PROVIDER\s*=\s*'jenkins'", text, errors, "missing CI_PROVIDER contract")
@@ -98,7 +150,11 @@ def validate_text(text: str) -> list[str]:
         "Build Once",
         "Staging",
         "Production Approval",
+        "Rollback Readiness",
         "Production",
+        "Failure Injection",
+        "Rollback",
+        "Recovery",
     ):
         require(
             rf"stage\s*\(\s*'{re.escape(stage)}'\s*\)",
@@ -110,16 +166,173 @@ def validate_text(text: str) -> list[str]:
     require(r"docker push", text, errors, "Build Once stage must push the built image")
     require(r"image-digest\.txt", text, errors, "Build Once stage must retain image-digest.txt")
     require(
-        r'input\s+message:\s*"Promote verified digest\s+\$\{env\.IMAGE_DIGEST\}\s+to production\?"',
+        r"select_matching_repo_digest",
         text,
         errors,
-        "Production Approval stage must request human approval for the verified digest",
+        "Build Once stage must bind RepoDigest to expected registry/repository identity",
+    )
+    forbid(
+        r"index\s+\.RepoDigests\s+0",
+        text,
+        errors,
+        "Build Once must not select an arbitrary first RepoDigest",
+    )
+    require(
+        r"TRUSTED_GIT_SHA\s*==~\s*/\^\[0-9a-f\]\{40\}\$/",
+        text,
+        errors,
+        "Metadata stage must validate TRUSTED_GIT_SHA as an immutable 40-character commit SHA",
+    )
+    require(
+        r"startsWith\s*\(\s*'refs/'\)",
+        text,
+        errors,
+        "Metadata stage must reject refs/ inputs before git fetch",
+    )
+    require(
+        r'git fetch --no-tags origin "\$TRUSTED_GIT_SHA"',
+        text,
+        errors,
+        "Metadata stage must fetch the explicit TRUSTED_GIT_SHA before validation or build",
+    )
+    require(
+        r"git checkout --detach FETCH_HEAD",
+        text,
+        errors,
+        "Metadata stage must detach to the fetched trusted input",
+    )
+    require(
+        r"git rev-parse FETCH_HEAD\^\{commit\}",
+        text,
+        errors,
+        "Metadata stage must resolve a trusted commit SHA from FETCH_HEAD",
+    )
+    require(
+        r"env\.GIT_SHA\s*!=\s*env\.TRUSTED_GIT_SHA",
+        text,
+        errors,
+        "Metadata stage must reject a fetched commit that does not match TRUSTED_GIT_SHA",
+    )
+    if re.search(r"git rev-parse HEAD", text):
+        errors.append("Metadata stage must not trust the implicit workspace HEAD")
+    if re.search(
+        r"TRUSTED_GIT_REF\s*==~\s*/\^refs\\/\(heads\|tags\)\\/",
+        text,
+    ):
+        errors.append(
+            "Metadata stage must not accept arbitrary refs/heads/* or refs/tags/* as trusted input"
+        )
+    if re.search(r"stringParam\s*\(\s*name:\s*'TRUSTED_GIT_REF'", text):
+        errors.append("Jenkinsfile must bind release input to TRUSTED_GIT_SHA, not TRUSTED_GIT_REF")
+    require(
+        (
+            r'input\s+message:\s*"Promote verified digest\s+'
+            r"\$\{env\.IMAGE_DIGEST\}\s+from trusted commit\s+"
+            r"\$\{env\.TRUSTED_GIT_SHA\}\s+to production\?"
+        ),
+        text,
+        errors,
+        (
+            "Production Approval stage must request human approval "
+            "for the verified digest and trusted commit"
+        ),
+    )
+    require(
+        r"submitter:\s*(?:env\.PROJECT_C_ALLOWED_APPROVERS|\"\$\{env\.PROJECT_C_ALLOWED_APPROVERS\}\")",
+        text,
+        errors,
+        "Production Approval stage must restrict approval to PROJECT_C_ALLOWED_APPROVERS",
     )
     require(
         r"submitterParameter:\s*'APPROVED_BY'",
         text,
         errors,
         "Production Approval stage must record APPROVED_BY",
+    )
+    require(
+        r"scripts/evidence\.py\s+append",
+        text,
+        errors,
+        "Jenkinsfile must append release events via scripts/evidence.py append",
+    )
+    forbid(
+        r"scripts/evidence\.py[^\n]*--status",
+        text,
+        errors,
+        "Jenkinsfile must not use legacy evidence.py --status overwrite path",
+    )
+    require(
+        r"--approver-id\s+\"\$APPROVED_BY\"",
+        text,
+        errors,
+        "Production Approval must persist APPROVED_BY into production_approval evidence",
+    )
+    require(
+        r"--approved-at\s+\"\$APPROVED_AT\"",
+        text,
+        errors,
+        "Production Approval must persist APPROVED_AT into production_approval evidence",
+    )
+    require(
+        r"EXPECTED_DIGEST",
+        text,
+        errors,
+        "Pipeline must export EXPECTED_DIGEST for identity-bound deploy verification",
+    )
+    require(
+        r"EXPECTED_REGISTRY",
+        text,
+        errors,
+        "Pipeline must export EXPECTED_REGISTRY for identity-bound deploy verification",
+    )
+    require(
+        r"EXPECTED_REPOSITORY",
+        text,
+        errors,
+        "Pipeline must export EXPECTED_REPOSITORY for identity-bound deploy verification",
+    )
+    require(
+        r"IMAGE_DIGEST_REF",
+        text,
+        errors,
+        "Pipeline must promote the same immutable digest reference built once",
+    )
+    require(
+        r"first_release_decision",
+        text,
+        errors,
+        "Rollback Readiness must support first_release_decision evidence",
+    )
+    require(
+        r"rollback_target_bound",
+        text,
+        errors,
+        "Rollback Readiness must support rollback_target_bound evidence",
+    )
+    require(
+        r"scripts/rollback\.sh",
+        text,
+        errors,
+        "Rollback stage must invoke digest-targeted scripts/rollback.sh",
+    )
+    forbid(
+        r"sed -n 's/\^PRODUCTION_IMAGE=",
+        text,
+        errors,
+        "Jenkinsfile must not treat production.env as the verified rollback-target source of truth",
+    )
+    for event_type in REQUIRED_PHASE6_EVENT_TYPES:
+        require(
+            rf"--event-type\s+{re.escape(event_type)}\b",
+            text,
+            errors,
+            f"Jenkinsfile must append {event_type} events",
+        )
+    require(
+        r"(first_release_decision|rollback_target_bound)",
+        text,
+        errors,
+        "Jenkinsfile must append first_release_decision or rollback_target_bound before production",
     )
     require(r"archiveArtifacts\b", text, errors, "post always must archive evidence artifacts")
     require(r"cleanWs\s*\(", text, errors, "post always must clean the workspace")

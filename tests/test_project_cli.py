@@ -19,12 +19,15 @@ def test_status_can_filter_phase(capsys: pytest.CaptureFixture[str]) -> None:
 
 
 def test_phase_authorization_boundary(capsys: pytest.CaptureFixture[str]) -> None:
-    result = project_cli.main(["phase", "4", "--dry-run", "--json"])
+    plan = project_cli.read_json_block("PLAN.md")
+    authorized = plan["authorized_through_phase"]
+
+    result = project_cli.main(["phase", str(authorized), "--dry-run", "--json"])
     output = json.loads(capsys.readouterr().out)
     assert result == project_cli.EXIT_OK
-    assert output["phase"] == 4
+    assert output["phase"] == authorized
 
-    result = project_cli.main(["phase", "5", "--dry-run", "--json"])
+    result = project_cli.main(["phase", str(authorized + 1), "--dry-run", "--json"])
     error = json.loads(capsys.readouterr().err)
     assert result == project_cli.EXIT_HUMAN
     assert "not authorized" in error["error"]
@@ -48,6 +51,15 @@ def test_evidence_reports_missing_release(capsys: pytest.CaptureFixture[str]) ->
     result = project_cli.main(["evidence", "does-not-exist", "--json"])
     assert result == project_cli.EXIT_VALIDATION
     assert "not found" in capsys.readouterr().err
+
+
+def test_evidence_example_passes_phase6_validation(capsys: pytest.CaptureFixture[str]) -> None:
+    result = project_cli.main(["evidence", "example", "--json"])
+    output = json.loads(capsys.readouterr().out)
+    assert result == project_cli.EXIT_OK
+    assert output["valid"] is True
+    assert output["errors"] == []
+    assert "events_path" in output
 
 
 def test_read_json_block_rejects_missing_file(

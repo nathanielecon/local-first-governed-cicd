@@ -1,0 +1,8 @@
+ Container project-c-jenkins-1 Stopping 
+ Container project-c-jenkins-1 Stopped 
+ Container project-c-jenkins-1 Removing 
+ Container project-c-jenkins-1 Removed 
+ Network project-c-delivery Removing 
+ Network project-c-delivery Resource is still in use 
+ Volume project-c_jenkins-data Removing 
+ Volume project-c_jenkins-data Removed 

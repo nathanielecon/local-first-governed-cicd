@@ -1,0 +1,7 @@
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}

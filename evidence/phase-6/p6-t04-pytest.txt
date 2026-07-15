@@ -1,0 +1,7 @@
+command: .venv\Scripts\python.exe -m pytest tests/test_jenkinsfile_contract.py -q -o addopts=
+cwd: C:\Users\natha\OneDrive\Documents\cloud
+started_at: 2026-07-13T14:02:00-04:00
+claim_boundary: local-only / production-like
+...............                                                          [100%]
+15 passed in 0.18s
+exit_code: 0

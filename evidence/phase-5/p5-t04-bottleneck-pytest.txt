@@ -1,0 +1,5 @@
+ERROR: usage: python.exe -m pytest [options] [file_or_dir] [file_or_dir] [...]
+python.exe -m pytest: error: unrecognized arguments: --cov=delivery_api --cov-report=term-missing --cov-report=xml --cov-fail-under=90
+  inifile: C:\Users\natha\OneDrive\Documents\cloud\pyproject.toml
+  rootdir: C:\Users\natha\OneDrive\Documents\cloud
+

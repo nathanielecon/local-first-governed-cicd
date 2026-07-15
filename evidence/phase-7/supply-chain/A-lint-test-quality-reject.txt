@@ -1,0 +1,28 @@
+scenario=A-lint-test
+timestamp_utc=2026-07-13T18:44:47Z
+claim_boundary=local-only / non-cloud; quality reject only; no merge/promotion claim
+expected=local pytest quality gate rejects disposable failing fixture; fixture cleaned
+conclusion=PASS: quality gate rejected disposable failing test; fixture removed
+fixture_cleaned=True
+fixture_path_was=C:\Users\natha\AppData\Local\Temp\p7-lint-potj_3dp\test_phase7_intentional_fail.py
+--- command[1] ---
+argv=['C:\\Users\\natha\\OneDrive\\Documents\\cloud\\.venv\\Scripts\\python.exe', '-m', 'pytest', 'C:\\Users\\natha\\AppData\\Local\\Temp\\p7-lint-potj_3dp\\test_phase7_intentional_fail.py', '-q', '-o', 'addopts=']
+exit_code=1
+stdout<<EOF
+F                                                                        [100%]
+================================== FAILURES ===================================
+___________________ test_phase7_intentional_quality_reject ____________________
+
+    def test_phase7_intentional_quality_reject() -> None:
+>       assert False, "phase7 disposable lint/test fixture"
+E       AssertionError: phase7 disposable lint/test fixture
+E       assert False
+
+..\..\..\AppData\Local\Temp\p7-lint-potj_3dp\test_phase7_intentional_fail.py:2: AssertionError
+=========================== short test summary info ===========================
+FAILED ..\..\..\AppData\Local\Temp\p7-lint-potj_3dp\test_phase7_intentional_fail.py::test_phase7_intentional_quality_reject
+1 failed in 4.93s
+EOF
+stderr<<EOF
+
+EOF

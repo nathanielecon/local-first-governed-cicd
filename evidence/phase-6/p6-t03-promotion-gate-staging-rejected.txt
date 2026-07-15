@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "failures": [
+    "verified rollback target environment must be production (got 'staging'; staging-as-prior is forbidden)"
+  ]
+}

@@ -1,0 +1,243 @@
+P8-T03 Phase 8 portfolio integrated evidence gate — independent review
+======================================================================
+task: P8-T03
+gate: phase-8-complete / final-portfolio-evidence
+worker: phase-8-portfolio-evidence-gate
+recorded_at_utc: 2026-07-13T19:03:41Z
+claim_boundary: local-only / production-like / non-AWS; does not assert live AWS, live cloud, organizational production approval, live Jenkins E2E promotion/recovery, sustained production traffic, Phase 9, or clearance of Phase 5/6/7 residual advisories
+implementation_modifications: none
+authority_state_modifications: none (STATUS.md machine-readable block and ISSUES.md left for orchestrator)
+recommend_orchestrator_complete_phases_2_through_8: true
+phase_9_status: deferred (out of scope)
+
+----------------------------------------------------------------
+Authority snapshot inspected (read-only)
+----------------------------------------------------------------
+docs/portfolio-plan.md:
+  Claim taxonomy (Implemented / Locally verified / GitHub-verified / Human-approved / Deferred)
+  Mandatory trio: blocked change PR #1 / run 29166442925; recovery_verified; local-approver @ 2026-07-13T17:15:00Z
+  Deferred AWS / live-cloud / org production / live Jenkins E2E explicitly out of scope
+
+docs/portfolio-walkthrough.md:
+  Headline claim boundary: local-only / production-like / non-AWS
+  Claim table, mandatory trio sections, deferred close, residual disclosure present
+
+docs/metrics.md:
+  Preamble local-only / non-AWS; 14 headline rows with evidence sources; no fabricated traffic/SLO claims
+
+docs/demo-script.md:
+  P8-T02 rehearsal script; claim boundary preserved; deferred close explicit
+
+docs/screenshots/README.md:
+  S1–S6 substitutes (no fabricated PNG delivery proofs); tooling PNGs captioned as non-delivery
+
+docs/change-records/phase-8-portfolio-index.md:
+  Assembly index; mandatory trio bindings; Phase 9 / AWS not authorized
+
+STATUS.md (read-only):
+  current_phase=8; current_gate=phase-8-complete; running_tasks=["P8-T03"]
+  completed_gates include phase-8-planning, phase-8-assembly, phase-8-demo
+  unverified still lists: Final portfolio evidence gate; Live cloud or AWS validation
+  verified_baseline includes Phases 2–7 local/GitHub claims + Phase 8 assembly/demo retention
+
+ISSUES.md (relevant):
+  PC-001 through PC-014 status=resolved where listed
+  No open critical/high findings requiring a new issue ID from this gate
+  Residual advisories remain accepted (not zero-risk)
+
+Prior Phase 8 evidence (read-only):
+  evidence/phase-8/metrics-trace.txt — 14/14 PASS; Overall metrics trace PASS
+  evidence/phase-8/p8-t02-rehearsal-log.txt — validate/status/pytest/evidence phase-6 all PASS
+  evidence/phase-8/p8-t02-validate-state.txt; p8-t02-cli-status.txt; p8-t02-pytest.txt; p8-t02-evidence-phase-6.txt
+
+----------------------------------------------------------------
+Claim agreement matrix (portfolio claims vs retained evidence)
+----------------------------------------------------------------
+| Portfolio claim | Label | Governing evidence | Independent check | Agree |
+|---|---|---|---|---|
+| Delivery API + CLI harness (Phase 2) | Implemented / Locally verified | evidence/phase-2/integrated-gate.txt; docs/change-records/phase-2-local.md | Gate CLEAR; metrics cite 14 passed / 96.59% | YES |
+| Multi-stage image, Compose, smoke (Phase 3) | Implemented / Locally verified | evidence/phase-3/integrated-gate.txt (static); evidence/phase-3/runtime/summary.txt + runtime set; phase-3-local.md; STATUS phase-3-runtime | Static gate + separate runtime evidence set both present; STATUS/retrospective agree on local Docker runtime | YES (NOTE A) |
+| PR workflow + Jenkinsfile local contract (Phase 4) | Implemented / Locally verified | evidence/phase-4/integrated-gate.txt | Local hardening + hosted pointers retained | YES |
+| Hosted PR validation pass on main | GitHub-verified | Run 29166389732 @ e82f4a2; phase-4 integrated-gate; phase-4-github-validation.md | IDs and four-job pass language agree across walkthrough/metrics/gate | YES |
+| Safe blocked-change demo | GitHub-verified | Draft PR #1; run 29166442925; intentional Ruff F401 | Mandatory trio binding agrees | YES |
+| Jenkins authz + unauthorized denial (Phase 5) | Locally verified | evidence/phase-5/integrated-gate.txt; p5-t04-manual-verify2-unauthorized-proof.txt | unauthorized_status=400; X-Error local-approver; result ABORTED | YES |
+| Append-only events + summary manifest (Phase 6) | Locally verified | evidence/phase-6/events.jsonl; manifest.json; integrated-gate | CLI evidence phase-6 valid=true (reconfirmed) | YES |
+| Named approval local-approver | Human-approved local fixture | events p6-local-approval; manifest approvals[]; phase-6-local.md | approver_id=local-approver; approved_at=2026-07-13T17:15:00Z | YES |
+| Rollback + recovery_verified | Locally verified non-E2E | event p6-local-recovery; manifest status=recovery_verified; four checks pass | pipeline.run_id=manual disclosed | YES |
+| Failure-injection 12/12 (Phase 7) | Locally verified | evidence/phase-7/integrated-gate.txt; P7-T01-lane-index.txt | P7-T03_verdict=PASS; all_scenarios_ok=True | YES |
+| Live AWS / org production / live Jenkins E2E | Deferred | docs/aws-validation.md; STATUS unverified; walkthrough §8; demo-script close | Explicitly out of scope; no upgrade language found | YES |
+| Phase 8 package assembly + demo rehearsal | Locally retained (pre-gate) | phase-8-portfolio-index; demo-script; evidence/phase-8/* | Assembly + P8-T02 rehearsal retained; this file closes final gate | YES |
+
+NOTE A: evidence/phase-3/integrated-gate.txt is the static/engine-independent summary and correctly refuses Docker-runtime claims by itself. Locally verified Phase 3 runtime is supported by evidence/phase-3/runtime/* (26 files including summary.txt: build, Compose, expected-SHA smoke, not-ready negative) plus STATUS completed_gate phase-3-runtime and docs/retrospectives/phase-3.md. Walkthrough/plan pointers that cite only integrated-gate.txt are slightly imprecise but not claim-overreaching once the runtime set is included. Accepted residual documentation precision — not a FAIL.
+
+blocking_inconsistencies: none
+claim_overreach_detected: none (no live AWS, org production, or live Jenkins E2E asserted as complete)
+
+----------------------------------------------------------------
+Mandatory trio check
+----------------------------------------------------------------
+1) Blocked change (GitHub-verified)
+   Required: draft PR #1; Actions run 29166442925; intentional Python quality / Ruff F401
+   Walkthrough §3.1: present
+   Portfolio index: present
+   Metrics rows 2/5: present
+   Screenshots S2 substitute: present
+   Phase-4 integrated-gate: present and agreeing
+   Result: PASS
+
+2) Named human approval event (Human-approved local fixture)
+   Required: local-approver @ 2026-07-13T17:15:00Z; event p6-local-approval
+   events.jsonl: present
+   manifest.json approvals[0]: approver_id=local-approver; approved_at=2026-07-13T17:15:00Z; event_id=p6-local-approval
+   phase-6-local.md / walkthrough §3.2 / screenshots S4: agreeing
+   Scope label retained: local fixture — not organizational production
+   Related non-approval (Phase 5 denial) correctly separated
+   Result: PASS
+
+3) Recovery (Locally verified, non-E2E)
+   Required: recovery_verified with deployed_digest/health/version/business_behavior pass
+   event p6-local-recovery @ 2026-07-13T17:40:00Z: present
+   manifest.status=recovery_verified; recovery.checks all pass
+   pipeline.run_id=manual disclosed (synthetic fixture, not live E2E)
+   Walkthrough §3.3 / screenshots S5 / metrics row 12: agreeing
+   Result: PASS
+
+mandatory_trio_rollup: PASS (3/3)
+
+----------------------------------------------------------------
+Metrics-trace agreement
+----------------------------------------------------------------
+Source: evidence/phase-8/metrics-trace.txt (P8-T02)
+Headline rows checked: 14
+PASS: 14
+FAIL: 0
+MISSING_SOURCE: 0
+Unsupported upgrades observed: none
+
+Independent spot-checks by this gate:
+  - Phase 6 CLI: .venv\Scripts\python.exe scripts\project_cli.py evidence phase-6 → valid=true; errors=[]
+  - Unauthorized proof: unauthorized_status=400; X-Error requires local-approver; final result ABORTED
+  - Phase 7 lane index + integrated gate: 12/12 ok; P7-T03_verdict=PASS
+  - Integrated gates present for phases 2–7; phase-8 integrated-gate written by this task
+  - PC-001..PC-014 resolved in ISSUES.md (residuals advisory)
+
+metrics_trace_agreement: PASS
+Note: metrics.md evidence-completeness row correctly recorded Phase 8 gate as pending at P8-T02 rehearsal time; this artifact closes that pending item.
+
+----------------------------------------------------------------
+Deferred / out of scope (explicit)
+----------------------------------------------------------------
+The following remain Deferred and MUST NOT be treated as Phase 8 completion:
+  - Live AWS / Terraform / ECR / ECS / OIDC (docs/aws-validation.md; Phase 9)
+  - Digest promotion beyond local fixture evidence
+  - Production approval beyond the Phase 5/6 local fixture
+  - Live Jenkins E2E promotion and recovery (pipeline.run_id: manual is not E2E)
+  - Organizational-scale Jenkins administration
+  - Sustained production use / production traffic
+  - Clearance of residual security advisories / zero-risk security
+  - Branch-protection administration claims beyond retained Phase 4 hosted runs
+
+Walkthrough §8 still lists P8-T02 and P8-T03 as deferred (assembly-time language). After P8-T02 rehearsal and this P8-T03 PASS, those portfolio-task deferrals become stale meta-status; AWS/live-cloud deferrals remain authoritative. Accepted residual doc lag — not claim overreach.
+
+----------------------------------------------------------------
+Accepted residual risks / limitations
+----------------------------------------------------------------
+- Host Docker socket + Compose user:root (Phase 5 controller-isolation residual) — not multi-tenant isolation proof
+- Operator-attested VERIFIED_ROLLBACK_* parameters (Phase 6 honesty residual) — no automated prior-evidence binding
+- Hardcoded Jenkinsfile verified/recovery check maps (Phase 6 fidelity residual)
+- cpsScm tip load and cleanWs archive-loss residuals remain accepted outside failure-injection clearance
+- Phase 6 approval/recovery path is synthetic fixture (pipeline.run_id: manual), not live Jenkins E2E
+- Phase 7 credential lane reuses Phase 5 unauthorized proof; must not upgrade to org Jenkins E2E
+- Supply-chain lane uses local scanner reproductions; no invented merge-block claim for throwaway fixtures
+- Phase 3 walkthrough pointer cites static integrated-gate primarily; runtime proof lives under evidence/phase-3/runtime/
+- No authentic S1–S6 UI PNG captures; URL + retained-evidence substitutes govern until authentic captures are added
+- Optional PC-015 / PC-016 hardening trackers remain not opened
+- Root Codex/connector PNGs are tooling-context only if shown
+
+----------------------------------------------------------------
+Independent validation commands (executed by this reviewer)
+----------------------------------------------------------------
+
+1) project validate state
+command: .venv\Scripts\python.exe scripts\project_cli.py validate state
+started_at_utc: 2026-07-13T19:02:19Z
+exit_code: 0
+raw_output:
+Validation passed: state
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+result: PASS
+
+2) git diff --check
+command: git diff --check
+exit_code: 0
+raw_notes:
+LF/CRLF conversion warnings only (ISSUES.md, Jenkinsfile, PLAN.md, README.md, STATUS.md, compose.yaml, docs/*, infra/jenkins/*, scripts/*, tests/*). No whitespace conflict errors.
+result: PASS
+
+3) evidence phase-6 (spot-check supporting mandatory trio)
+command: .venv\Scripts\python.exe scripts\project_cli.py evidence phase-6
+exit_code: 0
+result: PASS (valid=true; errors=[])
+
+----------------------------------------------------------------
+Inventory cross-check (existence)
+----------------------------------------------------------------
+present_and_agreeing:
+  docs/portfolio-plan.md
+  docs/portfolio-walkthrough.md
+  docs/metrics.md
+  docs/demo-script.md
+  docs/screenshots/README.md
+  docs/change-records/phase-8-portfolio-index.md
+  docs/change-records/phase-2-local.md
+  docs/change-records/phase-3-local.md
+  docs/change-records/phase-4-github-validation.md
+  docs/change-records/phase-5-local.md
+  docs/change-records/phase-6-local.md
+  docs/change-records/phase-7-local.md
+  evidence/phase-2/integrated-gate.txt
+  evidence/phase-3/integrated-gate.txt
+  evidence/phase-3/runtime/summary.txt
+  evidence/phase-4/integrated-gate.txt
+  evidence/phase-5/integrated-gate.txt
+  evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt
+  evidence/phase-6/integrated-gate.txt
+  evidence/phase-6/events.jsonl
+  evidence/phase-6/manifest.json
+  evidence/phase-7/integrated-gate.txt
+  evidence/phase-7/P7-T01-lane-index.txt
+  evidence/phase-8/metrics-trace.txt
+  evidence/phase-8/p8-t02-rehearsal-log.txt
+  docs/aws-validation.md
+
+missing_declared_portfolio_evidence: none
+blocking_inconsistencies: none
+
+----------------------------------------------------------------
+Gate verdict
+----------------------------------------------------------------
+failed_checks: none
+blocking_inconsistencies: none
+claim_overreach_detected: none
+unresolved_critical_or_high_findings: none
+mandatory_trio: PASS
+metrics_trace_agreement: PASS
+deferred_aws_live_cloud_labeled: PASS
+residuals_disclosed_not_cleared: PASS
+
+P8-T03_verdict: PASS
+
+summary: Portfolio narratives (walkthrough, metrics, demo script, screenshots index, phase-8 change-record index) agree with retained Phases 2–7 local/GitHub evidence and Phase 8 rehearsal artifacts under the local-only / production-like / non-AWS claim boundary. Mandatory trio (blocked change PR #1 / run 29166442925; local-approver fixture approval; recovery_verified non-E2E) verified. Metrics-trace 14/14 PASS reconfirmed. Deferred AWS/live-cloud/org-production/live-Jenkins-E2E remain out of scope. Residual advisories retained. Independent validate-state and git-diff-check passed.
+
+completion_recommendation:
+  recommend_orchestrator_complete_phases_2_through_8: true
+  Mark P8-T03 verified and treat Phases 2–8 as complete within the authorized local / GitHub claim boundary.
+  Preserve deferred AWS / live-cloud / Phase 9 as out of scope unless separately authorized.
+  Do not clear residual advisories.
+  Optional non-blocking follow-up: tighten Phase 3 walkthrough pointer to cite evidence/phase-3/runtime/summary.txt; refresh walkthrough §8 / metrics completeness wording now that P8-T02/P8-T03 are complete.

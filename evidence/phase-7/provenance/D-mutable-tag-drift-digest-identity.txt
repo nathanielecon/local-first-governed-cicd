@@ -1,0 +1,20 @@
+scenario=D-mutable-tag-drift
+timestamp_utc=2026-07-13T18:46:25Z
+claim_boundary=local-only / non-cloud; digest identity SoT; tags are aliases only
+expected=after tag retarget, selection continues to use recorded digest
+conclusion=PASS: digest-targeted selection kept recorded digest despite mutable-tag drift
+identity_rule=digest remains SoT; tag is alias only
+--- command[1] ---
+argv=['select_matching_repo_digest', 'expected=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tag=latest->digest_b']
+exit_code=0
+stdout<<EOF
+{
+  "recorded_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "tag_now_points_to": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "matched_repo_digest": "localhost:5000/delivery-api@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "wrong_repo_rejected": true
+}
+EOF
+stderr<<EOF
+
+EOF

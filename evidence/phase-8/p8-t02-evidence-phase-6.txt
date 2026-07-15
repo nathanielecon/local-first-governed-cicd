@@ -1,0 +1,6 @@
+{
+  "path": "evidence/phase-6/manifest.json",
+  "events_path": "evidence/phase-6/events.jsonl",
+  "valid": true,
+  "errors": []
+}

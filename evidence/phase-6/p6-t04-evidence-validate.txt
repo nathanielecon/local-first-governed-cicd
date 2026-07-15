@@ -1,0 +1,10 @@
+command: .venv\Scripts\python.exe scripts/evidence.py validate --release-id phase-6
+cwd: C:\Users\natha\OneDrive\Documents\cloud
+started_at: 2026-07-13T14:02:00-04:00
+claim_boundary: local-only / production-like
+{
+  "release_id": "phase-6",
+  "valid": true,
+  "errors": []
+}
+exit_code: 0

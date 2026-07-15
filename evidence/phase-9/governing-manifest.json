@@ -1,0 +1,23 @@
+{
+  "phase": 9,
+  "region": "us-east-1",
+  "git_sha": "376b7e18c5cc94e67ff180ca2f42b8eb05535be3",
+  "image_ref": "000000000000.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229",
+  "service_base_url": "http://project-c-stg-117678206.us-east-1.elb.amazonaws.com",
+  "smoke": "PASS",
+  "auth_mode": "operator-aws-session",
+  "ecs": {"cluster": "project-c-staging", "service": "project-c-delivery-api", "status": "ACTIVE", "running": 1},
+  "cost_notes": "us-east-1; Fargate 256/512; public IP (no NAT); ALB ~hourly; CloudWatch logs 7d retention",
+  "teardown": "cd infra/terraform && terraform destroy -auto-approve -var git_sha=376b7e18c5cc94e67ff180ca2f42b8eb05535be3 -var create_service=true -var container_image=000000000000.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229",
+  "residuals": [
+    "operator AWS login session (not GitHub OIDC for this run)",
+    "IAM principal was account root login session — replace with least-privilege role",
+    "HTTP ALB only (no TLS) for ephemeral staging proof"
+  ],
+  "recorded_at": "2026-07-14T01:23:02Z",
+  "evidence": [
+    "evidence/phase-9/20260714T010224Z-smoke-pass.txt",
+    "evidence/phase-9/20260714T012302Z-smoke-reverify.txt",
+    "evidence/phase-9/20260714T010224Z-image-digest.txt"
+  ]
+}

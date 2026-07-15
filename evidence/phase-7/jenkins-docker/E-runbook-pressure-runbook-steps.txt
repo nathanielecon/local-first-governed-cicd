@@ -1,0 +1,21 @@
+scenario=E-runbook-pressure
+timestamp_utc=2026-07-13T18:46:27Z
+claim_boundary=local-only / non-cloud; runbook pressure path; residual Docker-socket/root advisory remains
+expected=runbook steps executable under pressure; residual not claimed cleared
+conclusion=PASS: runbook Jenkins/Docker isolation steps are present and cited; residual advisory explicit
+required_cues={"docker compose ps jenkins": true, "/var/run/docker.sock": true, "Do not rebuild": true, "local-only": true}
+residual_not_cleared=True
+note=Evidence only; docs/runbook.md not modified (outside write_scope).
+--- command[1] ---
+argv=['read', 'docs/runbook.md']
+exit_code=0
+stdout<<EOF
+1. Record time/release/digest; do not rebuild/retag/prune yet (runbook First five minutes).
+2. Check controller: docker compose ps jenkins; docker compose logs --tail 200 jenkins.
+3. For Docker failures: inspect /var/run/docker.sock, controller user/group, host Docker health, disk.
+4. Resume from a clean Jenkins run; do not skip failed stages.
+5. Retain residual honesty: host socket + root controller privilege are NOT remediated by this pressure test.
+EOF
+stderr<<EOF
+
+EOF

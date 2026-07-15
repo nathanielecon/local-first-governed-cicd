@@ -1,0 +1,10 @@
+command: .venv\Scripts\python.exe scripts/validate_jenkinsfile.py --json
+cwd: C:\Users\natha\OneDrive\Documents\cloud
+started_at: 2026-07-13T14:02:00-04:00
+claim_boundary: local-only / production-like
+{
+  "path": "Jenkinsfile",
+  "valid": true,
+  "errors": []
+}
+exit_code: 0
