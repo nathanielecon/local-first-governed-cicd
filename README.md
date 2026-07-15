@@ -23,7 +23,7 @@ Repo slug after rename: `local-first-governed-cicd` (display name above). Older 
 
 ## Optional AWS staging architecture
 
-Canonical draw.io source: [`docs/project-c-phase9-staging-architecture.drawio`](docs/project-c-phase9-staging-architecture.drawio). Exported view:
+Canonical draw.io source: [`docs/project-c-phase9-staging-architecture.drawio`](docs/project-c-phase9-staging-architecture.drawio). Polished Image2 view:
 
 ![Optional AWS staging: GitHub to ECR digest to ALB to ECS Fargate in us-east-1](docs/screenshots/phase9-architecture.png)
 
