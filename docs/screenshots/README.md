@@ -11,7 +11,7 @@
 | Asset | Path | Notes |
 | --- | --- | --- |
 | Primary landscape poster (Image2) | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary 16:9 asset (2048×1152). TOP: architecture flowchart (Developer → GitHub PR → Actions → Jenkins digest → staging verify → named approval → evidence/rollback; optional ECR→ECS/Fargate→ALB strip). BOTTOM: story chapter cards. Embedded first in root `README.md` with ELI5 walkthrough. |
-| Phase 9 staging architecture (export) | `docs/screenshots/phase9-architecture.png` | PNG export of `docs/project-c-phase9-staging-architecture.drawio`. Embedded on README under optional AWS staging. Must stay force-tracked (see `.gitignore` exceptions). |
+| Phase 9 staging architecture (Image2) | `docs/screenshots/phase9-architecture.png` | Polished 16:9 Image2 render of optional AWS staging (aligned to `docs/project-c-phase9-staging-architecture.drawio`). Embedded on README under optional AWS staging. Force-tracked via `.gitignore` exception. Canonical editable source remains the draw.io file. |
 
 ---
 
