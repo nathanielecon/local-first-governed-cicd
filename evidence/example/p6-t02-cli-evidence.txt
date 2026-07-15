@@ -1,0 +1,6 @@
+{
+  "path": "evidence/example/manifest.json",
+  "events_path": "evidence/example/events.jsonl",
+  "valid": true,
+  "errors": []
+}

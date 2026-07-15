@@ -1,0 +1,243 @@
+P6-T08 Phase 6 integrated evidence gate — independent review
+=============================================================
+task: P6-T08
+gate: phase-6-integrated-evidence
+worker: phase-6-integration-reviewer
+recorded_at_utc: 2026-07-13T18:25:10Z
+claim_boundary: local-only / production-like / non-E2E; does not assert live Jenkins runtime promotion, live cloud, AWS, organizational Jenkins administration, sustained production operation, or organizational digest promotion
+implementation_modifications: none
+authority_state_modifications: none (STATUS.md machine-readable block and ISSUES.md left for orchestrator)
+recommend_orchestrator_resolve: [PC-002, PC-003]
+
+----------------------------------------------------------------
+Authority snapshot inspected (read-only)
+----------------------------------------------------------------
+STATUS.md:
+  current_phase=6
+  current_gate=phase-6-integrated-evidence
+  running_tasks=["P6-T08"]
+  completed_gates include phase-6-spec, phase-6-engineering-review, phase-6-change-review, phase-6-qa, phase-6-security-review
+  unverified still lists: Append-only release evidence and summary manifest; Verified rollback target and recovery; Digest promotion; Production approval beyond the local Phase 5 fixture; Rollback recovery
+
+PLAN.md:
+  P6-T00..P6-T07 state=verified (prior gates)
+  P6-T08 state=running
+  P6-T09 / later tasks state=planned
+  P6-T08 acceptance: all declared Phase 6 evidence agrees; resolve PC-002/PC-003 only if append-only evidence, rollback-target gating, and recovery verification all pass; preserve local-only / production-like claim boundary
+
+ISSUES.md (relevant):
+  PC-001 status=resolved (Phase 5 local Jenkins authorization)
+  PC-002 status=open (critical; append-only release evidence + approver persistence) — closure deferred to this gate + orchestrator
+  PC-003 status=open (critical; verified rollback target + recovery verification) — closure deferred to this gate + orchestrator
+  PC-004..PC-014 status=resolved where applicable
+
+Prior Phase 6 gate agreement (read-only):
+  docs/phase-6-spec.md — frozen shared PC-002/PC-003 contract
+  docs/reviews/phase-6-eng-review.md — Verdict: CLEAR (bounded implementation baseline; did not close issues)
+  docs/reviews/phase-6-change-review.md — Verdict: clear (local-only / non-E2E)
+  docs/reviews/phase-6-security-review.md — Verdict: CLEAR (no new critical/high; ledger close deferred to P6-T08)
+  evidence/phase-6/qa.txt — P6-T06_verdict=PASS
+  docs/change-records/phase-6-local.md — event-backed identities agree with phase-6 fixture
+
+----------------------------------------------------------------
+Declared Phase 6 evidence inventory (existence + agreement)
+----------------------------------------------------------------
+present_and_agreeing:
+  docs/phase-6-spec.md
+  docs/reviews/phase-6-eng-review.md          verdict=CLEAR
+  docs/reviews/phase-6-change-review.md        verdict=clear
+  docs/reviews/phase-6-security-review.md      verdict=CLEAR
+  docs/change-records/phase-6-local.md         agrees commit/digest/approver/rollback/recovery
+  evidence/phase-6/qa.txt                      P6-T06_verdict=PASS
+  evidence/example/events.jsonl                7 events; first_release_decision path
+  evidence/example/manifest.json               derived; status=production_verified; approvals include approver.jane
+  evidence/phase-6/events.jsonl                10 events; rollback_target_bound + recovery path
+  evidence/phase-6/manifest.json               derived; status=recovery_verified; approvals include local-approver
+  evidence/phase-6/p6-t03-promotion-gate-blocked.txt
+    ok=false; blocked without verified target and without first-release decision
+  evidence/phase-6/p6-t03-promotion-gate-first-release.txt
+    ok=true with first-release decision
+  evidence/phase-6/p6-t03-promotion-gate-staging-rejected.txt
+    ok=false; staging-as-prior forbidden
+  evidence/phase-6/p6-t03-pytest.txt / p6-t03-compose-config.txt
+  evidence/phase-6/p6-t04-pytest.txt / p6-t04-validate-jenkinsfile.txt / p6-t04-validate-state.txt / p6-t04-evidence-validate.txt
+  evidence/example/p6-t02-pytest.txt / p6-t02-cli-evidence.txt
+
+identity_agreement_phase-6_fixture:
+  commit_sha=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  candidate_digest=sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  approver_id=local-approver
+  approved_at=2026-07-13T17:15:00Z
+  rollback_target.digest=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  recovery.checks={deployed_digest,health,version,business_behavior}=pass
+  events.jsonl, manifest.json, and docs/change-records/phase-6-local.md cite the same fields
+
+prior_gate agreement:
+  engineering review, change review, QA, and security review all clear under the same local-only / production-like / non-E2E claim boundary
+  no critical/high open Phase 6 defects remain beyond ledger PC-002 / PC-003 pending this integrated closure
+  residual advisories (operator-attested VERIFIED_ROLLBACK_* params; hardcoded verify maps in Jenkinsfile appends; local docker.sock/root control-plane; synthetic fixture non-E2E) are consistently accepted and do not disagree across gates
+
+----------------------------------------------------------------
+PC-002 remediation support matrix
+----------------------------------------------------------------
+Original defect: evidence manifest overwrites environment state and does not record Jenkins approver, so staging, approval, and production cannot be proven together.
+
+1) Append-only events.jsonl as source of truth + derived manifest
+   - evidence/example/events.jsonl reconstructs build → staging → approval → first_release_decision → production
+   - evidence/phase-6/events.jsonl reconstructs build → staging → approval → rollback_target_bound → production → failure → rollback → recovery
+   - scripts/evidence.py validate --release-id example|phase-6 both return valid=true (independent run below)
+   - derived manifests expose schema_version=6.0, event_count matching logs, and gate fields regenerable from events
+   disposition: SUPPORTED
+
+2) Approver identity + timestamps persisted
+   - example: approvals[].approver_id=approver.jane; approved_at=2026-07-13T12:15:00Z; event_id=evt-approval-001
+   - phase-6: approvals[].approver_id=local-approver; approved_at=2026-07-13T17:15:00Z; event_id=p6-local-approval
+   - production_approval events carry details.approver_id + details.approved_at
+   - change record cites the same local-approver / timestamp pair
+   disposition: SUPPORTED
+
+3) Staging / approval / production proven together
+   - both fixtures retain staging_deployed + staging_verified, production_approval, production_deployed + production_verified in one append-only log
+   - derived summaries expose staging.status, approvals[], and production.status from those events without discarding history
+   disposition: SUPPORTED
+
+PC-002 integrated conclusion: local remediation claims are fully supported by agreeing Phase 6 evidence.
+Recommend orchestrator resolve PC-002.
+
+----------------------------------------------------------------
+PC-003 remediation support matrix
+----------------------------------------------------------------
+Original defect: first production promotion may have no rollback digest, and recovery does not verify health, version, business behavior, or deployed digest.
+
+1) Promotion fail-closed without verified rollback target OR explicit first-release
+   - p6-t03-promotion-gate-blocked.txt: ok=false; "no verified rollback target and no first-release decision"
+   - p6-t03-promotion-gate-first-release.txt: ok=true with first-release decision
+   - example fixture uses first_release_decision; phase-6 fixture uses rollback_target_bound (XOR satisfied)
+   disposition: SUPPORTED
+
+2) No staging-as-prior
+   - p6-t03-promotion-gate-staging-rejected.txt: ok=false; "staging-as-prior is forbidden"
+   - phase-6 rollback_target.environment=production; source_release_id=phase-6-prior-fixture
+   disposition: SUPPORTED
+
+3) Recovery verifies health, version, business behavior, and deployed digest
+   - phase-6 events include production_verification_failed → rollback_executed → recovery_verified
+   - recovery_verified details.checks and manifest.recovery.checks all pass for deployed_digest, health, version, business_behavior
+   - restored digest matches bound prior verified digest sha256:aaa…
+   - change record recovery section agrees
+   disposition: SUPPORTED
+
+PC-003 integrated conclusion: local remediation claims are fully supported by agreeing Phase 6 evidence.
+Recommend orchestrator resolve PC-003.
+
+----------------------------------------------------------------
+Independent validation commands (executed by this reviewer)
+----------------------------------------------------------------
+
+1) project validate state
+command: .venv\Scripts\python.exe scripts\project_cli.py validate state
+started_at_utc: 2026-07-13T18:24:49.0196177Z
+ended_at_utc: 2026-07-13T18:24:49.5805850Z
+exit_code: 0
+
+raw_output:
+Validation passed: state
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+
+result: PASS
+
+2) full pytest
+command: .venv\Scripts\python.exe -m pytest -q
+started_at_utc: 2026-07-13T18:24:49.5996509Z
+ended_at_utc: 2026-07-13T18:24:58.8452207Z
+exit_code: 0
+
+raw_output_tail:
+Required test coverage of 90% reached. Total coverage: 96.59%
+111 passed, 32 warnings in 6.18s
+
+result: PASS (111 passed; coverage 96.59%)
+
+3) git diff --check
+command: git diff --check
+started_at_utc: 2026-07-13T18:24:58.8596802Z
+ended_at_utc: 2026-07-13T18:24:59.8430988Z
+exit_code: 0
+
+raw_notes:
+LF/CRLF conversion warnings only (ISSUES.md, Jenkinsfile, PLAN.md, README.md, STATUS.md, compose.yaml, docs/*, infra/jenkins/*, scripts/*, tests/*). No whitespace conflict errors.
+
+result: PASS
+
+4) evidence validate example
+command: .venv\Scripts\python.exe scripts\evidence.py validate --release-id example
+started_at_utc: 2026-07-13T18:24:59.8566051Z
+ended_at_utc: 2026-07-13T18:25:00.6540156Z
+exit_code: 0
+
+raw_output:
+{
+  "release_id": "example",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS
+
+5) evidence validate phase-6
+command: .venv\Scripts\python.exe scripts\evidence.py validate --release-id phase-6
+started_at_utc: 2026-07-13T18:25:00.6590282Z
+ended_at_utc: 2026-07-13T18:25:01.2493582Z
+exit_code: 0
+
+raw_output:
+{
+  "release_id": "phase-6",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS
+
+6) validate_jenkinsfile
+command: .venv\Scripts\python.exe scripts\validate_jenkinsfile.py --json
+started_at_utc: 2026-07-13T18:25:01.2527366Z
+ended_at_utc: 2026-07-13T18:25:01.8061122Z
+exit_code: 0
+
+raw_output:
+{
+  "path": "Jenkinsfile",
+  "valid": true,
+  "errors": []
+}
+
+result: PASS
+
+----------------------------------------------------------------
+Out of scope / preserved claim boundary
+----------------------------------------------------------------
+- No live Jenkins E2E promotion or recovery runtime claim (retained phase-6 evidence is a synthetic local fixture: pipeline.run_id=manual)
+- No live cloud, AWS, organizational Jenkins administration, or sustained production operation claim
+- Digest promotion as an organizational / live outcome remains unverified
+- Production approval beyond the local Phase 5 named-approver fixture remains out of scope
+- Operator-attested VERIFIED_ROLLBACK_* parameters remain an accepted honesty residual (security advisory); not treated as automatic prior-evidence binding
+- Hardcoded Jenkinsfile verify/recovery append maps remain an accepted evidence-fidelity residual; deploy/rollback scripts still fail closed before happy-path appends
+- Phase 5 residual Docker-socket + root Compose risk remains accepted local control-plane risk, not multi-tenant isolation
+
+----------------------------------------------------------------
+Gate verdict
+----------------------------------------------------------------
+failed_checks: none
+blocking_inconsistencies: none
+claim_overreach_detected: none
+
+P6-T08_verdict: PASS
+
+summary: Declared Phase 6 engineering review, change review, QA, security review, change record, first-release fixture (example), recovery fixture (phase-6), and promotion-gate proofs agree on the same local append-only evidence and rollback/recovery result. Independent validate-state, pytest (111), git-diff-check, evidence validate (example + phase-6), and Jenkinsfile validator all passed. PC-002 local remediation (append-only events + derived manifest, approver persistence, staging/approval/production jointly auditable) is fully supported. PC-003 local remediation (fail-closed promotion without target or first-release, no staging-as-prior, recovery verifies digest/health/version/business) is fully supported. Recommend orchestrator: mark P6-T08 verified, resolve PC-002 and PC-003, proceed to P6-T09 retrospective. Preserve local-only / production-like / non-E2E claim boundary.

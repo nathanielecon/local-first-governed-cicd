@@ -1,0 +1,6 @@
+ Container project-c-p5-t11-discovery-jenkins-1 Stopping 
+ Container project-c-p5-t11-discovery-jenkins-1 Stopped 
+ Container project-c-p5-t11-discovery-jenkins-1 Removing 
+ Container project-c-p5-t11-discovery-jenkins-1 Removed 
+ Volume project-c-p5-t11-discovery_jenkins-data Removing 
+ Volume project-c-p5-t11-discovery_jenkins-data Removed 

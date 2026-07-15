@@ -1,0 +1,18 @@
+scenario=E-docker-permission
+timestamp_utc=2026-07-13T18:46:27Z
+claim_boundary=local-only / non-cloud; disposable DOCKER_HOST fault; DOES NOT claim Docker-socket/root residual cleared
+expected=permission/socket failure identifiable; runbook isolation steps applicable
+conclusion=PASS: docker client failed against disposable invalid endpoint; residual advisory retained
+DOCKER_HOST=npipe:////./pipe/project-c-phase7-missing-docker
+residual_advisory=Host Docker socket + Compose user:root remain accepted Phase 5 residuals; this lane only proves failure isolation usability.
+runbook_cite=docs/runbook.md § Jenkins failure — inspect docker.sock, user/group, host Docker health
+--- command[1] ---
+argv=['docker', 'ps']
+exit_code=1
+cwd=C:\Users\natha\OneDrive\Documents\cloud
+stdout<<EOF
+
+EOF
+stderr<<EOF
+failed to connect to the docker API at npipe:////./pipe/project-c-phase7-missing-docker; check if the path is correct and if the daemon is running: open //./pipe/project-c-phase7-missing-docker: The system cannot find the file specified.
+EOF

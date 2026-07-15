@@ -5,8 +5,8 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
 ```json
 {
   "schema_version": "1.0",
-  "revision": 24,
-  "authorized_through_phase": 4,
+  "revision": 63,
+  "authorized_through_phase": 9,
   "tasks": [
     {
       "id": "P1-T01",
@@ -17,10 +17,20 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "depends_on": [],
       "model_tier": "low",
       "owner": "scaffold-audit-worker",
-      "write_scope": ["docs/scaffold-audit.md"],
-      "acceptance_criteria": ["All project assets classified", "Generated artifacts separated", "Phase 2-6 verification boundary stated"],
-      "validation_commands": ["project validate state"],
-      "evidence_paths": ["docs/scaffold-audit.md"],
+      "write_scope": [
+        "docs/scaffold-audit.md"
+      ],
+      "acceptance_criteria": [
+        "All project assets classified",
+        "Generated artifacts separated",
+        "Phase 2-6 verification boundary stated"
+      ],
+      "validation_commands": [
+        "project validate state"
+      ],
+      "evidence_paths": [
+        "docs/scaffold-audit.md"
+      ],
       "gate": "phase-1-engineering-review",
       "issue_ids": [],
       "attempts": 1,
@@ -32,13 +42,28 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Establish orchestrator and worker contract",
       "outcome": "Model routing, Mandarin handoff, write scopes, retry limits, escalation, and human decisions are enforceable.",
       "state": "verified",
-      "depends_on": ["P1-T01"],
+      "depends_on": [
+        "P1-T01"
+      ],
       "model_tier": "medium",
       "owner": "orchestrator",
-      "write_scope": ["AGENTS.md", "docs/orchestration.md", "DECISIONS.md"],
-      "acceptance_criteria": ["Terra Medium ceiling recorded", "Mandarin handoff schema recorded", "Human notification contract recorded"],
-      "validation_commands": ["project validate state"],
-      "evidence_paths": ["docs/orchestration.md", "DECISIONS.md"],
+      "write_scope": [
+        "AGENTS.md",
+        "docs/orchestration.md",
+        "DECISIONS.md"
+      ],
+      "acceptance_criteria": [
+        "Terra Medium ceiling recorded",
+        "Mandarin handoff schema recorded",
+        "Human notification contract recorded"
+      ],
+      "validation_commands": [
+        "project validate state"
+      ],
+      "evidence_paths": [
+        "docs/orchestration.md",
+        "DECISIONS.md"
+      ],
       "gate": "phase-1-engineering-review",
       "issue_ids": [],
       "attempts": 1,
@@ -50,13 +75,28 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Implement unified CLI harness",
       "outcome": "Bootstrap, status, issues, phase, validate, resume, and evidence share one cross-platform core.",
       "state": "verified",
-      "depends_on": ["P1-T01"],
+      "depends_on": [
+        "P1-T01"
+      ],
       "model_tier": "medium",
       "owner": "orchestrator",
-      "write_scope": ["scripts/project_cli.py", "scripts/project.ps1", "project", "tests/test_project_cli.py"],
-      "acceptance_criteria": ["All required commands parse", "State and skills validate", "Blocked later phases cannot start"],
-      "validation_commands": ["project validate phase-1"],
-      "evidence_paths": ["evidence/phase-1/cli-tests.txt"],
+      "write_scope": [
+        "scripts/project_cli.py",
+        "scripts/project.ps1",
+        "project",
+        "tests/test_project_cli.py"
+      ],
+      "acceptance_criteria": [
+        "All required commands parse",
+        "State and skills validate",
+        "Blocked later phases cannot start"
+      ],
+      "validation_commands": [
+        "project validate phase-1"
+      ],
+      "evidence_paths": [
+        "evidence/phase-1/cli-tests.txt"
+      ],
       "gate": "phase-1-engineering-review",
       "issue_ids": [],
       "attempts": 1,
@@ -68,15 +108,35 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Run independent engineering review",
       "outcome": "Trust boundaries, promotion identity, evidence, rollback, and concurrency risks are explicitly gated.",
       "state": "verified",
-      "depends_on": ["P1-T01", "P1-T02", "P1-T03"],
+      "depends_on": [
+        "P1-T01",
+        "P1-T02",
+        "P1-T03"
+      ],
       "model_tier": "independent-gate",
       "owner": "terra-medium-independent-reviewer",
-      "write_scope": ["docs/reviews/eng-review.md", "ISSUES.md"],
-      "acceptance_criteria": ["No unresolved Phase 1 critical findings", "Future critical findings have assigned blocking phases and remediation requirements", "Later-phase scaffold is not treated as verified"],
-      "validation_commands": ["project validate phase-1"],
-      "evidence_paths": ["docs/reviews/eng-review.md", "ISSUES.md"],
+      "write_scope": [
+        "docs/reviews/eng-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "No unresolved Phase 1 critical findings",
+        "Future critical findings have assigned blocking phases and remediation requirements",
+        "Later-phase scaffold is not treated as verified"
+      ],
+      "validation_commands": [
+        "project validate phase-1"
+      ],
+      "evidence_paths": [
+        "docs/reviews/eng-review.md",
+        "ISSUES.md"
+      ],
       "gate": "phase-1-engineering-review",
-      "issue_ids": ["PC-001", "PC-002", "PC-003"],
+      "issue_ids": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
       "attempts": 1,
       "last_error_class": "critical-design-findings"
     },
@@ -85,16 +145,39 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 2,
       "title": "Re-verify application and test contract",
       "outcome": "The existing Phase 2 candidate passes the new evidence-producing gate.",
-      "state": "review",
-      "depends_on": ["P1-T04"],
+      "state": "blocked",
+      "depends_on": [
+        "P1-T04"
+      ],
       "model_tier": "medium",
       "owner": "phase-2-implementation-worker",
-      "write_scope": ["src/", "tests/", "pyproject.toml", "evidence/phase-2/"],
-      "acceptance_criteria": ["Liveness, configurable readiness, version, quote validation, correlation logging, and graceful lifecycle behavior are covered by tests", "Invalid requests and not-ready behavior return documented failure responses", "Ruff and mypy pass", "Tests pass with at least 90 percent coverage", "Release identity contract verifies name, version, commit SHA, and environment", "Raw Ruff, mypy, pytest, and coverage-XML reports are retained under evidence/phase-2/ without sensitive request data"],
-      "validation_commands": ["python -m ruff check src tests | Tee-Object evidence/phase-2/ruff.txt", "python -m mypy src | Tee-Object evidence/phase-2/mypy.txt", "python -m pytest -q --cov-report=xml:evidence/phase-2/coverage.xml | Tee-Object evidence/phase-2/pytest.txt", "project validate app"],
-      "evidence_paths": ["evidence/phase-2/"],
+      "write_scope": [
+        "src/",
+        "tests/",
+        "pyproject.toml",
+        "evidence/phase-2/"
+      ],
+      "acceptance_criteria": [
+        "Liveness, configurable readiness, version, quote validation, correlation logging, and graceful lifecycle behavior are covered by tests",
+        "Invalid requests and not-ready behavior return documented failure responses",
+        "Ruff and mypy pass",
+        "Tests pass with at least 90 percent coverage",
+        "Release identity contract verifies name, version, commit SHA, and environment",
+        "Raw Ruff, mypy, pytest, and coverage-XML reports are retained under evidence/phase-2/ without sensitive request data"
+      ],
+      "validation_commands": [
+        "python -m ruff check src tests | Tee-Object evidence/phase-2/ruff.txt",
+        "python -m mypy src | Tee-Object evidence/phase-2/mypy.txt",
+        "python -m pytest -q --cov-report=xml:evidence/phase-2/coverage.xml | Tee-Object evidence/phase-2/pytest.txt",
+        "project validate app"
+      ],
+      "evidence_paths": [
+        "evidence/phase-2/"
+      ],
       "gate": "phase-2-application",
-      "issue_ids": ["PC-006"],
+      "issue_ids": [
+        "PC-006"
+      ],
       "attempts": 0,
       "last_error_class": ""
     },
@@ -103,17 +186,35 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 2,
       "title": "Align phase-authorization harness expectation",
       "outcome": "The CLI regression test accepts the explicitly authorized Phase 2 while continuing to reject the first unauthorized phase.",
-      "state": "review",
-      "depends_on": ["P1-T04"],
+      "state": "verified",
+      "depends_on": [
+        "P1-T04"
+      ],
       "model_tier": "low",
       "owner": "phase-2-harness-worker",
-      "write_scope": ["tests/test_project_cli.py", "evidence/phase-2/"],
-      "acceptance_criteria": ["The regression test asserts that Phase 2 is authorized", "The regression test still proves the next unauthorized phase is rejected with the human-gate exit code", "The narrow test and full CLI test suite pass", "Raw test output is retained under evidence/phase-2/ without sensitive data"],
-      "validation_commands": ["python -m pytest tests/test_project_cli.py -q -o addopts=", "python -m pytest -q", "project validate phase-1"],
-      "evidence_paths": ["evidence/phase-2/cli-harness.txt"],
+      "write_scope": [
+        "tests/test_project_cli.py",
+        "evidence/phase-2/"
+      ],
+      "acceptance_criteria": [
+        "The regression test asserts that Phase 2 is authorized",
+        "The regression test still proves the next unauthorized phase is rejected with the human-gate exit code",
+        "The narrow test and full CLI test suite pass",
+        "Raw test output is retained under evidence/phase-2/ without sensitive data"
+      ],
+      "validation_commands": [
+        "python -m pytest tests/test_project_cli.py -q -o addopts=",
+        "python -m pytest -q",
+        "project validate phase-1"
+      ],
+      "evidence_paths": [
+        "evidence/phase-2/cli-harness.txt"
+      ],
       "gate": "phase-2-application",
-      "issue_ids": ["PC-006"],
-      "attempts": 0,
+      "issue_ids": [
+        "PC-006"
+      ],
+      "attempts": 1,
       "last_error_class": ""
     },
     {
@@ -121,18 +222,32 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "phase": 2,
       "title": "Independently review the Phase 2 change set",
       "outcome": "The application, API tests, harness correction, and evidence capture receive an independent correctness and claim-boundary review.",
-      "state": "review",
-      "depends_on": ["P2-T01", "P2-T02"],
+      "state": "running",
+      "depends_on": [
+        "P2-T01",
+        "P2-T02"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-2-change-reviewer",
-      "write_scope": ["docs/reviews/change-review.md"],
-      "acceptance_criteria": ["Review verdict cites the current diff, acceptance criteria, and evidence", "No unsupported container, GitHub, Jenkins, production, rollback, or cloud claims are introduced", "Actionable findings identify exact files and lines"],
-      "validation_commands": ["git diff HEAD", "python -m pytest -q"],
-      "evidence_paths": ["docs/reviews/change-review.md"],
+      "write_scope": [
+        "docs/reviews/change-review.md"
+      ],
+      "acceptance_criteria": [
+        "Review verdict cites the current diff, acceptance criteria, and evidence",
+        "No unsupported container, GitHub, Jenkins, production, rollback, or cloud claims are introduced",
+        "Actionable findings identify exact files and lines"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        "python -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/change-review.md"
+      ],
       "gate": "phase-2-change-review",
       "issue_ids": [],
-      "attempts": 1,
-      "last_error_class": ""
+      "attempts": 2,
+      "last_error_class": "jcasc-globalnodeproperties-runtime-shape"
     },
     {
       "id": "P2-T04",
@@ -140,13 +255,31 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently verify the Phase 2 application gate",
       "outcome": "The approved local application contract is independently executed and its raw QA evidence is inspectable.",
       "state": "review",
-      "depends_on": ["P2-T01", "P2-T02", "P2-T03"],
+      "depends_on": [
+        "P2-T01",
+        "P2-T02",
+        "P2-T03"
+      ],
       "model_tier": "medium",
       "owner": "phase-2-qa-worker",
-      "write_scope": ["evidence/phase-2/qa.txt"],
-      "acceptance_criteria": ["QA independently runs Ruff, mypy, pytest with the 90 percent coverage threshold, and project validate app", "QA confirms readiness failure and invalid-request behavior from the test suite", "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive request data", "QA records defects without modifying implementation"],
-      "validation_commands": ["python -m ruff check src tests", "python -m mypy src", "python -m pytest -q", "project validate app"],
-      "evidence_paths": ["evidence/phase-2/qa.txt"],
+      "write_scope": [
+        "evidence/phase-2/qa.txt"
+      ],
+      "acceptance_criteria": [
+        "QA independently runs Ruff, mypy, pytest with the 90 percent coverage threshold, and project validate app",
+        "QA confirms readiness failure and invalid-request behavior from the test suite",
+        "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive request data",
+        "QA records defects without modifying implementation"
+      ],
+      "validation_commands": [
+        "python -m ruff check src tests",
+        "python -m mypy src",
+        "python -m pytest -q",
+        "project validate app"
+      ],
+      "evidence_paths": [
+        "evidence/phase-2/qa.txt"
+      ],
       "gate": "phase-2-qa",
       "issue_ids": [],
       "attempts": 0,
@@ -158,13 +291,28 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently audit the Phase 2 security boundary",
       "outcome": "The local application change and evidence are checked for secret exposure, trust-boundary regression, and unsupported delivery claims.",
       "state": "review",
-      "depends_on": ["P2-T03", "P2-T04"],
+      "depends_on": [
+        "P2-T03",
+        "P2-T04"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-2-security-reviewer",
-      "write_scope": ["docs/reviews/security-review.md"],
-      "acceptance_criteria": ["Review maps the Phase 2 identity and credential boundary", "Source, evidence, and current diff are checked for secrets", "No Phase 2 claim expands to unverified container, GitHub, Jenkins, registry, production, rollback, or cloud activity", "Critical or high findings are assigned issue IDs"],
-      "validation_commands": ["git diff HEAD", "python -m pytest -q"],
-      "evidence_paths": ["docs/reviews/security-review.md"],
+      "write_scope": [
+        "docs/reviews/security-review.md"
+      ],
+      "acceptance_criteria": [
+        "Review maps the Phase 2 identity and credential boundary",
+        "Source, evidence, and current diff are checked for secrets",
+        "No Phase 2 claim expands to unverified container, GitHub, Jenkins, registry, production, rollback, or cloud activity",
+        "Critical or high findings are assigned issue IDs"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        "python -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/security-review.md"
+      ],
       "gate": "phase-2-security-review",
       "issue_ids": [],
       "attempts": 0,
@@ -176,13 +324,29 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Gate Phase 2 local evidence readiness",
       "outcome": "Phase 2 has an inspectable local change record and a readiness verdict that preserves all unverified external boundaries.",
       "state": "review",
-      "depends_on": ["P2-T03", "P2-T04", "P2-T05"],
+      "depends_on": [
+        "P2-T03",
+        "P2-T04",
+        "P2-T05"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-2-readiness-reviewer",
-      "write_scope": ["docs/change-records/phase-2-local.md"],
-      "acceptance_criteria": ["Change record connects the baseline commit, local checks, evidence, impact, and remaining boundaries", "Readiness verdict explicitly excludes image, digest, staging, approval, production, rollback, GitHub-hosted, and cloud claims", "No production approval is implied or recorded"],
-      "validation_commands": ["git status --short", "python -m pytest -q", "project validate app"],
-      "evidence_paths": ["docs/change-records/phase-2-local.md"],
+      "write_scope": [
+        "docs/change-records/phase-2-local.md"
+      ],
+      "acceptance_criteria": [
+        "Change record connects the baseline commit, local checks, evidence, impact, and remaining boundaries",
+        "Readiness verdict explicitly excludes image, digest, staging, approval, production, rollback, GitHub-hosted, and cloud claims",
+        "No production approval is implied or recorded"
+      ],
+      "validation_commands": [
+        "git status --short",
+        "python -m pytest -q",
+        "project validate app"
+      ],
+      "evidence_paths": [
+        "docs/change-records/phase-2-local.md"
+      ],
       "gate": "phase-2-readiness",
       "issue_ids": [],
       "attempts": 0,
@@ -194,13 +358,26 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Retrospect the Phase 2 delivery cycle",
       "outcome": "Phase 2 rework, evidence defects, and guardrail improvements are recorded with owners and future target phases.",
       "state": "review",
-      "depends_on": ["P2-T06"],
+      "depends_on": [
+        "P2-T06"
+      ],
       "model_tier": "low",
       "owner": "phase-2-retro-worker",
-      "write_scope": ["docs/retrospectives/phase-2.md"],
-      "acceptance_criteria": ["Retrospective distinguishes root causes from symptoms", "PC-006 and PC-007 are retained as evidence-backed rework", "Concrete follow-up actions name an owner, acceptance criterion, and target phase", "No authoritative state is edited by the worker"],
-      "validation_commands": ["git diff --check"],
-      "evidence_paths": ["docs/retrospectives/phase-2.md"],
+      "write_scope": [
+        "docs/retrospectives/phase-2.md"
+      ],
+      "acceptance_criteria": [
+        "Retrospective distinguishes root causes from symptoms",
+        "PC-006 and PC-007 are retained as evidence-backed rework",
+        "Concrete follow-up actions name an owner, acceptance criterion, and target phase",
+        "No authoritative state is edited by the worker"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/retrospectives/phase-2.md"
+      ],
       "gate": "phase-2-retrospective",
       "issue_ids": [],
       "attempts": 0,
@@ -212,36 +389,73 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Run the final Phase 2 integrated evidence gate",
       "outcome": "All approved local Phase 2 artifacts, reviews, reports, and state transitions agree before the phase is marked verified.",
       "state": "verified",
-      "depends_on": ["P2-T01", "P2-T02", "P2-T03", "P2-T04", "P2-T05", "P2-T06", "P2-T07"],
+      "depends_on": [
+        "P2-T01",
+        "P2-T02",
+        "P2-T03",
+        "P2-T04",
+        "P2-T05",
+        "P2-T06",
+        "P2-T07"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-2-integration-reviewer",
-      "write_scope": ["evidence/phase-2/integrated-gate.txt"],
-      "acceptance_criteria": ["All declared Phase 2 evidence exists and supports the same passing local result", "Authoritative state validates and no open Phase 2 blocker remains", "The gate explicitly preserves unverified external boundaries", "Raw integration output is retained"],
-      "validation_commands": ["project validate state", "project validate app", "python -m pytest -q", "git diff --check"],
-      "evidence_paths": ["evidence/phase-2/integrated-gate.txt"],
+      "write_scope": [
+        "evidence/phase-2/integrated-gate.txt"
+      ],
+      "acceptance_criteria": [
+        "All declared Phase 2 evidence exists and supports the same passing local result",
+        "Authoritative state validates and no open Phase 2 blocker remains",
+        "The gate explicitly preserves unverified external boundaries",
+        "Raw integration output is retained"
+      ],
+      "validation_commands": [
+        "project validate state",
+        "project validate app",
+        "python -m pytest -q",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-2/integrated-gate.txt"
+      ],
       "gate": "phase-2-integrated-evidence",
       "issue_ids": [],
       "attempts": 0,
       "last_error_class": ""
-    }
-    ,
+    },
     {
       "id": "P3-T00",
       "phase": 3,
       "title": "Independently review the Phase 3 container and local-runtime design",
       "outcome": "The image, Compose, runtime-check, evidence, and PC-004 dependency boundaries are clear before implementation.",
       "state": "verified",
-      "depends_on": ["P2-T08"],
+      "depends_on": [
+        "P2-T08"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-3-engineering-reviewer",
-      "write_scope": ["docs/reviews/phase-3-eng-review.md", "ISSUES.md"],
-      "acceptance_criteria": ["Separates engine-independent work from Docker Linux engine dependent validation", "Reviews image identity, non-root runtime, Compose topology, release identity, smoke, failure modes, and evidence", "Preserves PC-004 and does not expand into Phase 5 Jenkins remediation"],
-      "validation_commands": ["project validate state", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["docs/reviews/phase-3-eng-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-3-eng-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "Separates engine-independent work from Docker Linux engine dependent validation",
+        "Reviews image identity, non-root runtime, Compose topology, release identity, smoke, failure modes, and evidence",
+        "Preserves PC-004 and does not expand into Phase 5 Jenkins remediation"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-3-eng-review.md"
+      ],
       "gate": "phase-3-engineering-review",
-      "issue_ids": ["PC-004"],
-      "attempts": 1,
-      "last_error_class": ""
+      "issue_ids": [
+        "PC-004"
+      ],
+      "attempts": 2,
+      "last_error_class": "jcasc-globalnodeproperties-runtime-shape"
     },
     {
       "id": "P3-T01",
@@ -249,13 +463,27 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Align Phase 3 authorization harness expectation",
       "outcome": "The CLI test accepts Phase 3 and rejects the next unauthorized phase.",
       "state": "verified",
-      "depends_on": ["P2-T08"],
+      "depends_on": [
+        "P2-T08"
+      ],
       "model_tier": "low",
       "owner": "phase-3-harness-worker",
-      "write_scope": ["tests/test_project_cli.py", "evidence/phase-3/"],
-      "acceptance_criteria": ["Phase 3 accepted", "Phase 4 rejected with human-gate exit", "Narrow and full tests pass"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py -q -o addopts=", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["evidence/phase-3/harness.txt"],
+      "write_scope": [
+        "tests/test_project_cli.py",
+        "evidence/phase-3/"
+      ],
+      "acceptance_criteria": [
+        "Phase 3 accepted",
+        "Phase 4 rejected with human-gate exit",
+        "Narrow and full tests pass"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py -q -o addopts=",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/harness.txt"
+      ],
       "gate": "phase-3-engineering-review",
       "issue_ids": [],
       "attempts": 1,
@@ -267,15 +495,33 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Harden the image definition with static contract tests",
       "outcome": "Dockerfile semantics enforce the approved release-identity, health-check, and non-root runtime contract without invoking Docker.",
       "state": "verified",
-      "depends_on": ["P3-T00", "P3-T01"],
+      "depends_on": [
+        "P3-T00",
+        "P3-T01"
+      ],
       "model_tier": "medium",
       "owner": "phase-3-image-worker",
-      "write_scope": ["Dockerfile", "tests/test_dockerfile_static.py", "evidence/phase-3/image-static.txt"],
-      "acceptance_criteria": ["Dockerfile remains multi-stage and version-pinned", "OCI labels and runtime environment expose version and git SHA contract", "Non-root user, stop signal, and readiness health check are asserted by static tests", "Raw static-test output is retained under evidence/phase-3/ without claiming runtime success"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_dockerfile_static.py -q -o addopts= | Tee-Object evidence/phase-3/image-static.txt"],
-      "evidence_paths": ["evidence/phase-3/image-static.txt"],
+      "write_scope": [
+        "Dockerfile",
+        "tests/test_dockerfile_static.py",
+        "evidence/phase-3/image-static.txt"
+      ],
+      "acceptance_criteria": [
+        "Dockerfile remains multi-stage and version-pinned",
+        "OCI labels and runtime environment expose version and git SHA contract",
+        "Non-root user, stop signal, and readiness health check are asserted by static tests",
+        "Raw static-test output is retained under evidence/phase-3/ without claiming runtime success"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_dockerfile_static.py -q -o addopts= | Tee-Object evidence/phase-3/image-static.txt"
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/image-static.txt"
+      ],
       "gate": "phase-3-implementation",
-      "issue_ids": ["PC-004"],
+      "issue_ids": [
+        "PC-004"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -285,15 +531,33 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Harden the Compose topology with static contract tests",
       "outcome": "Compose services, profiles, ports, and identity inputs are validated from source without invoking Docker.",
       "state": "verified",
-      "depends_on": ["P3-T00", "P3-T01"],
+      "depends_on": [
+        "P3-T00",
+        "P3-T01"
+      ],
       "model_tier": "medium",
       "owner": "phase-3-compose-worker",
-      "write_scope": ["compose.yaml", "tests/test_compose_static.py", "evidence/phase-3/compose-static.txt"],
-      "acceptance_criteria": ["Registry, staging, production, and Jenkins topology matches the approved boundaries", "Promotion identity stays image-reference driven and no tag is treated as a deployment proof", "Static tests assert profiles, ports, environment wiring, and delivery network intent", "Raw static-test output is retained under evidence/phase-3/ without claiming Compose execution"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_compose_static.py -q -o addopts= | Tee-Object evidence/phase-3/compose-static.txt"],
-      "evidence_paths": ["evidence/phase-3/compose-static.txt"],
+      "write_scope": [
+        "compose.yaml",
+        "tests/test_compose_static.py",
+        "evidence/phase-3/compose-static.txt"
+      ],
+      "acceptance_criteria": [
+        "Registry, staging, production, and Jenkins topology matches the approved boundaries",
+        "Promotion identity stays image-reference driven and no tag is treated as a deployment proof",
+        "Static tests assert profiles, ports, environment wiring, and delivery network intent",
+        "Raw static-test output is retained under evidence/phase-3/ without claiming Compose execution"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_compose_static.py -q -o addopts= | Tee-Object evidence/phase-3/compose-static.txt"
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/compose-static.txt"
+      ],
       "gate": "phase-3-implementation",
-      "issue_ids": ["PC-004"],
+      "issue_ids": [
+        "PC-004"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -303,15 +567,34 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Strengthen the smoke tool with negative-path and release-identity tests",
       "outcome": "The smoke helper reports connection and contract failures clearly and statically proves release identity expectations without contacting Docker.",
       "state": "verified",
-      "depends_on": ["P3-T00", "P3-T01"],
+      "depends_on": [
+        "P3-T00",
+        "P3-T01"
+      ],
       "model_tier": "medium",
       "owner": "phase-3-smoke-worker",
-      "write_scope": ["scripts/smoke_test.py", "tests/test_smoke_tool.py", "evidence/phase-3/smoke-static.txt"],
-      "acceptance_criteria": ["Smoke helper reports HTTP and connection failures without stack noise", "Version payload contract and expected SHA checks are covered by unit tests", "Negative not-ready behavior is asserted from source-level tests", "Raw test output is retained under evidence/phase-3/ without claiming container execution"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_smoke_tool.py -q -o addopts= | Tee-Object evidence/phase-3/smoke-static.txt"],
-      "evidence_paths": ["evidence/phase-3/smoke-static.txt"],
+      "write_scope": [
+        "scripts/smoke_test.py",
+        "tests/test_smoke_tool.py",
+        "evidence/phase-3/smoke-static.txt"
+      ],
+      "acceptance_criteria": [
+        "Smoke helper reports HTTP and connection failures without stack noise",
+        "Version payload contract and expected SHA checks are covered by unit tests",
+        "Negative not-ready behavior is asserted from source-level tests",
+        "Raw test output is retained under evidence/phase-3/ without claiming container execution"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_smoke_tool.py -q -o addopts= | Tee-Object evidence/phase-3/smoke-static.txt"
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/smoke-static.txt"
+      ],
       "gate": "phase-3-implementation",
-      "issue_ids": ["PC-004", "PC-003"],
+      "issue_ids": [
+        "PC-004",
+        "PC-003"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -321,15 +604,31 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Produce a read-only container configuration threat review",
       "outcome": "Static image, Compose, Jenkins, and smoke-helper trust boundaries are documented without modifying runtime assets.",
       "state": "verified",
-      "depends_on": ["P3-T00", "P3-T01"],
+      "depends_on": [
+        "P3-T00",
+        "P3-T01"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-3-threat-reviewer",
-      "write_scope": ["docs/reviews/phase-3-threat-review.md"],
-      "acceptance_criteria": ["Review distinguishes image and Compose concerns from Phase 5 Jenkins remediation", "No runtime or cloud claims are introduced", "Actionable findings cite exact files and retain PC-004 and PC-001 boundaries"],
-      "validation_commands": ["git diff HEAD"],
-      "evidence_paths": ["docs/reviews/phase-3-threat-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-3-threat-review.md"
+      ],
+      "acceptance_criteria": [
+        "Review distinguishes image and Compose concerns from Phase 5 Jenkins remediation",
+        "No runtime or cloud claims are introduced",
+        "Actionable findings cite exact files and retain PC-004 and PC-001 boundaries"
+      ],
+      "validation_commands": [
+        "git diff HEAD"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-3-threat-review.md"
+      ],
       "gate": "phase-3-implementation",
-      "issue_ids": ["PC-004", "PC-001"],
+      "issue_ids": [
+        "PC-004",
+        "PC-001"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -339,13 +638,29 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently review the Phase 3 engine-independent change set",
       "outcome": "The static image, Compose, smoke, and threat-review artifacts receive an independent correctness and claim-boundary review.",
       "state": "verified",
-      "depends_on": ["P3-T02", "P3-T03", "P3-T04", "P3-T05"],
+      "depends_on": [
+        "P3-T02",
+        "P3-T03",
+        "P3-T04",
+        "P3-T05"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-3-change-reviewer",
-      "write_scope": ["docs/reviews/phase-3-change-review.md"],
-      "acceptance_criteria": ["Review cites the current diff, acceptance criteria, and evidence", "No unsupported Docker runtime, registry, Jenkins, deployment, production, rollback, GitHub, or cloud claims are introduced", "Actionable findings identify exact files and lines"],
-      "validation_commands": ["git diff HEAD", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["docs/reviews/phase-3-change-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-3-change-review.md"
+      ],
+      "acceptance_criteria": [
+        "Review cites the current diff, acceptance criteria, and evidence",
+        "No unsupported Docker runtime, registry, Jenkins, deployment, production, rollback, GitHub, or cloud claims are introduced",
+        "Actionable findings identify exact files and lines"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-3-change-review.md"
+      ],
       "gate": "phase-3-change-review",
       "issue_ids": [],
       "attempts": 1,
@@ -357,13 +672,29 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently verify the Phase 3 static QA gate",
       "outcome": "The approved engine-independent checks are independently executed and their raw QA evidence is inspectable.",
       "state": "verified",
-      "depends_on": ["P3-T02", "P3-T03", "P3-T04", "P3-T06"],
+      "depends_on": [
+        "P3-T02",
+        "P3-T03",
+        "P3-T04",
+        "P3-T06"
+      ],
       "model_tier": "medium",
       "owner": "phase-3-qa-worker",
-      "write_scope": ["evidence/phase-3/qa.txt"],
-      "acceptance_criteria": ["QA independently runs the full test suite plus the new static tests", "QA confirms the phase-authorization boundary still accepts Phase 3 and rejects Phase 4", "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive data", "QA records defects without modifying implementation"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py tests/test_api.py tests/test_dockerfile_static.py tests/test_compose_static.py tests/test_smoke_tool.py -q -o addopts="],
-      "evidence_paths": ["evidence/phase-3/qa.txt"],
+      "write_scope": [
+        "evidence/phase-3/qa.txt"
+      ],
+      "acceptance_criteria": [
+        "QA independently runs the full test suite plus the new static tests",
+        "QA confirms the phase-authorization boundary still accepts Phase 3 and rejects Phase 4",
+        "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive data",
+        "QA records defects without modifying implementation"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py tests/test_api.py tests/test_dockerfile_static.py tests/test_compose_static.py tests/test_smoke_tool.py -q -o addopts="
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/qa.txt"
+      ],
       "gate": "phase-3-qa",
       "issue_ids": [],
       "attempts": 1,
@@ -375,15 +706,34 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently audit the Phase 3 engine-independent security boundary",
       "outcome": "Static delivery artifacts and evidence are checked for secret exposure, trust-boundary regression, and unsupported runtime claims.",
       "state": "verified",
-      "depends_on": ["P3-T05", "P3-T06", "P3-T07"],
+      "depends_on": [
+        "P3-T05",
+        "P3-T06",
+        "P3-T07"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-3-security-reviewer",
-      "write_scope": ["docs/reviews/phase-3-security-review.md"],
-      "acceptance_criteria": ["Review maps image, Compose, smoke-tool, and evidence trust boundaries", "Source, evidence, and current diff are checked for secrets", "No engine-independent result expands into unverified Docker runtime, Jenkins execution, deployment, production, rollback, GitHub, or cloud activity", "Critical or high findings are assigned issue IDs"],
-      "validation_commands": ["git diff HEAD", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["docs/reviews/phase-3-security-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-3-security-review.md"
+      ],
+      "acceptance_criteria": [
+        "Review maps image, Compose, smoke-tool, and evidence trust boundaries",
+        "Source, evidence, and current diff are checked for secrets",
+        "No engine-independent result expands into unverified Docker runtime, Jenkins execution, deployment, production, rollback, GitHub, or cloud activity",
+        "Critical or high findings are assigned issue IDs"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-3-security-review.md"
+      ],
       "gate": "phase-3-security-review",
-      "issue_ids": ["PC-001", "PC-004"],
+      "issue_ids": [
+        "PC-001",
+        "PC-004"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -393,15 +743,34 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Run the Phase 3 engine-independent integrated evidence gate",
       "outcome": "All approved static Phase 3 artifacts, reviews, reports, and state transitions agree before runtime-dependent work resumes.",
       "state": "verified",
-      "depends_on": ["P3-T06", "P3-T07", "P3-T08"],
+      "depends_on": [
+        "P3-T06",
+        "P3-T07",
+        "P3-T08"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-3-integration-reviewer",
-      "write_scope": ["evidence/phase-3/integrated-gate.txt"],
-      "acceptance_criteria": ["All declared engine-independent evidence exists and supports the same non-runtime result", "Authoritative state validates and PC-004 remains the only Phase 3 runtime blocker", "The gate explicitly preserves unverified Docker runtime, registry, Jenkins, deployment, production, rollback, GitHub, and cloud boundaries", "Raw integration output is retained"],
-      "validation_commands": ["project validate state", ".venv\\Scripts\\python.exe -m pytest -q", "git diff --check"],
-      "evidence_paths": ["evidence/phase-3/integrated-gate.txt"],
+      "write_scope": [
+        "evidence/phase-3/integrated-gate.txt"
+      ],
+      "acceptance_criteria": [
+        "All declared engine-independent evidence exists and supports the same non-runtime result",
+        "Authoritative state validates and PC-004 remains the only Phase 3 runtime blocker",
+        "The gate explicitly preserves unverified Docker runtime, registry, Jenkins, deployment, production, rollback, GitHub, and cloud boundaries",
+        "Raw integration output is retained"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/integrated-gate.txt"
+      ],
       "gate": "phase-3-integrated-evidence",
-      "issue_ids": ["PC-004"],
+      "issue_ids": [
+        "PC-004"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -411,15 +780,30 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Retrospect the Phase 3 engine-independent delivery cycle",
       "outcome": "Phase 3 rework, evidence gaps, and runtime-precondition improvements are recorded with owners and future target phases.",
       "state": "verified",
-      "depends_on": ["P3-T09"],
+      "depends_on": [
+        "P3-T09"
+      ],
       "model_tier": "low",
       "owner": "phase-3-retro-worker",
-      "write_scope": ["docs/retrospectives/phase-3.md"],
-      "acceptance_criteria": ["Retrospective distinguishes root causes from symptoms", "PC-004 and any static-contract gaps are retained as evidence-backed follow-up items", "Concrete follow-up actions name an owner, acceptance criterion, and target phase", "No authoritative state is edited by the worker"],
-      "validation_commands": ["git diff --check"],
-      "evidence_paths": ["docs/retrospectives/phase-3.md"],
+      "write_scope": [
+        "docs/retrospectives/phase-3.md"
+      ],
+      "acceptance_criteria": [
+        "Retrospective distinguishes root causes from symptoms",
+        "PC-004 and any static-contract gaps are retained as evidence-backed follow-up items",
+        "Concrete follow-up actions name an owner, acceptance criterion, and target phase",
+        "No authoritative state is edited by the worker"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/retrospectives/phase-3.md"
+      ],
       "gate": "phase-3-retrospective",
-      "issue_ids": ["PC-004"],
+      "issue_ids": [
+        "PC-004"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -429,15 +813,30 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Resume Docker Linux engine dependent runtime validation",
       "outcome": "Local image build, Compose execution, runtime inspection, and smoke evidence resume only after real Docker Linux engine availability is demonstrated.",
       "state": "verified",
-      "depends_on": ["P3-T09"],
+      "depends_on": [
+        "P3-T09"
+      ],
       "model_tier": "medium",
       "owner": "phase-3-runtime-worker",
-      "write_scope": ["evidence/phase-3/runtime/"],
-      "acceptance_criteria": ["Docker Linux engine availability is evidenced before any build or Compose command", "Runtime evidence records image identity, non-root execution, readiness, version, expected SHA, and negative-path behavior", "No Jenkins hardening or Phase 5 remediation is mixed into the runtime lane"],
-      "validation_commands": ["docker info", "docker compose version"],
-      "evidence_paths": ["evidence/phase-3/runtime/"],
+      "write_scope": [
+        "evidence/phase-3/runtime/"
+      ],
+      "acceptance_criteria": [
+        "Docker Linux engine availability is evidenced before any build or Compose command",
+        "Runtime evidence records image identity, non-root execution, readiness, version, expected SHA, and negative-path behavior",
+        "No Jenkins hardening or Phase 5 remediation is mixed into the runtime lane"
+      ],
+      "validation_commands": [
+        "docker info",
+        "docker compose version"
+      ],
+      "evidence_paths": [
+        "evidence/phase-3/runtime/"
+      ],
       "gate": "phase-3-runtime",
-      "issue_ids": ["PC-004"],
+      "issue_ids": [
+        "PC-004"
+      ],
       "attempts": 3,
       "last_error_class": ""
     },
@@ -447,15 +846,33 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently review the Phase 4 GitHub PR validation design",
       "outcome": "The workflow hardening, container-contract, Jenkinsfile-validation, and GitHub evidence boundaries are clear before implementation.",
       "state": "verified",
-      "depends_on": ["P3-T11"],
+      "depends_on": [
+        "P3-T11"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-4-engineering-reviewer",
-      "write_scope": ["docs/reviews/phase-4-eng-review.md", "ISSUES.md"],
-      "acceptance_criteria": ["Separates local static workflow work from real GitHub-hosted validation evidence", "Requires pinned third-party actions, read-only job permissions, and a credible Jenkinsfile declarative validation path", "Preserves PC-001 through PC-003 as future-phase blockers and does not imply branch-protection authority"],
-      "validation_commands": ["project validate state", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["docs/reviews/phase-4-eng-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-4-eng-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "Separates local static workflow work from real GitHub-hosted validation evidence",
+        "Requires pinned third-party actions, read-only job permissions, and a credible Jenkinsfile declarative validation path",
+        "Preserves PC-001 through PC-003 as future-phase blockers and does not imply branch-protection authority"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-4-eng-review.md"
+      ],
       "gate": "phase-4-engineering-review",
-      "issue_ids": ["PC-001", "PC-002", "PC-003"],
+      "issue_ids": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -465,13 +882,27 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Align Phase 4 authorization harness expectation",
       "outcome": "The CLI test accepts Phase 4 and rejects the next unauthorized phase.",
       "state": "verified",
-      "depends_on": ["P4-T00"],
+      "depends_on": [
+        "P4-T00"
+      ],
       "model_tier": "low",
       "owner": "phase-4-harness-worker",
-      "write_scope": ["tests/test_project_cli.py", "evidence/phase-4/"],
-      "acceptance_criteria": ["Phase 4 accepted", "Phase 5 rejected with human-gate exit", "Narrow and full tests pass"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py -q -o addopts=", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["evidence/phase-4/harness.txt"],
+      "write_scope": [
+        "tests/test_project_cli.py",
+        "evidence/phase-4/"
+      ],
+      "acceptance_criteria": [
+        "Phase 4 accepted",
+        "Phase 5 rejected with human-gate exit",
+        "Narrow and full tests pass"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py -q -o addopts=",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "evidence/phase-4/harness.txt"
+      ],
       "gate": "phase-4-engineering-review",
       "issue_ids": [],
       "attempts": 1,
@@ -483,13 +914,28 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Harden Python quality and security workflow contracts",
       "outcome": "The PR workflow enforces pinned action sources, read-only permissions, Python quality checks, and static security scanning without deployment credentials.",
       "state": "verified",
-      "depends_on": ["P4-T00"],
+      "depends_on": [
+        "P4-T00"
+      ],
       "model_tier": "medium",
       "owner": "phase-4-workflow-worker",
-      "write_scope": [".github/workflows/pr-validation.yml", "tests/", "evidence/phase-4/"],
-      "acceptance_criteria": ["All third-party actions are pinned to full commit SHAs", "Workflow jobs declare least-privilege permissions and remain credential-free", "Python quality, dependency, secret, filesystem, and Dockerfile checks are retained in the PR lane", "Local static tests or validation scripts retain raw evidence without claiming GitHub-hosted execution"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py tests/test_api.py tests/test_dockerfile_static.py tests/test_compose_static.py tests/test_smoke_tool.py -q -o addopts="],
-      "evidence_paths": ["evidence/phase-4/workflow-static.txt"],
+      "write_scope": [
+        ".github/workflows/pr-validation.yml",
+        "tests/",
+        "evidence/phase-4/"
+      ],
+      "acceptance_criteria": [
+        "All third-party actions are pinned to full commit SHAs",
+        "Workflow jobs declare least-privilege permissions and remain credential-free",
+        "Python quality, dependency, secret, filesystem, and Dockerfile checks are retained in the PR lane",
+        "Local static tests or validation scripts retain raw evidence without claiming GitHub-hosted execution"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py tests/test_api.py tests/test_dockerfile_static.py tests/test_compose_static.py tests/test_smoke_tool.py -q -o addopts="
+      ],
+      "evidence_paths": [
+        "evidence/phase-4/workflow-static.txt"
+      ],
       "gate": "phase-4-implementation",
       "issue_ids": [],
       "attempts": 1,
@@ -501,15 +947,34 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Replace grep-only Jenkinsfile validation with a credible declarative contract check",
       "outcome": "The PR lane verifies Jenkinsfile structure and required delivery controls with a parser-backed or syntax-aware local check rather than raw grep assertions.",
       "state": "verified",
-      "depends_on": ["P4-T00"],
+      "depends_on": [
+        "P4-T00"
+      ],
       "model_tier": "medium",
       "owner": "phase-4-jenkins-contract-worker",
-      "write_scope": [".github/workflows/pr-validation.yml", "scripts/", "tests/", "evidence/phase-4/"],
-      "acceptance_criteria": ["The workflow no longer relies on grep-only Jenkinsfile validation", "The validation path checks declarative pipeline structure and required stages or options credibly", "Raw local evidence is retained without claiming Jenkins runtime startup or GitHub-hosted execution"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["evidence/phase-4/jenkins-contract.txt"],
+      "write_scope": [
+        ".github/workflows/pr-validation.yml",
+        "scripts/",
+        "tests/",
+        "evidence/phase-4/"
+      ],
+      "acceptance_criteria": [
+        "The workflow no longer relies on grep-only Jenkinsfile validation",
+        "The validation path checks declarative pipeline structure and required stages or options credibly",
+        "Raw local evidence is retained without claiming Jenkins runtime startup or GitHub-hosted execution"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "evidence/phase-4/jenkins-contract.txt"
+      ],
       "gate": "phase-4-implementation",
-      "issue_ids": ["PC-001", "PC-002", "PC-003"],
+      "issue_ids": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -519,13 +984,26 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Document required checks and blocked-change evidence boundaries",
       "outcome": "The repository records which PR checks are required, how a safe blocked-change demonstration should be captured, and which steps require authenticated GitHub authority.",
       "state": "verified",
-      "depends_on": ["P4-T00"],
+      "depends_on": [
+        "P4-T00"
+      ],
       "model_tier": "low",
       "owner": "phase-4-policy-doc-worker",
-      "write_scope": ["docs/change-records/phase-4-github-validation.md", "evidence/phase-4/"],
-      "acceptance_criteria": ["Documentation distinguishes local static validation from real GitHub-hosted evidence", "Blocked-change evidence is defined as a safe deliberate failure, not a production-impacting event", "Any branch-protection or GitHub authority dependency is called out explicitly rather than implied"],
-      "validation_commands": ["git diff --check"],
-      "evidence_paths": ["docs/change-records/phase-4-github-validation.md"],
+      "write_scope": [
+        "docs/change-records/phase-4-github-validation.md",
+        "evidence/phase-4/"
+      ],
+      "acceptance_criteria": [
+        "Documentation distinguishes local static validation from real GitHub-hosted evidence",
+        "Blocked-change evidence is defined as a safe deliberate failure, not a production-impacting event",
+        "Any branch-protection or GitHub authority dependency is called out explicitly rather than implied"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/change-records/phase-4-github-validation.md"
+      ],
       "gate": "phase-4-implementation",
       "issue_ids": [],
       "attempts": 1,
@@ -537,13 +1015,29 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently review the Phase 4 workflow change set",
       "outcome": "The workflow, Jenkinsfile-contract, and evidence changes receive an independent correctness and claim-boundary review.",
       "state": "verified",
-      "depends_on": ["P4-T01", "P4-T02", "P4-T03", "P4-T04"],
+      "depends_on": [
+        "P4-T01",
+        "P4-T02",
+        "P4-T03",
+        "P4-T04"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-4-change-reviewer",
-      "write_scope": ["docs/reviews/phase-4-change-review.md"],
-      "acceptance_criteria": ["Review cites the current diff, acceptance criteria, and evidence", "No unsupported GitHub-hosted, Jenkins-runtime, production, approval, rollback, or cloud claims are introduced", "Actionable findings identify exact files and lines"],
-      "validation_commands": ["git diff HEAD", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["docs/reviews/phase-4-change-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-4-change-review.md"
+      ],
+      "acceptance_criteria": [
+        "Review cites the current diff, acceptance criteria, and evidence",
+        "No unsupported GitHub-hosted, Jenkins-runtime, production, approval, rollback, or cloud claims are introduced",
+        "Actionable findings identify exact files and lines"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-4-change-review.md"
+      ],
       "gate": "phase-4-change-review",
       "issue_ids": [],
       "attempts": 1,
@@ -555,13 +1049,29 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently verify the Phase 4 local QA gate",
       "outcome": "The approved local workflow and Jenkinsfile-contract checks are independently executed and their raw QA evidence is inspectable.",
       "state": "verified",
-      "depends_on": ["P4-T01", "P4-T02", "P4-T03", "P4-T05"],
+      "depends_on": [
+        "P4-T01",
+        "P4-T02",
+        "P4-T03",
+        "P4-T05"
+      ],
       "model_tier": "medium",
       "owner": "phase-4-qa-worker",
-      "write_scope": ["evidence/phase-4/qa.txt"],
-      "acceptance_criteria": ["QA independently runs the approved local workflow-related checks", "QA confirms the phase-authorization boundary accepts Phase 4 and rejects Phase 5", "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive data", "QA records defects without modifying implementation"],
-      "validation_commands": [".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["evidence/phase-4/qa.txt"],
+      "write_scope": [
+        "evidence/phase-4/qa.txt"
+      ],
+      "acceptance_criteria": [
+        "QA independently runs the approved local workflow-related checks",
+        "QA confirms the phase-authorization boundary accepts Phase 4 and rejects Phase 5",
+        "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive data",
+        "QA records defects without modifying implementation"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "evidence/phase-4/qa.txt"
+      ],
       "gate": "phase-4-qa",
       "issue_ids": [],
       "attempts": 1,
@@ -573,15 +1083,36 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Independently audit the Phase 4 PR-validation security boundary",
       "outcome": "The workflow and evidence are checked for secret exposure, excessive permissions, untrusted execution risk, and unsupported claims.",
       "state": "verified",
-      "depends_on": ["P4-T04", "P4-T05", "P4-T06"],
+      "depends_on": [
+        "P4-T04",
+        "P4-T05",
+        "P4-T06"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-4-security-reviewer",
-      "write_scope": ["docs/reviews/phase-4-security-review.md", "ISSUES.md"],
-      "acceptance_criteria": ["Review maps token, permission, artifact, and untrusted-PR trust boundaries", "Source, evidence, and current diff are checked for secrets and excessive permissions", "No local result expands into verified GitHub-hosted runs, Jenkins execution, production approval, rollback, or cloud activity", "Critical or high findings are assigned issue IDs"],
-      "validation_commands": ["git diff HEAD", ".venv\\Scripts\\python.exe -m pytest -q"],
-      "evidence_paths": ["docs/reviews/phase-4-security-review.md"],
+      "write_scope": [
+        "docs/reviews/phase-4-security-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "Review maps token, permission, artifact, and untrusted-PR trust boundaries",
+        "Source, evidence, and current diff are checked for secrets and excessive permissions",
+        "No local result expands into verified GitHub-hosted runs, Jenkins execution, production approval, rollback, or cloud activity",
+        "Critical or high findings are assigned issue IDs"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-4-security-review.md"
+      ],
       "gate": "phase-4-security-review",
-      "issue_ids": ["PC-001", "PC-002", "PC-003"],
+      "issue_ids": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
       "attempts": 1,
       "last_error_class": ""
     },
@@ -591,13 +1122,32 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Run the Phase 4 integrated evidence and GitHub-readiness gate",
       "outcome": "All approved local workflow artifacts agree, and any remaining gap to real GitHub-hosted validation is made explicit before the phase is marked complete.",
       "state": "verified",
-      "depends_on": ["P4-T05", "P4-T06", "P4-T07"],
+      "depends_on": [
+        "P4-T05",
+        "P4-T06",
+        "P4-T07"
+      ],
       "model_tier": "independent-gate",
       "owner": "phase-4-integration-reviewer",
-      "write_scope": ["evidence/phase-4/integrated-gate.txt", "STATUS.md", "ISSUES.md"],
-      "acceptance_criteria": ["All declared local Phase 4 evidence exists and supports the same conclusion", "Any missing authenticated GitHub access, branch-protection authority, or hosted-run evidence is explicitly recorded as a blocker instead of implied away", "The gate preserves Jenkins, promotion, approval, rollback, and cloud boundaries", "Raw integration output is retained"],
-      "validation_commands": ["project validate state", ".venv\\Scripts\\python.exe -m pytest -q", "git diff --check"],
-      "evidence_paths": ["evidence/phase-4/integrated-gate.txt"],
+      "write_scope": [
+        "evidence/phase-4/integrated-gate.txt",
+        "STATUS.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "All declared local Phase 4 evidence exists and supports the same conclusion",
+        "Any missing authenticated GitHub access, branch-protection authority, or hosted-run evidence is explicitly recorded as a blocker instead of implied away",
+        "The gate preserves Jenkins, promotion, approval, rollback, and cloud boundaries",
+        "Raw integration output is retained"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-4/integrated-gate.txt"
+      ],
       "gate": "phase-4-integrated-evidence",
       "issue_ids": [],
       "attempts": 4,
@@ -609,14 +1159,1181 @@ The JSON block is the machine-readable task authority. Workers may not edit it d
       "title": "Retrospect the Phase 4 validation cycle",
       "outcome": "Phase 4 rework, evidence gaps, and GitHub authority dependencies are recorded with owners and future target phases.",
       "state": "verified",
-      "depends_on": ["P4-T08"],
+      "depends_on": [
+        "P4-T08"
+      ],
       "model_tier": "low",
       "owner": "phase-4-retro-worker",
-      "write_scope": ["docs/retrospectives/phase-4.md"],
-      "acceptance_criteria": ["Retrospective distinguishes root causes from symptoms", "Any GitHub-hosted blocker or blocked-change evidence gap is retained with exact impact", "Concrete follow-up actions name an owner, acceptance criterion, and target phase", "No authoritative state is edited by the worker"],
-      "validation_commands": ["git diff --check"],
-      "evidence_paths": ["docs/retrospectives/phase-4.md"],
+      "write_scope": [
+        "docs/retrospectives/phase-4.md"
+      ],
+      "acceptance_criteria": [
+        "Retrospective distinguishes root causes from symptoms",
+        "Any GitHub-hosted blocker or blocked-change evidence gap is retained with exact impact",
+        "Concrete follow-up actions name an owner, acceptance criterion, and target phase",
+        "No authoritative state is edited by the worker"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/retrospectives/phase-4.md"
+      ],
       "gate": "phase-4-retrospective",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T00",
+      "phase": 5,
+      "title": "Independently review the Phase 5 Jenkins authorization remediation design",
+      "outcome": "The Phase 5 remediation scope, trust boundaries, named approver flow, and evidence requirements are explicitly approved before implementation begins.",
+      "state": "verified",
+      "depends_on": [
+        "P4-T09"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-5-engineering-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-5-eng-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "The review covers PC-001 and its dependencies on PC-002 and PC-003",
+        "The review confirms the local-only claim boundary and rejects any unsupported production or cloud claims",
+        "The review defines the approved write-scope split for implementation slices and identifies any required human checkpoints"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-5-eng-review.md"
+      ],
+      "gate": "phase-5-engineering-review",
+      "issue_ids": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T01",
+      "phase": 5,
+      "title": "Externalize Jenkins credentials and enforce least-privilege authorization",
+      "outcome": "The local Jenkins controller requires externally supplied credentials and a least-privilege authorization model with no shared default administrator path.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T00",
+        "P5-T11"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-authz-worker",
+      "write_scope": [
+        "infra/jenkins/casc.yaml",
+        "infra/jenkins/plugins.txt",
+        "infra/jenkins/Dockerfile",
+        "tests/test_jenkins_casc_static.py",
+        "evidence/phase-5/"
+      ],
+      "acceptance_criteria": [
+        "No repository path supplies a usable default Jenkins administrator password",
+        "JCasC defines named roles or equivalent least-privilege authorization instead of loggedInUsersCanDoAnything",
+        "Static tests prove required Jenkins credential and authorization configuration is externally supplied and version-pinned"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_jenkins_casc_static.py -q -o addopts=",
+        "docker build -f infra/jenkins/Dockerfile infra/jenkins",
+        "docker compose config"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-001",
+        "PC-011"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T10",
+      "phase": 5,
+      "title": "Align the Phase 5 authorization harness expectation",
+      "outcome": "The CLI regression test accepts authorized Phase 5 execution while continuing to reject the first unauthorized phase.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T00"
+      ],
+      "model_tier": "low",
+      "owner": "phase-5-harness-worker",
+      "write_scope": [
+        "tests/test_project_cli.py",
+        "evidence/phase-5/"
+      ],
+      "acceptance_criteria": [
+        "The authorization regression test reflects authorization through Phase 8",
+        "The first unauthorized phase still exits with the documented human-gate behavior",
+        "The narrow authorization test and full CLI suite pass with retained raw output"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py -q -o addopts=",
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "project validate state"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/harness.txt"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T11",
+      "phase": 5,
+      "title": "Validate and correct the Jenkins JCasC node-property runtime shape",
+      "outcome": "The fixed Jenkins image accepts the Phase 5 node-property configuration at runtime, and the static guard matches the runtime-proven shape before broader authorization work resumes.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T00"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-jcasc-shape-worker",
+      "write_scope": [
+        "infra/jenkins/casc.yaml",
+        "tests/test_jenkins_casc_static.py",
+        "evidence/phase-5/"
+      ],
+      "acceptance_criteria": [
+        "The Jenkins startup log no longer fails in ConfigurationAsCode.init on globalNodeProperties or nodeProperties shape",
+        "The static test asserts the runtime-proven node-property shape rather than a stale text snapshot",
+        "Raw narrow pytest and clean-volume Jenkins startup evidence are retained under evidence/phase-5/"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_jenkins_casc_static.py -q -o addopts=",
+        "docker build -f infra/jenkins/Dockerfile infra/jenkins",
+        "docker compose up -d jenkins",
+        "docker compose logs --tail 200 jenkins",
+        "docker compose down --volumes --remove-orphans"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-010"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T02",
+      "phase": 5,
+      "title": "Remove default Jenkins credentials from compose and docs",
+      "outcome": "The local stack and its documentation require external credential injection and no longer advertise shared default Jenkins administrator values.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T00"
+      ],
+      "model_tier": "low",
+      "owner": "phase-5-compose-policy-worker",
+      "write_scope": [
+        "compose.yaml",
+        "tests/test_compose_static.py",
+        "README.md",
+        "docs/runbook.md"
+      ],
+      "acceptance_criteria": [
+        "compose.yaml no longer exposes usable default Jenkins administrator credentials",
+        "Static tests assert required external credential injection without credential fallback",
+        "Repository docs explain the local-only credential boundary without embedding secrets"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_compose_static.py -q -o addopts=",
+        "docker compose config",
+        "git diff --check"
+      ],
+      "evidence_paths": [],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-001"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T03",
+      "phase": 5,
+      "title": "Gate production approval to named approvers and trusted inputs",
+      "outcome": "The Jenkins promotion flow only accepts named approvers and trusted commit inputs before any production-like deployment step can continue.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T00"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-approval-worker",
+      "write_scope": [
+        "Jenkinsfile",
+        "scripts/validate_jenkinsfile.py",
+        "tests/test_jenkinsfile_contract.py"
+      ],
+      "acceptance_criteria": [
+        "Production approval uses a named approver restriction instead of recording APPROVED_BY alone",
+        "The Jenkins pipeline binds release input to an explicit trusted commit or controlled reference",
+        "Static contract checks fail when named approvers or trusted commit binding are missing"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_jenkinsfile_contract.py -q -o addopts=",
+        ".venv\\Scripts\\python.exe scripts/validate_jenkinsfile.py --json"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-001",
+        "PC-014"
+      ],
+      "attempts": 2,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T04",
+      "phase": 5,
+      "title": "Prove unauthorized promotion denial in an isolated local fixture",
+      "outcome": "A local Jenkins fixture demonstrates that unauthorized users cannot approve production promotion while preserving safe local-only evidence.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T01",
+        "P5-T02",
+        "P5-T03",
+        "P5-T10"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-unauthorized-proof-worker",
+      "write_scope": [
+        "tests/",
+        "scripts/",
+        "infra/jenkins/test-fixtures/",
+        "evidence/phase-5/"
+      ],
+      "acceptance_criteria": [
+        "An isolated local Jenkins fixture uses placeholder identities and fake credentials only",
+        "Unauthorized approval attempts are rejected and the production stage does not continue",
+        "Raw local evidence is retained without implying live production authority"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "docker compose up -d jenkins",
+        "docker compose logs --tail 200 jenkins"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-001",
+        "PC-013"
+      ],
+      "attempts": 3,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T12",
+      "phase": 5,
+      "title": "Disambiguate the local Jenkins fixture runtime load path and evidence chain",
+      "outcome": "The Phase 5 fixture records a single-attempt Jenkins startup with bound image identity and captured runtime casc files so stale image, stale volume, and mixed-log explanations are ruled in or out before unauthorized-denial proof resumes.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T01",
+        "P5-T11"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-runtime-drift-worker",
+      "write_scope": [
+        "scripts/",
+        "evidence/phase-5/",
+        "tests/"
+      ],
+      "acceptance_criteria": [
+        "A single P5-T04-style attempt emits unique non-appended evidence files",
+        "The evidence captures container/image identity plus both /usr/share/jenkins/ref/casc.yaml and /var/jenkins_home/casc.yaml contents on the failure path",
+        "The evidence is sufficient to distinguish stale proof from a real runtime load-path regression before another P5-T04 attempt"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_p5_t04_unauthorized_fixture.py -q -o addopts=",
+        "pwsh -File \"scripts/Invoke-P5UnauthorizedApprovalFixture.ps1\""
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-011"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T13",
+      "phase": 5,
+      "title": "Repair the Jenkins fixture image or load chain drift",
+      "outcome": "The P5-T04 Jenkins fixture builds or loads an image whose embedded casc file matches the accepted workspace baseline, so a retried single-attempt diagnostic no longer boots with the stale globalNodeProperties map shape.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T12"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-image-drift-worker",
+      "write_scope": [
+        "scripts/",
+        "tests/",
+        "evidence/phase-5/"
+      ],
+      "acceptance_criteria": [
+        "A retried single-attempt diagnostic binds the running container to a refreshed image identity",
+        "The captured /usr/share/jenkins/ref/casc.yaml and /var/jenkins_home/casc.yaml match the accepted workspace node-property shape",
+        "The resulting evidence is sufficient either to unblock P5-T04 or to prove a new non-ambiguity runtime defect"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_p5_t04_unauthorized_fixture.py -q -o addopts=",
+        "pwsh -File \"scripts/Invoke-P5UnauthorizedApprovalFixture.ps1\""
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-012"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T14",
+      "phase": 5,
+      "title": "Diagnose and repair the Jenkins crumb or session path for fixture job updates",
+      "outcome": "The P5-T04 fixture can create or update its Jenkins job configuration without a 403 crumb failure, or it can retain decisive runtime evidence pinpointing the remaining auth or CSRF defect.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T13"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-crumb-path-worker",
+      "write_scope": [
+        "scripts/",
+        "tests/",
+        "evidence/phase-5/"
+      ],
+      "acceptance_criteria": [
+        "A retried single-attempt fixture run no longer fails at /job/project-c-delivery/config.xml because of an invalid crumb or stale session",
+        "Any remaining failure is tied to a precise Jenkins auth or CSRF cause instead of a generic 403",
+        "The fixture evidence remains single-attempt and local-only"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_p5_t04_unauthorized_fixture.py -q -o addopts=",
+        "pwsh -File \"scripts/Invoke-P5UnauthorizedApprovalFixture.ps1\""
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/"
+      ],
+      "gate": "phase-5-implementation",
+      "issue_ids": [
+        "PC-013"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T05",
+      "phase": 5,
+      "title": "Independently review the Phase 5 change set",
+      "outcome": "The Phase 5 Jenkins authorization remediation receives an independent correctness and claim-boundary review.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T01",
+        "P5-T02",
+        "P5-T03",
+        "P5-T04"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-5-change-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-5-change-review.md"
+      ],
+      "acceptance_criteria": [
+        "The review cites the current diff, acceptance criteria, and local evidence",
+        "No unsupported production, cloud, or organizational-scale Jenkins claims are introduced",
+        "Actionable findings identify exact files and lines"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-5-change-review.md"
+      ],
+      "gate": "phase-5-change-review",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T06",
+      "phase": 5,
+      "title": "Independently verify the Phase 5 local QA gate",
+      "outcome": "The approved local Jenkins authorization controls are independently executed and their raw QA evidence is inspectable.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T04",
+        "P5-T05"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-5-qa-worker",
+      "write_scope": [
+        "evidence/phase-5/qa.txt"
+      ],
+      "acceptance_criteria": [
+        "QA independently runs the approved static and local fixture checks",
+        "QA confirms unauthorized promotion denial and named-approver gating behavior from retained evidence",
+        "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive data"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "docker compose config"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/qa.txt"
+      ],
+      "gate": "phase-5-qa",
+      "issue_ids": [],
+      "attempts": 0,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T07",
+      "phase": 5,
+      "title": "Independently audit the Phase 5 Jenkins security boundary",
+      "outcome": "The Jenkins remediation is checked for secret exposure, excessive privileges, unsupported claims, and unresolved authorization risks.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T05",
+        "P5-T06"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-5-security-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-5-security-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "The review maps credential, approver, Docker-socket, and trusted-input boundaries",
+        "Source and evidence are checked for secrets and unsupported claims",
+        "Critical or high findings are assigned issue IDs and PC-001 is only closed when local evidence supports the claim"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-5-security-review.md"
+      ],
+      "gate": "phase-5-security-review",
+      "issue_ids": [
+        "PC-001"
+      ],
+      "attempts": 0,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T08",
+      "phase": 5,
+      "title": "Run the Phase 5 integrated evidence gate",
+      "outcome": "All approved Phase 5 local authorization artifacts agree before Jenkins authorization is treated as locally verified.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T05",
+        "P5-T06",
+        "P5-T07"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-5-integration-reviewer",
+      "write_scope": [
+        "evidence/phase-5/integrated-gate.txt",
+        "STATUS.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "All declared Phase 5 evidence exists and supports the same local result",
+        "PC-001 is only resolved if named approval, credential isolation, and unauthorized-denial evidence are all present",
+        "The gate preserves the unresolved Phase 6 boundaries for PC-002 and PC-003"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-5/integrated-gate.txt"
+      ],
+      "gate": "phase-5-integrated-evidence",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P5-T09",
+      "phase": 5,
+      "title": "Retrospect the Phase 5 remediation cycle",
+      "outcome": "Phase 5 rework, authorization gaps, and follow-up improvements are recorded with owners and future target phases.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T08"
+      ],
+      "model_tier": "low",
+      "owner": "phase-5-retro-worker",
+      "write_scope": [
+        "docs/retrospectives/phase-5.md"
+      ],
+      "acceptance_criteria": [
+        "Retrospective distinguishes root causes from symptoms",
+        "Any remaining Jenkins-risk boundary is retained with exact impact",
+        "Concrete follow-up actions name an owner, acceptance criterion, and target phase"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/retrospectives/phase-5.md"
+      ],
+      "gate": "phase-5-retrospective",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T00",
+      "phase": 6,
+      "title": "Freeze the shared Phase 6 evidence and recovery contract",
+      "outcome": "PC-002 and PC-003 share one approved contract for append-only evidence, rollback-target semantics, first-release decisions, and recovery verification.",
+      "state": "verified",
+      "depends_on": [
+        "P5-T08"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-6-spec-worker",
+      "write_scope": [
+        "docs/phase-6-spec.md",
+        "docs/change-records/TEMPLATE.md",
+        "docs/runbook.md"
+      ],
+      "acceptance_criteria": [
+        "The contract defines append-only events and a derived summary manifest",
+        "The contract defines a verified rollback target and explicit first-release decision record",
+        "The contract defines mandatory recovery verification fields and failure boundaries"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/phase-6-spec.md"
+      ],
+      "gate": "phase-6-spec",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T01",
+      "phase": 6,
+      "title": "Independently review the Phase 6 shared design",
+      "outcome": "The append-only evidence, digest identity, first-release decision, and recovery verification design is cleared before implementation.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T00"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-6-engineering-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-6-eng-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "The review covers PC-002 and PC-003 as one shared design problem",
+        "The review approves the digest identity and rollback-target source of truth",
+        "The review explicitly preserves the local-only and production-like claim boundaries"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-6-eng-review.md"
+      ],
+      "gate": "phase-6-engineering-review",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T02",
+      "phase": 6,
+      "title": "Implement append-only release evidence and summary validation",
+      "outcome": "The release evidence path records append-only events and validates a derived summary manifest suitable for audit and later recovery checks.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T01"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-6-evidence-worker",
+      "write_scope": [
+        "scripts/evidence.py",
+        "scripts/project_cli.py",
+        "evidence/example/",
+        "tests/test_project_cli.py",
+        "tests/test_evidence_manifest.py"
+      ],
+      "acceptance_criteria": [
+        "Release events are appended instead of overwriting prior state",
+        "The summary manifest derives approver identity, verified digest state, and rollback-target fields from event history",
+        "CLI evidence validation fails on missing events, inconsistent digest identity, or missing approval records"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_project_cli.py tests/test_evidence_manifest.py -q -o addopts=",
+        "python scripts/project_cli.py evidence example --json"
+      ],
+      "evidence_paths": [
+        "evidence/example/manifest.json"
+      ],
+      "gate": "phase-6-implementation",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T03",
+      "phase": 6,
+      "title": "Implement rollback-target gating and recovery verification",
+      "outcome": "Production promotion requires a verified rollback target or explicit first-release decision, and recovery must re-verify digest, health, version, and business behavior.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T01"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-6-recovery-worker",
+      "write_scope": [
+        "scripts/deploy.ps1",
+        "scripts/deploy.sh",
+        "scripts/rollback.ps1",
+        "scripts/rollback.sh",
+        "scripts/smoke_test.py",
+        "scripts/verify_deployment.py",
+        "tests/test_smoke_tool.py",
+        "tests/test_verify_deployment.py",
+        "docs/runbook.md"
+      ],
+      "acceptance_criteria": [
+        "Promotion fails if no verified rollback target exists and no explicit first-release decision is supplied",
+        "Recovery re-runs the full verification suite and returns a failing status if any check fails",
+        "Actual deployed digest proof is checked against the expected registry and repository identity"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_smoke_tool.py tests/test_verify_deployment.py -q -o addopts=",
+        "docker compose --profile deploy config"
+      ],
+      "evidence_paths": [
+        "evidence/phase-6/"
+      ],
+      "gate": "phase-6-implementation",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T04",
+      "phase": 6,
+      "title": "Integrate Phase 6 Jenkins flow and retain local evidence",
+      "outcome": "The Jenkinsfile and local evidence path demonstrate build-once promotion, approval capture, failure injection, rollback, and recovery verification using the shared Phase 6 contract.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T02",
+        "P6-T03"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-6-integration-worker",
+      "write_scope": [
+        "Jenkinsfile",
+        "scripts/validate_jenkinsfile.py",
+        "tests/test_jenkinsfile_contract.py",
+        "evidence/phase-6/",
+        "docs/change-records/phase-6-local.md"
+      ],
+      "acceptance_criteria": [
+        "The Jenkins pipeline emits build, staging, approval, production, failure-injection, rollback, and recovery verification events",
+        "Production uses the same immutable digest promoted from staging",
+        "Change records, event logs, and summary manifests agree on commit, digest, approver, timestamps, and rollback target"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest tests/test_jenkinsfile_contract.py -q -o addopts=",
+        ".venv\\Scripts\\python.exe scripts/validate_jenkinsfile.py --json",
+        "project validate state"
+      ],
+      "evidence_paths": [
+        "evidence/phase-6/",
+        "docs/change-records/phase-6-local.md"
+      ],
+      "gate": "phase-6-implementation",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T05",
+      "phase": 6,
+      "title": "Independently review the Phase 6 change set",
+      "outcome": "The Phase 6 evidence, recovery, and Jenkins integration changes receive an independent correctness and claim-boundary review.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T04"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-6-change-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-6-change-review.md"
+      ],
+      "acceptance_criteria": [
+        "The review cites the current diff, acceptance criteria, and evidence",
+        "No unsupported production or cloud claims are introduced",
+        "Actionable findings identify exact files and lines"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-6-change-review.md"
+      ],
+      "gate": "phase-6-change-review",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T06",
+      "phase": 6,
+      "title": "Independently verify the Phase 6 QA gate",
+      "outcome": "The approved local release-evidence and recovery controls are independently executed and their raw QA evidence is inspectable.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T04",
+        "P6-T05"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-6-qa-worker",
+      "write_scope": [
+        "evidence/phase-6/qa.txt"
+      ],
+      "acceptance_criteria": [
+        "QA independently runs the approved contract and integration checks",
+        "QA confirms append-only evidence semantics and recovery verification behavior from retained local evidence",
+        "Raw commands, timestamps, exit codes, and outcomes are retained without sensitive data"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "project validate state"
+      ],
+      "evidence_paths": [
+        "evidence/phase-6/qa.txt"
+      ],
+      "gate": "phase-6-qa",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T07",
+      "phase": 6,
+      "title": "Independently audit the Phase 6 evidence and recovery security boundary",
+      "outcome": "The Phase 6 implementation is checked for secret exposure, unsupported claims, digest-identity drift, and unresolved rollback or approval risks.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T05",
+        "P6-T06"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-6-security-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-6-security-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "The review maps evidence, approval, digest, and rollback trust boundaries",
+        "Source and retained evidence are checked for secrets and unsupported claims",
+        "Critical or high findings are assigned issue IDs before any integrated gate can pass"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-6-security-review.md"
+      ],
+      "gate": "phase-6-security-review",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T08",
+      "phase": 6,
+      "title": "Run the Phase 6 integrated evidence gate",
+      "outcome": "All approved local Phase 6 artifacts agree before append-only release evidence and rollback recovery are treated as locally verified.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T05",
+        "P6-T06",
+        "P6-T07"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-6-integration-reviewer",
+      "write_scope": [
+        "evidence/phase-6/integrated-gate.txt",
+        "STATUS.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "All declared Phase 6 evidence exists and supports the same local result",
+        "PC-002 and PC-003 are only resolved if append-only evidence, rollback-target gating, and recovery verification all pass",
+        "The gate preserves the local-only and production-like claim boundary"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-6/integrated-gate.txt"
+      ],
+      "gate": "phase-6-integrated-evidence",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P6-T09",
+      "phase": 6,
+      "title": "Retrospect the Phase 6 promotion and recovery cycle",
+      "outcome": "Phase 6 rework, release-evidence defects, and recovery improvements are recorded with owners and future target phases.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T08"
+      ],
+      "model_tier": "low",
+      "owner": "phase-6-retro-worker",
+      "write_scope": [
+        "docs/retrospectives/phase-6.md"
+      ],
+      "acceptance_criteria": [
+        "Retrospective distinguishes root causes from symptoms",
+        "Evidence or recovery gaps are retained with exact impact",
+        "Concrete follow-up actions name an owner, acceptance criterion, and target phase"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/retrospectives/phase-6.md"
+      ],
+      "gate": "phase-6-retrospective",
+      "issue_ids": [
+        "PC-002",
+        "PC-003"
+      ],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P7-T00",
+      "phase": 7,
+      "title": "Independently review the Phase 7 security and failure-injection design",
+      "outcome": "The supply-chain, credential, runtime, provenance, and Jenkins/Docker failure-injection scope is approved before execution.",
+      "state": "verified",
+      "depends_on": [
+        "P6-T08"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-7-engineering-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-7-eng-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "The review defines isolated test fixtures and fake-credential boundaries",
+        "The review preserves local-only claim boundaries",
+        "Critical design risks are assigned issue IDs before execution"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-7-eng-review.md"
+      ],
+      "gate": "phase-7-engineering-review",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P7-T01",
+      "phase": 7,
+      "title": "Run isolated Phase 7 security and failure-injection lanes",
+      "outcome": "Local failure scenarios and security probes produce evidence for supply-chain, credential, runtime, provenance, and Jenkins/Docker controls.",
+      "state": "verified",
+      "depends_on": [
+        "P7-T00"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-7-implementation-workers",
+      "write_scope": [
+        "tests/",
+        "scripts/",
+        "evidence/phase-7/"
+      ],
+      "acceptance_criteria": [
+        "All scenarios use fake credentials and local fixtures only",
+        "Each scenario retains evidence of expected rejection, failure, or recovery behavior",
+        "No scenario expands into unsupported cloud or live-production claims"
+      ],
+      "validation_commands": [
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "evidence/phase-7/"
+      ],
+      "gate": "phase-7-implementation",
+      "issue_ids": [],
+      "attempts": 2,
+      "last_error_class": ""
+    },
+    {
+      "id": "P7-T02",
+      "phase": 7,
+      "title": "Consolidate Phase 7 security findings",
+      "outcome": "A fresh independent security reviewer consolidates all Phase 7 scenarios into one verdict with explicit residual risk.",
+      "state": "verified",
+      "depends_on": [
+        "P7-T01"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-7-security-reviewer",
+      "write_scope": [
+        "docs/reviews/phase-7-security-review.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "The review cites each executed scenario and its evidence",
+        "No critical or high finding remains unassigned",
+        "The review preserves the local-only claim boundary"
+      ],
+      "validation_commands": [
+        "git diff HEAD",
+        ".venv\\Scripts\\python.exe -m pytest -q"
+      ],
+      "evidence_paths": [
+        "docs/reviews/phase-7-security-review.md"
+      ],
+      "gate": "phase-7-security-review",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P7-T03",
+      "phase": 7,
+      "title": "Run the Phase 7 integrated evidence gate",
+      "outcome": "All Phase 7 security and failure-injection evidence agrees before the project proceeds to portfolio assembly.",
+      "state": "verified",
+      "depends_on": [
+        "P7-T02"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-7-integration-reviewer",
+      "write_scope": [
+        "evidence/phase-7/integrated-gate.txt",
+        "STATUS.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "All declared Phase 7 evidence exists and supports the same conclusion",
+        "No unresolved critical or high Phase 7 finding remains",
+        "The gate preserves the non-cloud claim boundary"
+      ],
+      "validation_commands": [
+        "project validate state",
+        ".venv\\Scripts\\python.exe -m pytest -q",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-7/integrated-gate.txt"
+      ],
+      "gate": "phase-7-integrated-evidence",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P8-T00",
+      "phase": 8,
+      "title": "Plan the Phase 8 portfolio evidence package",
+      "outcome": "The portfolio narrative, screenshots, change records, metrics, and claim boundaries are approved before assembly.",
+      "state": "verified",
+      "depends_on": [
+        "P7-T03"
+      ],
+      "model_tier": "low",
+      "owner": "phase-8-planning-worker",
+      "write_scope": [
+        "docs/portfolio-plan.md"
+      ],
+      "acceptance_criteria": [
+        "The plan separates implemented, locally verified, GitHub-verified, human-approved, and deferred claims",
+        "The plan identifies the required screenshots, metrics, and narrative artifacts",
+        "The plan preserves the local-only and non-AWS claim boundary"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/portfolio-plan.md"
+      ],
+      "gate": "phase-8-planning",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P8-T01",
+      "phase": 8,
+      "title": "Assemble the Phase 8 portfolio package",
+      "outcome": "Architecture artifacts, change and incident narratives, metrics, and screenshots are assembled into a resume-safe project package.",
+      "state": "verified",
+      "depends_on": [
+        "P8-T00"
+      ],
+      "model_tier": "medium",
+      "owner": "phase-8-assembly-worker",
+      "write_scope": [
+        "docs/portfolio-walkthrough.md",
+        "docs/metrics.md",
+        "docs/change-records/",
+        "docs/screenshots/"
+      ],
+      "acceptance_criteria": [
+        "The package includes one blocked change, one recovery, and one named human approval event",
+        "Every claim is traceable to retained evidence",
+        "No artifact fabricates users, production traffic, or live cloud operation"
+      ],
+      "validation_commands": [
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/portfolio-walkthrough.md",
+        "docs/metrics.md"
+      ],
+      "gate": "phase-8-assembly",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P8-T02",
+      "phase": 8,
+      "title": "Rehearse the CLI demo and verify project metrics",
+      "outcome": "The project demo is reproducible and the headline metrics are traceable to local or GitHub-retained evidence.",
+      "state": "verified",
+      "depends_on": [
+        "P8-T01"
+      ],
+      "model_tier": "low",
+      "owner": "phase-8-demo-worker",
+      "write_scope": [
+        "docs/demo-script.md",
+        "evidence/phase-8/"
+      ],
+      "acceptance_criteria": [
+        "The demo script exercises the verified workflow without unsupported claims",
+        "All metrics cited in portfolio artifacts are backed by retained evidence",
+        "Raw rehearsal evidence is retained"
+      ],
+      "validation_commands": [
+        "project validate state",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "docs/demo-script.md",
+        "evidence/phase-8/"
+      ],
+      "gate": "phase-8-demo",
+      "issue_ids": [],
+      "attempts": 1,
+      "last_error_class": ""
+    },
+    {
+      "id": "P8-T03",
+      "phase": 8,
+      "title": "Run the final portfolio evidence gate",
+      "outcome": "All Phase 8 portfolio artifacts agree with the underlying evidence before the project is treated as complete.",
+      "state": "verified",
+      "depends_on": [
+        "P8-T02"
+      ],
+      "model_tier": "independent-gate",
+      "owner": "phase-8-integration-reviewer",
+      "write_scope": [
+        "evidence/phase-8/integrated-gate.txt",
+        "STATUS.md",
+        "ISSUES.md"
+      ],
+      "acceptance_criteria": [
+        "All portfolio claims match retained local or GitHub evidence",
+        "The package clearly labels deferred AWS or live-cloud work as out of scope",
+        "The final gate identifies any remaining accepted risks or residual limitations"
+      ],
+      "validation_commands": [
+        "project validate state",
+        "git diff --check"
+      ],
+      "evidence_paths": [
+        "evidence/phase-8/integrated-gate.txt"
+      ],
+      "gate": "phase-8-complete",
       "issue_ids": [],
       "attempts": 1,
       "last_error_class": ""

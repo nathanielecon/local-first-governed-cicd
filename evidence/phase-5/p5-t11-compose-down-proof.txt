@@ -1,0 +1,6 @@
+ Container project-c-p5-t11-proof-jenkins-1 Stopping 
+ Container project-c-p5-t11-proof-jenkins-1 Stopped 
+ Container project-c-p5-t11-proof-jenkins-1 Removing 
+ Container project-c-p5-t11-proof-jenkins-1 Removed 
+ Volume project-c-p5-t11-proof_jenkins-data Removing 
+ Volume project-c-p5-t11-proof_jenkins-data Removed 

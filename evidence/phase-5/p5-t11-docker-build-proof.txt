@@ -1,0 +1,47 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 587B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/jenkins/jenkins:2.541.3-lts-jdk21
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/jenkins/jenkins:2.541.3-lts-jdk21@sha256:c4098086090ca98491d4bf66182f5e3b015a8232f2acf2df209a212a5801aa8e
+#4 resolve docker.io/jenkins/jenkins:2.541.3-lts-jdk21@sha256:c4098086090ca98491d4bf66182f5e3b015a8232f2acf2df209a212a5801aa8e 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 2.59kB done
+#5 DONE 0.0s
+
+#6 [2/6] RUN apt-get update     && apt-get install --no-install-recommends -y ca-certificates curl docker.io jq make python3 python3-venv     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [3/6] COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+#7 CACHED
+
+#8 [4/6] RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+#8 CACHED
+
+#9 [5/6] COPY casc.yaml /usr/share/jenkins/ref/casc.yaml
+#9 DONE 0.1s
+
+#10 [6/6] RUN ln -s /usr/share/jenkins/ref/casc.yaml /usr/share/jenkins/ref/casc.yaml.override || true
+#10 DONE 0.3s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.2s done
+#11 exporting manifest sha256:a0db56ed410e5f9a9daf7a9f6f0e7a82dbeb14a06c3ae712e0e02a7fa4dbe241 0.0s done
+#11 exporting config sha256:4cdb0997ff5abaee36b1a6561b5847a8a9570a9c1bc67adee19c31b7cdd1a17c 0.0s done
+#11 exporting attestation manifest sha256:e01ebbc069faf1f352b87956c0fe7306f39ad452c7ad1ad15d8fb983ff7d788f 0.0s done
+#11 exporting manifest list sha256:2e4e84dcf35ed995b3a76b2bef2eb90e0d024a6fd5bb0c3fcbe9511be92844dd 0.0s done
+#11 naming to moby-dangling@sha256:2e4e84dcf35ed995b3a76b2bef2eb90e0d024a6fd5bb0c3fcbe9511be92844dd
+#11 naming to moby-dangling@sha256:2e4e84dcf35ed995b3a76b2bef2eb90e0d024a6fd5bb0c3fcbe9511be92844dd done
+#11 unpacking to moby-dangling@sha256:2e4e84dcf35ed995b3a76b2bef2eb90e0d024a6fd5bb0c3fcbe9511be92844dd 0.1s done
+#11 DONE 0.4s

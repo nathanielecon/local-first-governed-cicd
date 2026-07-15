@@ -1,0 +1,11 @@
+{
+  "phase": 9,
+  "region": "us-east-1",
+  "git_sha": "376b7e18c5cc94e67ff180ca2f42b8eb05535be3",
+  "image_ref": "283077380808.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229",
+  "service_base_url": "http://project-c-stg-1738567119.us-east-1.elb.amazonaws.com",
+  "smoke": "PASS",
+  "auth_mode": "operator-aws-session",
+  "teardown": "terraform destroy -var git_sha=<sha> -var create_service=true -var container_image=283077380808.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229",
+  "recorded_at": "2026-07-14T01:08:21.507046+00:00"
+}

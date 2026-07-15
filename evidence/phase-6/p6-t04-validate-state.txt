@@ -1,0 +1,13 @@
+command: .\scripts\project.ps1 validate state
+cwd: C:\Users\natha\OneDrive\Documents\cloud
+started_at: 2026-07-13T14:02:19-04:00
+claim_boundary: local-only / production-like
+Validation passed: state
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+exit_code: 0

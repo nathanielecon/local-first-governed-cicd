@@ -1,0 +1,26 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: C:\Users\natha\OneDrive\Documents\cloud
+configfile: pyproject.toml
+plugins: anyio-4.14.1, cov-6.2.1
+collected 7 items
+
+C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\coverage\inorout.py:561: CoverageWarning: Module delivery_api was never imported. (module-not-imported); see https://coverage.readthedocs.io/en/7.15.0/messages.html#warning-module-not-imported
+  self.warn(f"Module {pkg} was never imported.", slug="module-not-imported")
+C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\coverage\control.py:956: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.15.0/messages.html#warning-no-data-collected
+  self._warn("No data was collected.", slug="no-data-collected")
+C:\Users\natha\OneDrive\Documents\cloud\.venv\Lib\site-packages\pytest_cov\plugin.py:358: CovReportWarning: Failed to generate report: No data to report.
+
+  warnings.warn(CovReportWarning(message), stacklevel=1)
+tests\test_p5_t04_unauthorized_fixture.py .......
+WARNING: Failed to generate report: No data to report.
+
+
+ERROR: Coverage failure: total of 0 is less than fail-under=90
+                                                                         [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+FAIL Required test coverage of 90% not reached. Total coverage: 0.00%
+============================== 7 passed in 0.36s ==============================

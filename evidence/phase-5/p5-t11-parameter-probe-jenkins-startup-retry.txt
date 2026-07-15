@@ -1,0 +1,42 @@
+jenkins-1  | Running from: /usr/share/jenkins/jenkins.war
+jenkins-1  | webroot: /var/jenkins_home/war
+jenkins-1  | 2026-07-13 00:23:24.313+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+jenkins-1  | 2026-07-13 00:23:25.549+0000 [id=1]	WARNING	o.e.j.ee9.nested.ContextHandler#setContextPath: Empty contextPath
+jenkins-1  | 2026-07-13 00:23:25.644+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-12.1.5; built: 2025-12-03T22:18:24.732Z; git: 4905d09d7b6801e792d7b73946cf7b66e4be25d6; jvm 21.0.9+10-LTS
+jenkins-1  | 2026-07-13 00:23:26.354+0000 [id=1]	INFO	o.e.j.e.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.ee9.jsp.JettyJspServlet
+jenkins-1  | 2026-07-13 00:23:26.474+0000 [id=1]	INFO	o.e.j.s.DefaultSessionIdManager#doStart: Session workerName=node0
+jenkins-1  | 2026-07-13 00:23:27.103+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+jenkins-1  | 2026-07-13 00:23:27.275+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started oeje9n.ContextHandler$CoreContextHandler@3681037{Jenkins v2.541.3,/,b=file:///var/jenkins_home/war/,a=AVAILABLE,h=oeje9n.ContextHandler$CoreContextHandler$CoreToNestedHandler@2459319c{STARTED}}
+jenkins-1  | 2026-07-13 00:23:27.298+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started oejs.ServerConnector@6b09de9c{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+jenkins-1  | 2026-07-13 00:23:27.299+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started oejs.Server@78525ef9{STARTING}[12.1.5,sto=0] @1660ms
+jenkins-1  | 2026-07-13 00:23:27.301+0000 [id=55]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+jenkins-1  | 2026-07-13 00:23:27.512+0000 [id=53]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.541.3
+jenkins-1  | 2026-07-13 00:23:27.662+0000 [id=63]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+jenkins-1  | 2026-07-13 00:23:30.405+0000 [id=62]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+jenkins-1  | 2026-07-13 00:23:34.225+0000 [id=69]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+jenkins-1  | 2026-07-13 00:23:34.248+0000 [id=91]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+jenkins-1  | 2026-07-13 00:23:34.251+0000 [id=92]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+jenkins-1  | 2026-07-13 00:23:35.505+0000 [id=77]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+jenkins-1  | Processing provided DSL script
+jenkins-1  | 2026-07-13 00:23:38.864+0000 [id=87]	INFO	j.j.plugin.JenkinsJobManagement#createOrUpdateConfig: createOrUpdateConfig for project-c-delivery
+jenkins-1  | 2026-07-13 00:23:39.241+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'params.REGISTRY'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.242+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'params.PROJECT_C_LOCAL_ADMIN_ID'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.242+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'params.PROJECT_C_ALLOWED_APPROVERS'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.243+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'params.PROJECT_C_READONLY_OBSERVER_ID'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.243+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'env.REGISTRY'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.244+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'env.PROJECT_C_LOCAL_ADMIN_ID'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.244+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'env.PROJECT_C_ALLOWED_APPROVERS'. Will default to empty string
+jenkins-1  | 2026-07-13 00:23:39.245+0000 [id=87]	WARNING	i.j.p.c.SecretSourceResolver$UnresolvedLookup#lookup: Configuration import: Found unresolved variable 'env.PROJECT_C_READONLY_OBSERVER_ID'. Will default to empty string
+jenkins-1  | Processing provided DSL script
+jenkins-1  | 2026-07-13 00:23:39.433+0000 [id=87]	INFO	j.j.plugin.JenkinsJobManagement#createOrUpdateConfig: createOrUpdateConfig for project-c-parameter-probe
+jenkins-1  | 2026-07-13 00:23:39.458+0000 [id=87]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+jenkins-1  | 2026-07-13 00:23:39.468+0000 [id=87]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+jenkins-1  | 2026-07-13 00:23:39.485+0000 [id=87]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+jenkins-1  | 2026-07-13 00:23:39.520+0000 [id=92]	WARNING	hudson.model.User$AllUsers#scanAll: entry for local-viewer in /var/jenkins_home/users/localviewer_c7d85657fec4e2902224159b6cfd0cf9735ad77f905afff8ea342911245f51ab duplicates one seen earlier for local-viewer
+jenkins-1  | 2026-07-13 00:23:39.530+0000 [id=92]	WARNING	hudson.model.User$AllUsers#scanAll: entry for local-admin in /var/jenkins_home/users/localadmin_044766fbe810829ed3bac1183554a2c18a2aa7d675315e2e613055b5a8667c4e duplicates one seen earlier for local-admin
+jenkins-1  | 2026-07-13 00:23:39.534+0000 [id=115]	INFO	hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+jenkins-1  | 2026-07-13 00:23:39.536+0000 [id=92]	WARNING	hudson.model.User$AllUsers#scanAll: entry for local-approver in /var/jenkins_home/users/localapprover_e862e5f64ea8ce5c08349f09f3d62968fec43bbe0ec5d5e91cd3b27faf67b28c duplicates one seen earlier for local-approver
+jenkins-1  | 2026-07-13 00:23:42.799+0000 [id=65]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+jenkins-1  | 2026-07-13 00:23:42.838+0000 [id=53]	INFO	hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+jenkins-1  | 2026-07-13 00:23:43.610+0000 [id=115]	INFO	h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+jenkins-1  | 2026-07-13 00:23:43.611+0000 [id=115]	INFO	hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1

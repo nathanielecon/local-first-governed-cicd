@@ -1,0 +1,97 @@
+scenario=A-vuln-component
+timestamp_utc=2026-07-13T18:46:04Z
+claim_boundary=local-only / non-cloud; disposable vulnerable fixture tree
+expected=trivy fs CRITICAL/HIGH exits non-zero; fixture disposed
+conclusion=PASS: trivy exited non-zero at CRITICAL/HIGH on vulnerable fixture; fixture cleaned
+fixture_cleaned=True
+fixture_package=django==1.11.0
+governing_evidence=A-vuln-component-trivy-reject.txt
+early_attempt_note=A-vuln-component-exception.txt is a retained early encoding TypeError attempt; it is NOT the governing result. Final authority is this Trivy reject.
+--- command[1] ---
+argv=['docker', 'run', '--rm', '-v', 'C:/Users/natha/AppData/Local/Temp/p7-vuln-fo5ghb6c:/workspace', 'aquasec/trivy:0.63.0', 'fs', '--severity', 'CRITICAL,HIGH', '--exit-code', '1', '/workspace']
+exit_code=1
+stdout<<EOF
+
+Report Summary
+
+┌──────────────────┬──────┬─────────────────┬─────────┐
+│      Target      │ Type │ Vulnerabilities │ Secrets │
+├──────────────────┼──────┼─────────────────┼─────────┤
+│ requirements.txt │ pip  │       13        │    -    │
+└──────────────────┴──────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+requirements.txt (pip)
+======================
+Total: 13 (HIGH: 9, CRITICAL: 4)
+
+┌─────────┬────────────────┬──────────┬────────┬───────────────────┬────────────────────────┬──────────────────────────────────────────────────────────────┐
+│ Library │ Vulnerability  │ Severity │ Status │ Installed Version │     Fixed Version      │                            Title                             │
+├─────────┼────────────────┼──────────┼────────┼───────────────────┼────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ django  │ CVE-2019-14234 │ CRITICAL │ fixed  │ 1.11.0            │ 1.11.23, 2.1.11, 2.2.4 │ Django: SQL injection possibility in key and index lookups   │
+│         │                │          │        │                   │                        │ for JSONField/HStoreField                                    │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-14234                   │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2019-19844 │          │        │                   │ 1.11.27, 2.2.9, 3.0.1  │ Django: crafted email address allows account takeover        │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-19844                   │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2020-7471  │          │        │                   │ 1.11.28, 2.2.10, 3.0.3 │ django: potential SQL injection via StringAgg(delimiter)     │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2020-7471                    │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2025-64459 │          │        │                   │ 5.2.8, 5.1.14, 4.2.26  │ django: Django SQL injection                                 │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2025-64459                   │
+│         ├────────────────┼──────────┤        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2019-14232 │ HIGH     │        │                   │ 1.11.23, 2.1.11, 2.2.4 │ Django: backtracking in a regular expression in              │
+│         │                │          │        │                   │                        │ django.utils.text.Truncator leads to DoS                     │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-14232                   │
+│         ├────────────────┤          │        │                   │                        ├──────────────────────────────────────────────────────────────┤
+│         │ CVE-2019-14233 │          │        │                   │                        │ Django: the behavior of the underlying HTMLParser leading to │
+│         │                │          │        │                   │                        │ DoS                                                          │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-14233                   │
+│         ├────────────────┤          │        │                   │                        ├──────────────────────────────────────────────────────────────┤
+│         │ CVE-2019-14235 │          │        │                   │                        │ Django: Potential memory exhaustion in                       │
+│         │                │          │        │                   │                        │ django.utils.encoding.uri_to_iri()                           │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-14235                   │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2019-3498  │          │        │                   │ 1.11.18, 2.0.10, 2.1.5 │ python-django: Content spoofing via URL path in default 404  │
+│         │                │          │        │                   │                        │ page                                                         │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-3498                    │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2019-6975  │          │        │                   │ 1.11.19, 2.0.11, 2.1.6 │ python-django: memory exhaustion in                          │
+│         │                │          │        │                   │                        │ django.utils.numberformat.format()                           │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2019-6975                    │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2020-9402  │          │        │                   │ 1.11.29, 2.2.11, 3.0.4 │ django: potential SQL injection via "tolerance" parameter in │
+│         │                │          │        │                   │                        │ GIS functions and aggregates...                              │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2020-9402                    │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2022-36359 │          │        │                   │ 3.2.15, 4.0.7          │ An issue was discovered in the HTTP FileResponse class in    │
+│         │                │          │        │                   │                        │ Django 3.2...                                                │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2022-36359                   │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2025-57833 │          │        │                   │ 4.2.24, 5.1.12, 5.2.6  │ django: Django SQL injection in FilteredRelation column      │
+│         │                │          │        │                   │                        │ aliases                                                      │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2025-57833                   │
+│         ├────────────────┤          │        │                   ├────────────────────────┼──────────────────────────────────────────────────────────────┤
+│         │ CVE-2025-64458 │          │        │                   │ 5.2.8, 5.1.14, 4.2.26  │ Django: Denial-of-service vulnerability in Django on Windows │
+│         │                │          │        │                   │                        │ https://avd.aquasec.com/nvd/cve-2025-64458                   │
+└─────────┴────────────────┴──────────┴────────┴───────────────────┴────────────────────────┴──────────────────────────────────────────────────────────────┘
+EOF
+stderr<<EOF
+----------------->] 100.00% 705.72 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 705.72 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 660.19 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 660.19 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 660.19 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 617.59 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 617.59 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 617.59 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 577.75 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 577.75 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 577.75 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 540.48 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 540.48 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 540.48 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 505.61 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 505.61 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 505.61 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 472.99 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 472.99 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 472.99 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 442.47 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 442.47 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 442.47 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 413.92 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 413.92 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 413.92 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 387.22 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 387.22 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 387.22 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 362.24 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 362.24 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 362.24 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 338.87 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 338.87 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 338.87 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 317.01 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 317.01 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 317.01 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 296.55 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [------------------------------------------->] 100.00% 296.55 KiB p/s ETA 0s100.05 MiB / 100.05 MiB [-------------------------------------------------] 100.00% 2.37 MiB p/s 42s2026-07-13T18:45:40Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-07-13T18:45:45Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-07-13T18:45:45Z	INFO	[secret] Secret scanning is enabled
+2026-07-13T18:45:45Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-07-13T18:45:45Z	INFO	[secret] Please see also https://trivy.dev/v0.63/docs/scanner/secret#recommendation for faster secret detection
+2026-07-13T18:45:46Z	WARN	[pip] Unable to find python `site-packages` directory. License detection is skipped.	err="unable to find path to Python executable"
+2026-07-13T18:45:46Z	INFO	Number of language-specific files	num=1
+2026-07-13T18:45:46Z	INFO	[pip] Detecting vulnerabilities...
+
+📣 [34mNotices:[0m
+  - Version 0.72.0 of Trivy is now available, current version is 0.63.0
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
+EOF

@@ -281,20 +281,36 @@ def command_resume(args: argparse.Namespace) -> int:
 
 
 def command_evidence(args: argparse.Namespace) -> int:
-    path = ROOT / "evidence" / args.release_id / "manifest.json"
-    if not path.exists():
+    try:
+        from scripts.evidence import validate_release_evidence
+    except ModuleNotFoundError:  # running as scripts/project_cli.py
+        from evidence import validate_release_evidence
+
+    directory = ROOT / "evidence" / args.release_id
+    manifest = directory / "manifest.json"
+    events = directory / "events.jsonl"
+    if not directory.exists() and not manifest.exists():
         raise ProjectError(
-            f"evidence manifest not found: {path.relative_to(ROOT)}", EXIT_VALIDATION
+            f"evidence manifest not found: evidence/{args.release_id}/manifest.json",
+            EXIT_VALIDATION,
         )
-    data = json.loads(path.read_text(encoding="utf-8"))
-    required = ("schema_version", "release_id", "commit_sha", "status")
-    missing = [field for field in required if field not in data]
-    emit(
-        {"path": str(path.relative_to(ROOT)), "valid": not missing, "missing": missing},
-        None,
-        args.json,
-    )
-    return EXIT_VALIDATION if missing else EXIT_OK
+    errors = validate_release_evidence(ROOT, args.release_id)
+    payload = {
+        "path": (
+            manifest.relative_to(ROOT).as_posix()
+            if manifest.exists()
+            else f"evidence/{args.release_id}/manifest.json"
+        ),
+        "events_path": (
+            events.relative_to(ROOT).as_posix()
+            if events.exists()
+            else f"evidence/{args.release_id}/events.jsonl"
+        ),
+        "valid": not errors,
+        "errors": errors,
+    }
+    emit(payload, None, args.json)
+    return EXIT_VALIDATION if errors else EXIT_OK
 
 
 def command_bootstrap(args: argparse.Namespace) -> int:
@@ -309,6 +325,16 @@ def command_bootstrap(args: argparse.Namespace) -> int:
     }
     emit(payload, "Bootstrap inspection complete", args.json)
     return EXIT_SCHEMA if errors or not all(tools.values()) else EXIT_OK
+
+
+def phase_arg_choices() -> range:
+    """CLI phase numbers include at least one slot above PLAN authorization."""
+    try:
+        authorized = int(read_json_block("PLAN.md")["authorized_through_phase"])
+    except (ProjectError, KeyError, TypeError, ValueError):
+        authorized = 9
+    # Always accept authorized+1 so auth can return EXIT_HUMAN; floor at 11.
+    return range(1, max(authorized + 1, 11) + 1)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -333,7 +359,7 @@ def build_parser() -> argparse.ArgumentParser:
     issues.set_defaults(handler=command_issues)
 
     phase = subparsers.add_parser("phase")
-    phase.add_argument("phase", type=int, choices=range(1, 10))
+    phase.add_argument("phase", type=int, choices=phase_arg_choices())
     phase.add_argument("--task")
     phase.add_argument("--dry-run", action="store_true")
     phase.add_argument("--json", action="store_true")

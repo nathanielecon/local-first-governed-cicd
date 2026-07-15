@@ -1,0 +1,21 @@
+phase=7
+task=P7-T01
+timestamp_utc=2026-07-13T18:46:27Z
+claim_boundary=local-only / production-like / non-cloud
+credentials=fake / documented-test-signature / local-placeholder only
+residuals_not_cleared=docker-socket+root; operator-attested VERIFIED_ROLLBACK_*; hardcoded verify maps
+note_A-vuln-component=governing proof is A-vuln-component-trivy-reject.txt (CRITICAL/HIGH non-zero); A-vuln-component-exception.txt is retained early failed attempt only (encoding TypeError), superseded after repair
+note_D-production-regression=APP_READY=false production-like failure + digest-targeted rollback + recovery suite (digest/health/version/business) when recovery claimed
+scenario=A-lint-test ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\supply-chain\A-lint-test-quality-reject.txt
+scenario=A-fake-secret ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\supply-chain\A-fake-secret-gitleaks-reject.txt
+scenario=A-vuln-component ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\supply-chain\A-vuln-component-trivy-reject.txt;C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\supply-chain\A-vuln-component-exception.txt
+scenario=B-unauthorized-promotion ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\credential\B-unauthorized-promotion-phase5-reuse-summary.txt;C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\credential\B-unauthorized-promotion-source-pointer.txt
+scenario=B-fake-cred-boundary ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\credential\B-fake-cred-boundary-scan.txt
+scenario=C-not-ready ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\runtime\C-not-ready-smoke-and-gate.txt
+scenario=C-dependency-unreachable ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\runtime\C-dependency-unreachable-connectivity-fail.txt
+scenario=D-missing-provenance ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\provenance\D-missing-provenance-sha-mismatch.txt
+scenario=D-mutable-tag-drift ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\provenance\D-mutable-tag-drift-digest-identity.txt
+scenario=D-production-regression ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\provenance\D-production-regression-rollback-recovery.txt
+scenario=E-docker-permission ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\jenkins-docker\E-docker-permission-socket-fail.txt
+scenario=E-runbook-pressure ok=True blocked=False evidence=C:\Users\natha\OneDrive\Documents\cloud\evidence\phase-7\jenkins-docker\E-runbook-pressure-runbook-steps.txt
+all_scenarios_ok=True

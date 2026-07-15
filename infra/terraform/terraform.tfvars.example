@@ -1,0 +1,9 @@
+# Example only — do not commit real auto.tfvars with secrets.
+aws_region     = "us-east-1"
+project_name   = "project-c"
+app_version    = "0.1.0"
+git_sha        = "REPLACE_WITH_FULL_GIT_SHA"
+task_cpu       = "256"
+task_memory    = "512"
+desired_count  = 1
+create_service = false

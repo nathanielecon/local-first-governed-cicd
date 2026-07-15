@@ -1,0 +1,158 @@
+P5-T08 Phase 5 integrated evidence gate — independent review
+=============================================================
+task: P5-T08
+gate: phase-5-integrated-evidence
+worker: phase-5-integration-reviewer
+recorded_at_utc: 2026-07-13T17:13:45Z
+claim_boundary: local-only; does not assert live production, cloud, digest promotion, PC-002 durable evidence, or PC-003 rollback recovery
+implementation_modifications: none
+authority_state_modifications: none (STATUS.md / ISSUES.md left for orchestrator)
+
+----------------------------------------------------------------
+Authority snapshot inspected (read-only)
+----------------------------------------------------------------
+STATUS.md:
+  current_phase=5
+  current_gate=phase-5-integrated-evidence
+  running_tasks=["P5-T08"]
+  completed_gates include phase-5-engineering-review, phase-5-change-review, phase-5-qa, phase-5-security-review
+  unverified still lists: Integrated Phase 5 Jenkins authorization verdict; Digest promotion; Production approval; Rollback recovery
+
+PLAN.md:
+  P5-T01..P5-T07, P5-T10..P5-T14 state=verified
+  P5-T08 state=running
+  P5-T09 / P6-T00 state=planned
+  P5-T08 acceptance: all declared Phase 5 evidence agrees; PC-001 only if named approval + credential isolation + unauthorized denial present; preserve PC-002/PC-003
+
+ISSUES.md (relevant):
+  PC-001 status=open (critical; Phase 5 Jenkins production authorization) — closure deferred to this gate + orchestrator
+  PC-002 status=open (Phase 6)
+  PC-003 status=open (Phase 6)
+  PC-010..PC-014 status=resolved
+  PC-014 resolution confirms TRUSTED_GIT_SHA immutable trusted-input remediation
+
+----------------------------------------------------------------
+Declared Phase 5 evidence inventory (existence + agreement)
+----------------------------------------------------------------
+present_and_agreeing:
+  docs/reviews/phase-5-change-review.md     verdict=clear (local-only)
+  docs/reviews/phase-5-security-review.md   verdict=clear for local security-review gate; PC-001 ledger close deferred to P5-T08
+  evidence/phase-5/qa.txt                   P5-T06_verdict=PASS
+  evidence/phase-5/p5-t01-pytest.txt        9 passed
+  evidence/phase-5/p5-t02-pytest.txt        6 passed
+  evidence/phase-5/p5-t03-pytest.txt        9 passed
+  evidence/phase-5/p5-t03-validate-jenkinsfile.txt  valid=true, errors=[]
+  evidence/phase-5/p5-t04-manual-verify2-unauthorized-proof.txt
+    markers: unauthorized_status=400;
+             X-Error=You need to be local-approver to submit this.;
+             FIXTURE_AWAITING_APPROVAL;
+             final result=ABORTED;
+             no production-continuation success after denial
+
+prior_gate agreement:
+  change review, QA, and security review all clear under the same local-only claim boundary
+  no critical/high open Phase 5 defects remain after PC-010..PC-014 resolutions
+  residual Docker-socket/root and cpsScm script-load tip risks are advisory only and consistently accepted
+
+----------------------------------------------------------------
+PC-001 remediation support matrix
+----------------------------------------------------------------
+1) External credentials / credential isolation
+   - compose.yaml requires ${JENKINS_LOCAL_*_ID/PASSWORD:?...} for admin, approver, viewer (no repo password fallback)
+   - casc.yaml users bind to those external env placeholders
+   - QA retained expected fail-closed bare `docker compose config` (exit 1) and placeholder-injected render (exit 0)
+   - static evidence: p5-t01-pytest / p5-t02-pytest
+   disposition: SUPPORTED
+
+2) Least-privilege authorization
+   - casc.yaml uses authorizationStrategy.roleBased (not loggedInUsersCanDoAnything)
+   - viewer restricted to Overall/Read, Job/Read, View/Read; lacks Job/Build on delivery job
+   - admin / approver separated via project-admin and project-c-approver roles
+   disposition: SUPPORTED
+
+3) Named approvers
+   - Jenkinsfile fails closed without PROJECT_C_ALLOWED_APPROVERS and passes submitter: to input
+   - governing fixture: allowed_approver_id=local-approver; unauthorized_user_id=local-viewer
+   disposition: SUPPORTED
+
+4) Immutable trusted input
+   - TRUSTED_GIT_SHA required; refs/ and non-40-hex rejected before fetch; FETCH_HEAD must equal trusted SHA
+   - validator evidence valid=true; p5-t03-pytest 9 passed; PC-014 resolved
+   disposition: SUPPORTED (static + contract; P5-T04 stub does not re-exercise SHA at runtime — accepted by change/QA/security)
+
+5) Unauthorized denial evidence
+   - governing proof records 400 + explicit local-approver denial header + pause at approval + ABORTED cleanup
+   - accepted under 400-or-403 contract with non-continuation
+   disposition: SUPPORTED
+
+PC-001 integrated conclusion: local remediation claims are fully supported by agreeing Phase 5 evidence.
+Recommend orchestrator resolve PC-001. Do NOT weaken or close PC-002 / PC-003.
+
+----------------------------------------------------------------
+Independent validation commands (executed by this reviewer)
+----------------------------------------------------------------
+
+1) project validate state
+command: .\scripts\project.ps1 validate state
+note: bare `project validate state` is not on PATH in this PowerShell session; used repository wrapper consistent with prior integrated gates
+started_at_utc: 2026-07-13T17:13:17.4294122Z
+ended_at_utc: 2026-07-13T17:13:18.3155995Z
+exit_code: 0
+
+raw_output:
+Validation passed: state
+{
+  "scope": "state",
+  "passed": true,
+  "checks": {
+    "state": []
+  }
+}
+
+also_confirmed:
+command: .\scripts\project.ps1 validate state --json
+exit_code: 0
+passed: true
+
+2) full pytest
+command: .venv\Scripts\python.exe -m pytest -q
+started_at_utc: 2026-07-13T17:12:06.3448975Z
+ended_at_utc: 2026-07-13T17:12:31.3476639Z
+exit_code: 0
+
+raw_output_tail:
+Required test coverage of 90% reached. Total coverage: 96.59%
+75 passed, 32 warnings in 8.89s
+
+result: PASS (75 passed; coverage 96.59%)
+
+3) git diff --check
+command: git diff --check
+started_at_utc: 2026-07-13T17:12:31.3510076Z
+ended_at_utc: 2026-07-13T17:12:31.8846866Z
+exit_code: 0
+
+raw_notes:
+LF/CRLF conversion warnings only (ISSUES.md, Jenkinsfile, PLAN.md, README.md, STATUS.md, compose.yaml, docs/runbook.md, infra/jenkins/*, scripts/validate_jenkinsfile.py, tests/*). No whitespace conflict errors.
+
+result: PASS
+
+----------------------------------------------------------------
+Out of scope / preserved boundaries
+----------------------------------------------------------------
+- No live production approval, organizational Jenkins administration, or cloud claim
+- Digest promotion remains unverified
+- PC-002 append-only release evidence + approver persistence remains Phase 6 open
+- PC-003 verified rollback target/recovery remains Phase 6 open
+- Docker-socket + root Compose residual remains accepted local control-plane risk, not isolation
+
+----------------------------------------------------------------
+Gate verdict
+----------------------------------------------------------------
+failed_checks: none
+blocking_inconsistencies: none
+claim_overreach_detected: none
+
+P5-T08_verdict: CLEAR
+
+summary: Declared Phase 5 change review, QA, security review, static task evidence, and the governing unauthorized-denial proof agree on the same local Jenkins authorization result. Independent validate-state, pytest, and git-diff-check all passed. PC-001 local remediation (external credentials, least-privilege roles, named approvers, immutable trusted SHA input, unauthorized denial) is fully supported. Recommend orchestrator: mark P5-T08 verified, resolve PC-001, proceed to P5-T09 retrospective. Keep PC-002 and PC-003 open for Phase 6.

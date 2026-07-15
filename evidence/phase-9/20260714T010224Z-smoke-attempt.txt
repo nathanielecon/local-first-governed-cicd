@@ -1,0 +1,6 @@
+exit=0
+stdout=
+{"live": {"status": "live"}, "ready": {"status": "ready"}, "version": {"name": "delivery-api", "version": "0.1.0", "git_sha": "376b7e18c5cc94e67ff180ca2f42b8eb05535be3", "environment": "staging"}, "quote": {"subtotal": 20.0, "discount": 1.0, "total": 19.0, "currency": "USD"}, "failures": [], "checks": {"health": "pass", "version": "pass", "business_behavior": "pass"}, "statuses": {"live": 200, "ready": 200, "version": 200, "quote": 200}}
+
+stderr=
+

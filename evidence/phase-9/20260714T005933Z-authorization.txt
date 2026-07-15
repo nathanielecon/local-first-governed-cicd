@@ -1,0 +1,6 @@
+phase=9
+authorization=human-explicit-2026-07-14
+region=us-east-1
+git_sha=376b7e18c5cc94e67ff180ca2f42b8eb05535be3
+claim_boundary=live-aws-validation-in-progress
+auth_mode=operator-aws-session (OIDC role optional; enable_github_oidc=false)
