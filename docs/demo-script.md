@@ -116,7 +116,7 @@ Confirm every headline row has an existing source path and matching retained val
 
 ### Step 8 — Close the claim boundary
 
-Optional one-liner (pointer only, no AWS commands): Phase 9 `us-east-1` staging smoke is an **evidenced optional strip** — cite `evidence/phase-9/governing-manifest.json` / `docs/aws-validation.md`. Do **not** call it “Live AWS Deferred” and do **not** call it completed production cloud.
+One-liner (pointer only, no AWS commands): Phase 9 `us-east-1` staging smoke is **staging-validated** — cite `evidence/phase-9/governing-manifest.json` / `docs/aws-validation.md`. Do **not** call it “Live AWS Deferred” and do **not** call it sustained production cloud.
 
 Explicitly label **Deferred / unverified residuals**:
 
