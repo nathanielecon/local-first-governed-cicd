@@ -9,20 +9,20 @@
 | Public display title | **Local-First Governed CI/CD** | Hero-level name in README and About |
 | Repository slug | `local-first-governed-cicd` | Renamed from `project-c-cloud` so the URL itself reads clearly to recruiters |
 | Full GitHub identity | `nathanielecon/local-first-governed-cicd` | GitHub keeps redirects from the old slug |
-| About description | Local-first governed CI/CD: credential-free PR checks, one sealed image digest, staging verify, named approval, evidence, and rollback. Optional AWS staging evidenced—not sustained production. | ≤350 characters; claim-boundary honest |
+| About description | Local-first governed CI/CD: credential-free PR checks, one sealed image digest, staging verify, named approval, evidence, and rollback. AWS staging-validated in us-east-1—not sustained production. | ≤350 characters; claim-boundary honest |
 
 ## Why this name
 
 - `project-c-cloud` sounded like an internal label and over-implied “cloud project done.”
 - The new slug and title say the product job in plain words: local-first proof, governed promotion, digest identity, approval, evidence, rollback.
-- Optional AWS staging stays in the description as evidenced smoke, not the primary claim.
+- AWS staging stays in the description as staging-validated evidence, not sustained production.
 
 ## Commands used
 
 ```bash
 gh repo rename local-first-governed-cicd
 gh repo edit nathanielecon/local-first-governed-cicd \
-  --description "Local-first governed CI/CD: credential-free PR checks, one sealed image digest, staging verify, named approval, evidence, and rollback. Optional AWS staging evidenced—not sustained production."
+  --description "Local-first governed CI/CD: credential-free PR checks, one sealed image digest, staging verify, named approval, evidence, and rollback. AWS staging-validated in us-east-1—not sustained production."
 ```
 
 ## Claim boundary for naming surfaces

@@ -1,6 +1,6 @@
 # Project C — CLI Demo Script (P8-T02)
 
-**Claim boundary:** local-first / production-like for this Phase 8 rehearsal. Exercises the project CLI, local pytest, and retained evidence pointers. Phase 9 `us-east-1` staging may be mentioned only as an **evidenced optional strip** (`evidence/phase-9/governing-manifest.json`) — do not re-run AWS, and do not claim production cloud. This demo does **not** claim organizational production approval, live Jenkins E2E promotion, sustained production traffic, or clearance of residual advisories.
+**Claim boundary:** local-first / production-like for this Phase 8 rehearsal. Exercises the project CLI, local pytest, and retained evidence pointers. Phase 9 `us-east-1` staging may be mentioned only as **staging-validated** with evidence (`evidence/phase-9/governing-manifest.json`) — do not re-run AWS, and do not claim sustained production cloud. This demo does **not** claim organizational production approval, live Jenkins E2E promotion, sustained production traffic, or clearance of residual advisories.
 
 **Audience:** resume / portfolio walkthrough operators.  
 **Authority:** `docs/portfolio-plan.md`, `docs/portfolio-walkthrough.md`, `docs/metrics.md`.  

@@ -1,6 +1,6 @@
 # Project C — Portfolio Walkthrough
 
-**Claim boundary (headline):** local-first / production-like for the Phase 8 package. Core arcs are local + retained GitHub Actions. Phase 9 `us-east-1` staging smoke is an **evidenced optional strip** (`evidence/phase-9/governing-manifest.json`) — not “AWS never done,” and not completed production cloud. This package does **not** claim organizational production approval, sustained production traffic, production-promotion authority, or zero-risk security.
+**Claim boundary (headline):** local-first / production-like for the Phase 8 package. Core arcs are local + retained GitHub Actions. Phase 9 `us-east-1` staging smoke is **staging-validated** with retained evidence (`evidence/phase-9/governing-manifest.json`) — not “AWS never done,” and not completed production cloud. This package does **not** claim organizational production approval, sustained production traffic, production-promotion authority, or zero-risk security.
 
 Authority for labels and inventory: `docs/portfolio-plan.md`. Every claim below uses the portfolio-plan claim taxonomy (`Implemented`, `Locally verified`, `GitHub-verified`, `Human-approved`, `Evidenced optional strip`, or `Deferred`).
 
@@ -10,7 +10,7 @@ Authority for labels and inventory: `docs/portfolio-plan.md`. Every claim below 
 
 ## 1. Architecture and authorship
 
-**Taxonomy:** Implemented (delivery path contracts) + Locally verified (phases 2–7 gates) + Evidenced optional strip (Phase 9 staging smoke) + Deferred (production AWS / OIDC / TLS hostname / least-privilege operator / cost tear-down).
+**Taxonomy:** Implemented (delivery path contracts) + Locally verified (phases 2–7 gates) + Staging-validated (Phase 9 AWS staging smoke) + Deferred (sustained production AWS / OIDC / TLS hostname / least-privilege operator / cost tear-down).
 
 Controlled delivery path (from `PROJECT.md`):
 
@@ -56,7 +56,7 @@ GitHub Actions answers whether a change is safe to merge. Jenkins independently 
 | Named approval (`local-approver`) | Human-approved **local fixture** | `docs/change-records/phase-6-local.md`; event `p6-local-approval` |
 | Rollback + `recovery_verified` | Locally verified (non-E2E) | Phase 6 recovery section; event `p6-local-recovery` |
 | Failure-injection 12/12 lanes | Locally verified | `evidence/phase-7/integrated-gate.txt` |
-| Phase 9 `us-east-1` staging smoke PASS (ECR→ECS/Fargate/ALB) | Evidenced optional strip | `evidence/phase-9/governing-manifest.json`; `docs/aws-validation.md` |
+| Phase 9 `us-east-1` staging smoke PASS (ECR→ECS/Fargate/ALB) | Staging-validated | `evidence/phase-9/governing-manifest.json`; `docs/aws-validation.md` |
 | Org production AWS / live Jenkins E2E / OIDC / TLS hostname / least-privilege operator / cost tear-down | Deferred | `STATUS.md` unverified; `docs/architecture/phase-9-aws.md` |
 
 ---
@@ -177,9 +177,9 @@ Metrics extract: `docs/metrics.md`. Screenshot / evidence substitutes: `docs/scr
 
 ---
 
-## 8. Phase 9 evidenced optional strip
+## 8. Phase 9 staging-validated AWS path
 
-**Taxonomy:** Evidenced optional strip — ephemeral owner-authorized staging validation, not production cloud.
+**Taxonomy:** Staging-validated — ephemeral owner-authorized staging smoke with retained evidence, not sustained production cloud.
 
 | Field | Value (from governing manifest) |
 | --- | --- |
