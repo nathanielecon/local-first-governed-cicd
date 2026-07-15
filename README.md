@@ -1,21 +1,44 @@
-# Project C — Governed CI/CD Delivery
+# Local-First Governed CI/CD
 
-Ship a change the boring, safe way: check it without deploy keys, build one sealed image, prove it in staging, get a named human yes, keep the receipts, and undo if it breaks.
+Credential-free PR checks, one sealed image digest, staging verify, named human approval, evidence packs, and rollback when verify fails. Built to run and prove locally first; optional AWS staging is evidenced smoke, not production ops.
 
-![How a change gets safely shipped](docs/screenshots/project-c-delivery-infographic.png)
+![Delivery architecture: PR checks to digest promote, approval, evidence, rollback](docs/screenshots/project-c-delivery-infographic.png)
 
-<p align="center"><em>Read top row left to right. Cloud strip is optional demo only.</em></p>
+<p align="center"><em>Primary diagram: end-to-end delivery path. Read left to right.</em></p>
 
-## What the picture means
+## What this project is
 
-1. **Open a PR** — Your change shows up for review.
-2. **Robots check it** — Tests and scans run. Those jobs do not get registry or deploy keys.
-3. **Build one sealed image** — Jenkins builds once. That image keeps the same fingerprint (digest) everywhere. No rebuild between environments.
-4. **Try it in staging** — Prove it works before anyone can promote further.
-5. **A person approves** — A named human says yes. Not a silent auto-promote.
-6. **Keep receipts or undo** — Save evidence of what shipped. If verify fails, go back to the last good image.
+A delivery control plane for a small API: GitHub validates the change without deploy keys, Jenkins builds **one** immutable image fingerprint, staging must pass, a **named person** approves promotion, evidence is kept, and a bad verify rolls back to the last good digest.
 
-The thin cloud strip (ECR → ECS/Fargate → ALB) is an optional, time-boxed AWS staging smoke with retained evidence. It is not “we run production in AWS.” Details: [`docs/aws-validation.md`](docs/aws-validation.md), [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json).
+Repo slug after rename: `local-first-governed-cicd` (display name above). Older citations may still say `project-c-cloud`.
+
+## What the delivery diagram means
+
+1. **Developer / PR** — Change lands for review.
+2. **GitHub Actions CI** — Lint, tests, scans. No registry or deploy credentials on the PR job.
+3. **Jenkins builds once** — One sealed image digest. Same fingerprint promoted; no rebuild between environments.
+4. **Staging verify** — Prove it works before promotion is even available.
+5. **Named human approval** — A person says yes. Not a silent auto-promote.
+6. **Evidence / rollback** — Keep receipts. If verify fails, restore the previous verified digest.
+
+## Optional AWS staging architecture
+
+Canonical draw.io source: [`docs/project-c-phase9-staging-architecture.drawio`](docs/project-c-phase9-staging-architecture.drawio). Exported view:
+
+![Optional AWS staging: GitHub to ECR digest to ALB to ECS Fargate in us-east-1](docs/screenshots/phase9-architecture.png)
+
+<p align="center"><em>Optional strip only: immutable ECR digest on ECS/Fargate behind ALB in us-east-1. Evidenced smoke, not sustained production.</em></p>
+
+Plain-language map of that picture:
+
+1. Commit / PR — GitHub Actions checks merge safety.
+2. Publish immutable image — build and push digest to Amazon ECR.
+3. ECS service update — Terraform points the task at that digest.
+4. Fargate task — run the API (staging size).
+5. ALB health — load balancer checks `/health/ready`.
+6. Smoke verify — hit live/ready/version through the ALB; keep the evidence.
+
+Facts and leftovers: [`docs/aws-validation.md`](docs/aws-validation.md), [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json).
 
 ## Quick start
 
@@ -59,9 +82,9 @@ project evidence <release-id>
 | [Runbook](docs/runbook.md) | Operate and recover locally |
 | [Evidence index](evidence/README.md) | Where release evidence lives |
 | [Phase 8 portfolio index](docs/change-records/phase-8-portfolio-index.md) | Portfolio trio and change-record map |
+| [Phase 9 architecture note](docs/architecture/phase-9-aws.md) | Staging SRE / GitOps residuals |
 | [Orchestration contract](docs/orchestration.md) | How gated work is authorized |
-| [Optional AWS staging](docs/aws-validation.md) | Phase 9 facts and leftovers |
-| [Public naming](docs/public-naming.md) | Display title vs `project-c-cloud` slug |
+| [Public naming](docs/public-naming.md) | Display title vs repository slug |
 
 ## Honest scope
 

@@ -1,43 +1,29 @@
-# Public naming proposal
+# Public naming
 
-**Status:** Applied by orchestrator after the full Slice 9 gate cleared (`gh repo edit` description only; slug unchanged).  
-Homepage remains omitted until a canonical portfolio URL exists. Workers must not run live `gh repo edit`.
+**Status:** Orchestrator applied recruiter-facing rename after Slice 9 gate + owner direction to signal what the project does on the GitHub surface.
 
-## Recommendation
+## Applied identity
 
 | Field | Value | Notes |
 | --- | --- | --- |
-| Public display title | **Project C — Governed CI/CD Delivery** | Hero-level name for README, portfolio, and About text |
-| Repository slug | `project-c-cloud` | Keep URL and clone path stable |
-| Full GitHub identity | `nathanielecon/project-c-cloud` | Unchanged |
-| Suggested About description | Local-first governed CI/CD: credential-free PR validation, digest promotion, approval, evidence, and rollback. Optional AWS staging evidenced—not sustained production. | ≤350 characters; claim-boundary honest |
+| Public display title | **Local-First Governed CI/CD** | Hero-level name in README and About |
+| Repository slug | `local-first-governed-cicd` | Renamed from `project-c-cloud` so the URL itself reads clearly to recruiters |
+| Full GitHub identity | `nathanielecon/local-first-governed-cicd` | GitHub keeps redirects from the old slug |
+| About description | Local-first governed CI/CD: credential-free PR checks, one sealed image digest, staging verify, named approval, evidence, and rollback. Optional AWS staging evidenced—not sustained production. | ≤350 characters; claim-boundary honest |
 
-## Why this split
+## Why this name
 
-- Recruiters and reviewers need a readable **product/platform title**; `project-c-cloud` alone reads like an internal slug.
-- Renaming the GitHub repository slug would break existing clone URLs, Actions history links, and portfolio citations that already use `project-c-cloud`.
-- The public title matches `README.md` and aligns with `PROJECT.md` (“Gstack-Governed CI/CD Delivery Platform”) without requiring “Gstack” in the GitHub surface name.
+- `project-c-cloud` sounded like an internal label and over-implied “cloud project done.”
+- The new slug and title say the product job in plain words: local-first proof, governed promotion, digest identity, approval, evidence, rollback.
+- Optional AWS staging stays in the description as evidenced smoke, not the primary claim.
 
-## Orchestrator apply (after full gate)
-
-When authorized, set description (and optional homepage) without renaming the slug:
+## Commands used
 
 ```bash
-gh repo edit nathanielecon/project-c-cloud \
-  --description "Local-first governed CI/CD: credential-free PR validation, digest promotion, approval, evidence, and rollback. Optional AWS staging evidenced—not sustained production."
+gh repo rename local-first-governed-cicd
+gh repo edit nathanielecon/local-first-governed-cicd \
+  --description "Local-first governed CI/CD: credential-free PR checks, one sealed image digest, staging verify, named approval, evidence, and rollback. Optional AWS staging evidenced—not sustained production."
 ```
-
-Optional homepage (only if a stable public doc URL is chosen later): omit until a canonical portfolio URL exists.
-
-**Do not** use `gh repo rename` unless a separate, explicit authority records a slug change. This proposal assumes the slug remains `project-c-cloud`.
-
-## Rejected alternatives
-
-| Candidate | Why not |
-| --- | --- |
-| Rename slug to `project-c-governed-cicd` | Breaks retained GitHub / evidence links |
-| Title “Project C Cloud” alone | Over-implies production cloud completion |
-| Title “Gstack Platform” | Tooling brand overshadows the delivery product story |
 
 ## Claim boundary for naming surfaces
 

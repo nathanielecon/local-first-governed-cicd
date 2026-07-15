@@ -4,6 +4,7 @@
 
 **Governing evidence:** `evidence/phase-9/governing-manifest.json`  
 **Diagram source:** `docs/project-c-phase9-staging-architecture.drawio`  
+**PNG export (README):** `docs/screenshots/phase9-architecture.png`  
 **Terraform root:** `infra/terraform/`
 
 ---
