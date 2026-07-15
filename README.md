@@ -1,16 +1,16 @@
 # Local-First Governed CI/CD
 
-Credential-free PR checks, one sealed image digest, staging verify, named human approval, evidence packs, and rollback when verify fails. Built to run and prove locally first; optional AWS staging is evidenced smoke, not production ops.
+Credential-free PR checks, one sealed image digest, staging verify, named human approval, evidence packs, and rollback when verify fails. Primary proof is local / production-like delivery. AWS staging in `us-east-1` is staging-validated with retained evidence — not sustained production ops.
 
 ![Delivery architecture: PR checks to digest promote, approval, evidence, rollback](docs/screenshots/project-c-delivery-infographic.png)
 
-<p align="center"><em>Primary diagram: end-to-end delivery path. Read left to right.</em></p>
+<p align="center"><em>Primary diagram: end-to-end production-like delivery path. Read left to right.</em></p>
 
 ## What this project is
 
 A delivery control plane for a small API: GitHub validates the change without deploy keys, Jenkins builds **one** immutable image fingerprint, staging must pass, a **named person** approves promotion, evidence is kept, and a bad verify rolls back to the last good digest.
 
-Repo slug after rename: `local-first-governed-cicd` (display name above). Older citations may still say `project-c-cloud`.
+Repo: `nathanielecon/local-first-governed-cicd` (older citations may still say `project-c-cloud`).
 
 ## What the delivery diagram means
 
@@ -21,13 +21,13 @@ Repo slug after rename: `local-first-governed-cicd` (display name above). Older 
 5. **Named human approval** — A person says yes. Not a silent auto-promote.
 6. **Evidence / rollback** — Keep receipts. If verify fails, restore the previous verified digest.
 
-## Optional AWS staging architecture
+## AWS staging architecture (staging-validated)
 
 Canonical draw.io source: [`docs/project-c-phase9-staging-architecture.drawio`](docs/project-c-phase9-staging-architecture.drawio). Polished Image2 view:
 
-![Optional AWS staging: GitHub to ECR digest to ALB to ECS Fargate in us-east-1](docs/screenshots/phase9-architecture.png)
+![AWS staging-validated: GitHub to ECR digest to ALB to ECS Fargate in us-east-1](docs/screenshots/phase9-architecture.png)
 
-<p align="center"><em>Optional strip only: immutable ECR digest on ECS/Fargate behind ALB in us-east-1. Evidenced smoke, not sustained production.</em></p>
+<p align="center"><em>Staging-validated AWS path: immutable ECR digest on ECS/Fargate behind ALB in us-east-1. Evidenced smoke with retained receipts — not sustained production.</em></p>
 
 Plain-language map of that picture:
 
@@ -72,7 +72,7 @@ project evidence <release-id>
 - Staging must pass before production approval is available.
 - Production promotion needs a human decision.
 - Failed verify restores the previous recorded image.
-- Local proof is not the same thing as live cloud production.
+- Local / production-like proof is not the same as sustained cloud production ops.
 
 ## Read next
 
@@ -88,6 +88,6 @@ project evidence <release-id>
 
 ## Honest scope
 
-Primary proof is local / production-like delivery (phases 2–8) plus GitHub-hosted PR checks. Optional AWS staging in `us-east-1` is evidence-scoped smoke, not sustained production ops.
+Primary proof is local / production-like delivery (phases 2–8) plus GitHub-hosted PR checks. AWS staging in `us-east-1` is **staging-validated** with retained evidence — not sustained production ops.
 
 Still disclosed (not papered over): local Jenkins Docker-socket / root controller privilege; operator-attested rollback parameters; Phase 9 used a login session (not least-privilege OIDC); ALB was HTTP-only for that short proof. See the AWS note and phase security reviews.

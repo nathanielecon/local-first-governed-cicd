@@ -2,7 +2,7 @@
 
 **Policy:** Do not fabricate UI. Prefer real captures from local or GitHub surfaces, or substitute with retained evidence paths and hosted run URLs. No AWS console, production traffic, or fabricated user-analytics images.
 
-**Claim boundary:** local-first / production-like for S1–S6. Phase 9 AWS staging is an evidence-backed optional strip only — not a sustained-production claim.
+**Claim boundary:** local-first / production-like for S1–S6. Phase 9 AWS staging is staging-validated with retained evidence — not a sustained-production claim.
 
 ---
 
@@ -10,8 +10,8 @@
 
 | Asset | Path | Notes |
 | --- | --- | --- |
-| Primary landscape poster (Image2) | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary 16:9 asset (2048×1152). TOP: architecture flowchart (Developer → GitHub PR → Actions → Jenkins digest → staging verify → named approval → evidence/rollback; optional ECR→ECS/Fargate→ALB strip). BOTTOM: story chapter cards. Embedded first in root `README.md` with ELI5 walkthrough. |
-| Phase 9 staging architecture (Image2) | `docs/screenshots/phase9-architecture.png` | Polished 16:9 Image2 render of optional AWS staging (aligned to `docs/project-c-phase9-staging-architecture.drawio`). Embedded on README under optional AWS staging. Force-tracked via `.gitignore` exception. Canonical editable source remains the draw.io file. |
+| Primary landscape poster (Image2) | `docs/screenshots/project-c-delivery-infographic.png` | Exactly one primary 16:9 asset (2048×1152). TOP: architecture flowchart (Developer → GitHub PR → Actions → Jenkins digest → staging verify → named approval → evidence/rollback; ECR→ECS/Fargate→ALB staging strip). BOTTOM: story chapter cards. Embedded first in root `README.md` with ELI5 walkthrough. |
+| Phase 9 staging architecture (Image2) | `docs/screenshots/phase9-architecture.png` | Polished 16:9 Image2 render of staging-validated AWS path (aligned to `docs/project-c-phase9-staging-architecture.drawio`). Embedded on README under AWS staging architecture. Force-tracked via `.gitignore` exception. Canonical editable source remains the draw.io file. |
 
 ---
 

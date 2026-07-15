@@ -1,6 +1,6 @@
-# Optional AWS Validation
+# AWS Staging Validation
 
-Status: **evidenced optional strip — live staging smoke validated** (owner-authorized 2026-07-14; evidence retained).
+Status: **staging-validated — live staging smoke with retained evidence** (owner-authorized 2026-07-14). Not sustained production ops.
 
 Claim boundary: ephemeral `us-east-1` staging proof only. Aligns with `evidence/phase-9/governing-manifest.json` and `STATUS.md` Phase 9 verified baseline. This is **not** completed production cloud and **not** “AWS deferred / never done.” Portfolio Phase 8 packages remain local-first; cite this strip only with the governing manifest.
 
