@@ -1,14 +1,25 @@
 # Project C — Governed CI/CD Delivery
 
-A local-first delivery platform that separates credential-free GitHub pull-request validation from controlled Jenkins promotion of one immutable image digest—with staging verification, named human approval, append-only evidence, and rollback to the previous verified image.
+Ship a change the boring, safe way: check it without deploy keys, build one sealed image, prove it in staging, get a named human yes, keep the receipts, and undo if it breaks.
 
-![Project C governed delivery infographic](docs/screenshots/project-c-delivery-infographic.png)
+![How a change gets safely shipped](docs/screenshots/project-c-delivery-infographic.png)
 
-*Portfolio infographic (Slice 9c): architecture flow GitHub PR → CI → Jenkins digest promote → staging verify → approval → prod verify → rollback, plus story chapter cards. Claim boundary: local-first / production-like phases 2–8; optional AWS staging (`us-east-1` ECR→ECS/Fargate→ALB) only as evidenced ephemeral smoke—not sustained production ops. See [`docs/screenshots/README.md`](docs/screenshots/README.md) and [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json).*
+<p align="center"><em>Read top row left to right. Cloud strip is optional demo only.</em></p>
+
+## What the picture means
+
+1. **Open a PR** — Your change shows up for review.
+2. **Robots check it** — Tests and scans run. Those jobs do not get registry or deploy keys.
+3. **Build one sealed image** — Jenkins builds once. That image keeps the same fingerprint (digest) everywhere. No rebuild between environments.
+4. **Try it in staging** — Prove it works before anyone can promote further.
+5. **A person approves** — A named human says yes. Not a silent auto-promote.
+6. **Keep receipts or undo** — Save evidence of what shipped. If verify fails, go back to the last good image.
+
+The thin cloud strip (ECR → ECS/Fargate → ALB) is an optional, time-boxed AWS staging smoke with retained evidence. It is not “we run production in AWS.” Details: [`docs/aws-validation.md`](docs/aws-validation.md), [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json).
 
 ## Quick start
 
-Prerequisites: Docker Desktop with Linux containers, PowerShell 7 (Windows), Git, and Python 3.12+.
+Needs Docker Desktop (Linux containers), PowerShell 7 on Windows, Git, and Python 3.12+.
 
 ```powershell
 ./scripts/project.ps1 bootstrap --skip-docker
@@ -17,7 +28,9 @@ Prerequisites: Docker Desktop with Linux containers, PowerShell 7 (Windows), Git
 ./scripts/project.ps1 validate phase-1
 ```
 
-On Linux/WSL use `./project` with the same subcommands. After bootstrap, open the local service at `http://localhost:8081`, production-like lane at `http://localhost:8082`, and Jenkins at `http://localhost:8080`. Before starting Jenkins, inject local-only placeholder administrator, approver, and read-only observer identities through `JENKINS_LOCAL_ADMIN_ID`, `JENKINS_LOCAL_ADMIN_PASSWORD`, `JENKINS_LOCAL_APPROVER_ID`, `JENKINS_LOCAL_APPROVER_PASSWORD`, `JENKINS_LOCAL_VIEWER_ID`, and `JENKINS_LOCAL_VIEWER_PASSWORD` from your shell or an untracked env file—the repository does not ship shared default Jenkins credentials.
+On Linux/WSL use `./project` with the same subcommands. After bootstrap: app `http://localhost:8081`, production-like lane `http://localhost:8082`, Jenkins `http://localhost:8080`.
+
+Set local-only Jenkins placeholder identities before starting Jenkins (`JENKINS_LOCAL_ADMIN_ID`, `JENKINS_LOCAL_ADMIN_PASSWORD`, `JENKINS_LOCAL_APPROVER_ID`, `JENKINS_LOCAL_APPROVER_PASSWORD`, `JENKINS_LOCAL_VIEWER_ID`, `JENKINS_LOCAL_VIEWER_PASSWORD`) from your shell or an untracked env file. This repo does not ship shared default Jenkins passwords.
 
 ```text
 project bootstrap [--skip-docker]
@@ -31,27 +44,27 @@ project evidence <release-id>
 
 ## Delivery contract
 
-- Pull-request workflows receive no registry or deployment credentials.
-- Jenkins builds once and promotes an immutable digest—never a rebuilt tag between environments.
+- PR workflows get no registry or deployment credentials.
+- Build once; promote by immutable digest. Do not rebuild between environments.
 - Staging must pass before production approval is available.
-- Production promotion requires a human decision.
-- Failed deployment verification restores the previous recorded image.
-- Local validation is never described as live-cloud production.
+- Production promotion needs a human decision.
+- Failed verify restores the previous recorded image.
+- Local proof is not the same thing as live cloud production.
 
 ## Read next
 
 | Path | Why |
 | --- | --- |
-| [Portfolio walkthrough](docs/portfolio-walkthrough.md) | Recruiter-facing story with evidence-bound claims |
-| [Runbook](docs/runbook.md) | Local operate / recover steps |
+| [Portfolio walkthrough](docs/portfolio-walkthrough.md) | Recruiter story with evidence-bound claims |
+| [Runbook](docs/runbook.md) | Operate and recover locally |
 | [Evidence index](evidence/README.md) | Where release evidence lives |
-| [Phase 8 portfolio index](docs/change-records/phase-8-portfolio-index.md) | Mandatory trio and change-record map |
+| [Phase 8 portfolio index](docs/change-records/phase-8-portfolio-index.md) | Portfolio trio and change-record map |
 | [Orchestration contract](docs/orchestration.md) | How gated work is authorized |
-| [Optional AWS staging](docs/aws-validation.md) | Phase 9 staging facts + residuals |
+| [Optional AWS staging](docs/aws-validation.md) | Phase 9 facts and leftovers |
+| [Public naming](docs/public-naming.md) | Display title vs `project-c-cloud` slug |
 
-## Scope notes
+## Honest scope
 
-- **Claim boundary:** Local/production-like delivery is the primary proof. Optional AWS staging in `us-east-1` is evidence-scoped—not sustained production cloud operation. Public title vs slug: [`docs/public-naming.md`](docs/public-naming.md).
-- **Local platform:** Phases 2–8 retain production-like CI/CD, approval, evidence, and failure-injection proof under local / GitHub-hosted claim boundaries. Start with the portfolio walkthrough.
-- **AWS staging (optional):** Owner-authorized ephemeral staging smoke in `us-east-1` (ECR digest on ECS/Fargate behind ALB) is retained under [`evidence/phase-9/governing-manifest.json`](evidence/phase-9/governing-manifest.json) and summarized in [`docs/aws-validation.md`](docs/aws-validation.md). That is staging validation evidence—not sustained production SRE.
-- **Disclosed residuals (not cleared by the portfolio story):** local Jenkins Docker-socket / root controller privilege; operator-attested rollback parameters and hardcoded verify maps; Phase 9 apply used a login session (not least-privilege OIDC), and the ALB was HTTP-only for the short-lived proof. Details stay in the linked AWS note and phase security reviews.
+Primary proof is local / production-like delivery (phases 2–8) plus GitHub-hosted PR checks. Optional AWS staging in `us-east-1` is evidence-scoped smoke, not sustained production ops.
+
+Still disclosed (not papered over): local Jenkins Docker-socket / root controller privilege; operator-attested rollback parameters; Phase 9 used a login session (not least-privilege OIDC); ALB was HTTP-only for that short proof. See the AWS note and phase security reviews.
