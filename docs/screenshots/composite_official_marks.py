@@ -88,17 +88,17 @@ def generic_blocks_icon(canvas: Image.Image, cx: int, cy: int, scale: int = 20) 
 
 def composite_delivery(src: Path, dst: Path) -> None:
     canvas = load_rgba(src)
-    gh_bg = (236, 239, 241, 255)
-    jk_bg = (238, 240, 242, 255)
+    gh_bg = (237, 240, 241, 255)
+    jk_bg = (236, 239, 241, 255)
     stage_bg = (226, 231, 234, 255)
 
     # Wipe AI Invertocat — header already says GITHUB PR
     cover_rect(canvas, (315, 200, 575, 355), gh_bg, radius=2)
     generic_git_icon(canvas, 445, 275, 30)
 
-    # Wipe AI butler entirely — header already says JENKINS BUILDS ONCE
-    cover_rect(canvas, (900, 195, 1115, 390), jk_bg, radius=2)
-    generic_package_icon(canvas, 1005, 290, 32)
+    # Wipe AI butler entirely (incl. gloves/torso) — stop above IMAGE DIGEST
+    cover_rect(canvas, (895, 195, 1120, 405), jk_bg, radius=2)
+    generic_package_icon(canvas, 1005, 295, 34)
 
     # Wipe AI AWS smile — staging title already names AWS
     cover_rect(canvas, (55, 615, 215, 735), stage_bg, radius=4)
