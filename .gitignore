@@ -17,6 +17,8 @@ deploy/state/*.env
 *.png
 !docs/screenshots/project-c-delivery-infographic.png
 !docs/screenshots/phase9-architecture.png
+!docs/brand/**/*.png
+!docs/brand/*.png
 docs/red-bank-sc-hvac-*
 junit.xml
 evidence/phase-5/p5-t04-20260713*
