@@ -6,9 +6,21 @@ Credential-free PR checks, one sealed image digest, staging verify, named human 
 
 <p align="center"><em>Primary diagram: end-to-end production-like delivery path. Read left to right.</em></p>
 
+<p align="center"><sub>
+Jenkins® is a registered trademark of LF Charities Inc. Jenkins artwork is used under
+<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> with attribution to the
+<a href="https://www.jenkins.io/">Jenkins project</a>.
+GitHub® and the Invertocat logo are trademarks of GitHub, Inc.
+Terraform and the Terraform logo are trademarks of HashiCorp.
+AWS and AWS service names / architecture icons are trademarks of Amazon.com, Inc. or its affiliates
+(<a href="https://aws.amazon.com/architecture/icons/">AWS Architecture Icons</a>).
+Marks identify tools used in this project and do not imply affiliation or endorsement.
+Official mark files: <a href="docs/brand/">docs/brand/</a>.
+</sub></p>
+
 ## What this project is
 
-A delivery control plane for a small API: GitHub validates the change without deploy keys, Jenkins builds **one** immutable image fingerprint, staging must pass, a **named person** approves promotion, evidence is kept, and a bad verify rolls back to the last good digest.
+A delivery control plane for a small API: GitHub validates the change without deploy keys, Jenkins® builds **one** immutable image fingerprint, staging must pass, a **named person** approves promotion, evidence is kept, and a bad verify rolls back to the last good digest.
 
 Repo: `nathanielecon/local-first-governed-cicd` (older citations may still say `project-c-cloud`).
 
@@ -16,7 +28,7 @@ Repo: `nathanielecon/local-first-governed-cicd` (older citations may still say `
 
 1. **Developer / PR** — Change lands for review.
 2. **GitHub Actions CI** — Lint, tests, scans. No registry or deploy credentials on the PR job.
-3. **Jenkins builds once** — One sealed image digest. Same fingerprint promoted; no rebuild between environments.
+3. **Jenkins® builds once** — One sealed image digest. Same fingerprint promoted; no rebuild between environments.
 4. **Staging verify** — Prove it works before promotion is even available.
 5. **Named human approval** — A person says yes. Not a silent auto-promote.
 6. **Evidence / rollback** — Keep receipts. If verify fails, restore the previous verified digest.
