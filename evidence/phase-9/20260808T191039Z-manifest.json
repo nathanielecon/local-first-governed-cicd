@@ -1,0 +1,57 @@
+{
+  "phase": 9,
+  "region": "us-east-1",
+  "purpose": "Final live capture before planned teardown of project-c-stg + project-c-delivery-api",
+  "recorded_at": "2026-08-08T19:10:39Z",
+  "git_sha": "376b7e18c5cc94e67ff180ca2f42b8eb05535be3",
+  "image_ref": "000000000000.dkr.ecr.us-east-1.amazonaws.com/project-c-delivery-api@sha256:bffa93adcbe247be118de0726842f673e14310052b3fdcd6ddaa853fbc05c229",
+  "service_base_url": "http://project-c-stg-117678206.us-east-1.elb.amazonaws.com",
+  "smoke": "PASS",
+  "uptime_observed": "2026-07-14T01:18:54Z (ALB created) through 2026-08-08T19:13Z (this capture)",
+  "checks": {
+    "GET /health/live": "200 {\"status\":\"live\"}",
+    "GET /health/ready": "200 {\"status\":\"ready\"}",
+    "GET /version": "200 git_sha=376b7e18c5cc94e67ff180ca2f42b8eb05535be3 version=0.1.0 environment=staging",
+    "POST /quotes (invalid)": "422 per-field validation errors for units, unit_price",
+    "POST /quotes (valid)": "200 units=10 unit_price=25.50 discount_percent=10 -> subtotal 255.0, discount 25.5, total 229.5, USD",
+    "GET /openapi.json": "200 — four documented paths, matches release contract"
+  },
+  "deployed_sha_matches_pinned_sha": true,
+  "ecs": {
+    "cluster": "project-c-staging",
+    "service": "project-c-delivery-api",
+    "launch_type": "FARGATE",
+    "desired": 1,
+    "running": 1,
+    "created_at": "2026-07-14T01:21:56Z"
+  },
+  "alb": {
+    "name": "project-c-stg",
+    "type": "application",
+    "scheme": "internet-facing",
+    "state": "active",
+    "vpc_id": "vpc-01febec639fe6ac1d",
+    "created_at": "2026-07-14T01:18:54Z"
+  },
+  "measured_cost_usd_per_day": {
+    "alb": 0.54,
+    "fargate_task": 0.296,
+    "public_ipv4_per_address": 0.12,
+    "combined_monthly_estimate": 25,
+    "source": "AWS Cost Explorer, full days 2026-08-06 and 2026-08-07"
+  },
+  "auth_mode": "unauthenticated public HTTP probe from CI environment (no AWS credentials required)",
+  "residuals": [
+    "HTTP ALB only (no TLS) — carried forward from governing-manifest.json",
+    "No rendered browser screenshot: JSON responses download rather than render, and /docs Swagger assets load from a CDN blocked by the capture environment's egress proxy",
+    "Target group health not captured: elasticloadbalancing:DescribeTargetHealth unavailable at capture time; end-to-end 200s through the ALB are indirect evidence",
+    "Two ALB hostnames exist in phase-9 evidence; project-c-stg-117678206 is the live one (project-c-stg-1738567119 was superseded before 01:18:54Z)"
+  ],
+  "post_teardown_note": "The ALB DNS name is released with the load balancer and a new one gets a different hash, so service_base_url here is not reachable after teardown. The service remains reproducible: the container image is pinned by digest and the ECR repository is outside the teardown scope.",
+  "evidence": [
+    "evidence/phase-9/20260808T191039Z-smoke-final-preteardown.txt",
+    "evidence/phase-9/20260808T191039Z-openapi.json",
+    "evidence/phase-9/20260808T191039Z-aws-state.txt"
+  ],
+  "captured_during": "nathanielecon/ContinuityOps cost investigation BF-2026-029..032"
+}
