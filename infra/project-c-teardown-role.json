@@ -1,0 +1,139 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Parameterized least-privilege GitHub Actions OIDC role for a protected staging teardown.",
+  "Parameters": {
+    "TeardownRoleName": {
+      "Type": "String",
+      "Description": "Name of the dedicated non-root teardown role."
+    },
+    "GitHubEnvironmentSubject": {
+      "Type": "String",
+      "Description": "OIDC subject in the form repo:OWNER/REPOSITORY:environment:ENVIRONMENT."
+    },
+    "ClusterName": {
+      "Type": "String"
+    },
+    "ServiceName": {
+      "Type": "String"
+    },
+    "LoadBalancerName": {
+      "Type": "String"
+    },
+    "TargetGroupName": {
+      "Type": "String"
+    },
+    "SecurityGroupId": {
+      "Type": "AWS::EC2::SecurityGroup::Id"
+    }
+  },
+  "Resources": {
+    "TeardownRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {
+          "Ref": "TeardownRoleName"
+        },
+        "Description": "Deletes only parameter-bound staging resources after protected GitHub environment approval.",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "GitHubProtectedEnvironmentOnly",
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
+                }
+              },
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                  "token.actions.githubusercontent.com:sub": {
+                    "Ref": "GitHubEnvironmentSubject"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "parameter-bound-staging-teardown",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "InventoryRequiredByTeardown",
+                  "Effect": "Allow",
+                  "Action": [
+                    "ecs:DescribeClusters",
+                    "ecs:DescribeServices",
+                    "ecs:ListClusters",
+                    "elasticloadbalancing:DescribeLoadBalancers",
+                    "elasticloadbalancing:DescribeTargetGroups"
+                  ],
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "DrainAndDeleteNamedService",
+                  "Effect": "Allow",
+                  "Action": [
+                    "ecs:UpdateService",
+                    "ecs:DeleteService"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:ecs:${AWS::Region}:${AWS::AccountId}:service/${ClusterName}/${ServiceName}"
+                  }
+                },
+                {
+                  "Sid": "DeleteNamedCluster",
+                  "Effect": "Allow",
+                  "Action": "ecs:DeleteCluster",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${ClusterName}"
+                  }
+                },
+                {
+                  "Sid": "DeleteNamedLoadBalancer",
+                  "Effect": "Allow",
+                  "Action": "elasticloadbalancing:DeleteLoadBalancer",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:elasticloadbalancing:${AWS::Region}:${AWS::AccountId}:loadbalancer/app/${LoadBalancerName}/*"
+                  }
+                },
+                {
+                  "Sid": "DeleteNamedTargetGroup",
+                  "Effect": "Allow",
+                  "Action": "elasticloadbalancing:DeleteTargetGroup",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:elasticloadbalancing:${AWS::Region}:${AWS::AccountId}:targetgroup/${TargetGroupName}/*"
+                  }
+                },
+                {
+                  "Sid": "DeleteOnlyDeclaredSecurityGroup",
+                  "Effect": "Allow",
+                  "Action": "ec2:DeleteSecurityGroup",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:security-group/${SecurityGroupId}"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "TeardownRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "TeardownRole",
+          "Arn"
+        ]
+      }
+    }
+  }
+}
