@@ -1,0 +1,74 @@
+# Project C staging — live smoke capture
+captured_at_utc=2026-08-08T19:10:39Z
+base_url=http://project-c-stg-117678206.us-east-1.elb.amazonaws.com
+captured_by=ContinuityOps BF-2026-033 pre-teardown evidence
+
+===== GET / =====
+HTTP/1.1 404 Not Found
+date: Sat, 08 Aug 2026 19:10:39 GMT
+content-type: application/json
+content-length: 22
+server: uvicorn
+x-request-id: 7f11f193-4bc5-4af0-bf09-dd75c0b993ea
+
+{"detail":"Not Found"}
+
+===== GET /health/live =====
+HTTP/1.1 200 OK
+date: Sat, 08 Aug 2026 19:10:39 GMT
+content-type: application/json
+content-length: 17
+server: uvicorn
+x-request-id: e73653ca-19c2-4e3f-b0c7-c90491f9079c
+
+{"status":"live"}
+
+===== GET /health/ready =====
+HTTP/1.1 200 OK
+date: Sat, 08 Aug 2026 19:10:39 GMT
+content-type: application/json
+content-length: 18
+server: uvicorn
+x-request-id: 94125449-4884-4239-88a6-61e9f5472f60
+
+{"status":"ready"}
+
+===== GET /version =====
+HTTP/1.1 200 OK
+date: Sat, 08 Aug 2026 19:10:39 GMT
+content-type: application/json
+content-length: 118
+server: uvicorn
+x-request-id: e2f43945-b2ee-4d20-9b59-fb4fddfa24f8
+
+{"name":"delivery-api","version":"0.1.0","git_sha":"376b7e18c5cc94e67ff180ca2f42b8eb05535be3","environment":"staging"}
+
+===== GET /quotes =====
+HTTP/1.1 405 Method Not Allowed
+date: Sat, 08 Aug 2026 19:10:39 GMT
+content-type: application/json
+content-length: 31
+server: uvicorn
+allow: POST
+x-request-id: c22949d2-6ea1-43ad-875e-bdec65465c6c
+
+{"detail":"Method Not Allowed"}
+
+===== POST /quotes (empty body — proves route + validation, creates nothing) =====
+HTTP/1.1 422 Unprocessable Entity
+date: Sat, 08 Aug 2026 19:10:54 GMT
+content-type: application/json
+content-length: 169
+server: uvicorn
+x-request-id: e4a7856d-babb-4c70-abc4-9946a5f89a2b
+
+{"detail":[{"type":"missing","loc":["body","units"],"msg":"Field required","input":{}},{"type":"missing","loc":["body","unit_price"],"msg":"Field required","input":{}}]}===== POST /quotes (valid payload — business endpoint working end to end) =====
+request: {"units": 10, "unit_price": 25.50, "discount_percent": 10}
+HTTP/1.1 200 OK
+date: Sat, 08 Aug 2026 19:12:58 GMT
+content-type: application/json
+content-length: 65
+server: uvicorn
+x-request-id: 578e72c2-89ca-4392-9a5a-ed704766eea2
+
+{"subtotal":255.0,"discount":25.5,"total":229.5,"currency":"USD"}

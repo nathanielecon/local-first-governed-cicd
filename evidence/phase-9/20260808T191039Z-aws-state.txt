@@ -1,0 +1,24 @@
+# AWS API state — captured 2026-08-08 during ContinuityOps cost investigation
+# Source: aws elbv2 / aws ecs via AWS MCP (account 000000000000, us-east-1)
+
+## Load balancer
+# aws elbv2 describe-load-balancers --region us-east-1 \
+#   --query "LoadBalancers[].[LoadBalancerName,Type,Scheme,VpcId,CreatedTime,State.Code]"
+project-c-stg  application  internet-facing  vpc-01febec639fe6ac1d  2026-07-14T01:18:54.030000+00:00  active
+
+## ECS cluster
+# aws ecs list-clusters --region us-east-1
+arn:aws:ecs:us-east-1:000000000000:cluster/project-c-staging
+
+## ECS service
+# aws ecs describe-services --cluster project-c-staging --region us-east-1 \
+#   --services project-c-delivery-api \
+#   --query "services[].[serviceName,launchType,desiredCount,runningCount,createdAt,taskDefinition]"
+project-c-delivery-api  FARGATE  1  1  2026-07-14T01:21:56.813000+00:00 \
+  arn:aws:ecs:us-east-1:000000000000:task-definition/project-c-delivery-api:2
+
+## Measured cost (Cost Explorer, full days 2026-08-06 and 08-07)
+Amazon Elastic Load Balancing        $0.540 /day   (ALB base $0.0225/hr)
+Amazon Elastic Container Service     $0.296 /day   (1 Fargate task, 256/512)
+Public IPv4 (within VPC line)        $0.120 /day per address
+Combined                            ~$0.836 /day  ~= $25/month
