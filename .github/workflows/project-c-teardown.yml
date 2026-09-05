@@ -18,14 +18,14 @@ concurrency:
 
 env:
   AWS_REGION: us-east-1
-  AWS_TEARDOWN_ROLE_ARN: ${{ secrets.AWS_TEARDOWN_ROLE_ARN }}
-  EXPECTED_AWS_ACCOUNT_ID: ${{ secrets.EXPECTED_AWS_ACCOUNT_ID }}
-  EXPECTED_REPOSITORY_ID: ${{ secrets.EXPECTED_REPOSITORY_ID }}
-  ECS_CLUSTER_NAME: ${{ secrets.ECS_CLUSTER_NAME }}
-  ECS_SERVICE_NAME: ${{ secrets.ECS_SERVICE_NAME }}
-  LOAD_BALANCER_NAME: ${{ secrets.LOAD_BALANCER_NAME }}
-  TARGET_GROUP_NAME: ${{ secrets.TARGET_GROUP_NAME }}
-  ALB_SECURITY_GROUP_ID: ${{ secrets.ALB_SECURITY_GROUP_ID }}
+  AWS_TEARDOWN_ROLE_ARN: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).role_arn }}
+  EXPECTED_AWS_ACCOUNT_ID: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).account_id }}
+  EXPECTED_REPOSITORY_ID: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).repository_id }}
+  ECS_CLUSTER_NAME: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).cluster_name }}
+  ECS_SERVICE_NAME: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).service_name }}
+  LOAD_BALANCER_NAME: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).load_balancer_name }}
+  TARGET_GROUP_NAME: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).target_group_name }}
+  ALB_SECURITY_GROUP_ID: ${{ fromJSON(secrets.PROJECT_C_TEARDOWN_CONFIG).security_group_id }}
 
 jobs:
   teardown:
@@ -37,14 +37,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
 
-      - name: Verify protected configuration and repository identity
+      - name: Mask and verify protected configuration
         shell: bash
         env:
           ACTUAL_REPOSITORY_ID: ${{ github.repository_id }}
         run: |
           set -euo pipefail
-          for name in AWS_TEARDOWN_ROLE_ARN EXPECTED_AWS_ACCOUNT_ID EXPECTED_REPOSITORY_ID             ECS_CLUSTER_NAME ECS_SERVICE_NAME LOAD_BALANCER_NAME TARGET_GROUP_NAME             ALB_SECURITY_GROUP_ID; do
-            test -n "${!name:-}" || { echo "Missing protected environment secret: $name" >&2; exit 1; }
+          for name in AWS_TEARDOWN_ROLE_ARN EXPECTED_AWS_ACCOUNT_ID EXPECTED_REPOSITORY_ID \
+            ECS_CLUSTER_NAME ECS_SERVICE_NAME LOAD_BALANCER_NAME TARGET_GROUP_NAME \
+            ALB_SECURITY_GROUP_ID; do
+            test -n "${!name:-}" || { echo "Missing value in PROJECT_C_TEARDOWN_CONFIG: $name" >&2; exit 1; }
+            echo "::add-mask::${!name}"
           done
           test "$ACTUAL_REPOSITORY_ID" = "$EXPECTED_REPOSITORY_ID"
 
