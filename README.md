@@ -7,15 +7,13 @@ Credential-free PR checks, one sealed image digest, staging verify, named human 
 <p align="center"><em>Primary diagram: end-to-end production-like delivery path. Read left to right.</em></p>
 
 <p align="center"><sub>
-Jenkins® is a registered trademark of LF Charities Inc. Jenkins artwork is used under
-<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> with attribution to the
-<a href="https://www.jenkins.io/">Jenkins project</a>.
+Diagrams use generic icons and plain product-name text only (no third-party logo artwork).
+Jenkins® is a registered trademark of LF Charities Inc.
 GitHub® and the Invertocat logo are trademarks of GitHub, Inc.
 Terraform and the Terraform logo are trademarks of HashiCorp.
-AWS and AWS service names / architecture icons are trademarks of Amazon.com, Inc. or its affiliates
-(<a href="https://aws.amazon.com/architecture/icons/">AWS Architecture Icons</a>).
-Marks identify tools used in this project and do not imply affiliation or endorsement.
-Official mark files: <a href="docs/brand/">docs/brand/</a>.
+AWS and AWS service names are trademarks of Amazon.com, Inc. or its affiliates.
+Names identify tools used in this project and do not imply affiliation or endorsement.
+Reference mark files (not used in these figures): <a href="docs/brand/">docs/brand/</a>.
 </sub></p>
 
 ## What this project is
