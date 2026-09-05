@@ -6,15 +6,7 @@ Credential-free PR checks, one sealed image digest, staging verify, named human 
 
 <p align="center"><em>Primary diagram: end-to-end production-like delivery path. Read left to right.</em></p>
 
-<p align="center"><sub>
-Diagrams use generic icons and plain product-name text only (no third-party logo artwork).
-Jenkins® is a registered trademark of LF Charities Inc.
-GitHub® and the Invertocat logo are trademarks of GitHub, Inc.
-Terraform and the Terraform logo are trademarks of HashiCorp.
-AWS and AWS service names are trademarks of Amazon.com, Inc. or its affiliates.
-Names identify tools used in this project and do not imply affiliation or endorsement.
-Reference mark files (not used in these figures): <a href="docs/brand/">docs/brand/</a>.
-</sub></p>
+See [`docs/BRANDMARK_REMOVAL.md`](docs/BRANDMARK_REMOVAL.md) for the publication cleanup record. The displayed figures use generic symbols.
 
 ## What this project is
 
@@ -95,6 +87,8 @@ project evidence <release-id>
 | [Phase 9 architecture note](docs/architecture/phase-9-aws.md) | Staging SRE / GitOps residuals |
 | [Orchestration contract](docs/orchestration.md) | How gated work is authorized |
 | [Public naming](docs/public-naming.md) | Display title vs repository slug |
+
+> Three independent, evidence-backed cloud engineering labs; presented as a reinforcing portfolio, not a claim of one sustained customer-production platform.
 
 ## Honest scope
 
