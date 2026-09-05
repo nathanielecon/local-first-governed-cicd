@@ -6,8 +6,9 @@
 
 Phase 9's staging stack — ALB `project-c-stg` + Fargate service `project-c-delivery-api` —
 measured **~$25/month** in AWS Cost Explorer (ALB $0.540/day, Fargate $0.296/day, plus
-$0.12/day per public IPv4). It was torn down on 2026-08-08 after a final live capture
-(`evidence/phase-9/20260808T191039Z-*`).
+$0.12/day per public IPv4). A teardown was planned after the final live capture
+(`evidence/phase-9/20260808T191039Z-*`), but the resources were still live when
+re-inventoried on 2026-09-05.
 
 Rebuilding it to keep a demo URL alive costs $25/month. Running the same image on
 Lambda behind a Function URL costs **≈$0** — Lambda's 1M requests / 400,000 GB-seconds
