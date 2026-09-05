@@ -1,0 +1,74 @@
+name: Project C manual teardown
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type DESTROY-PROJECT-C-STAGING exactly
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: project-c-staging-teardown
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: us-east-1
+  AWS_TEARDOWN_ROLE_ARN: ${{ secrets.AWS_TEARDOWN_ROLE_ARN }}
+  EXPECTED_AWS_ACCOUNT_ID: ${{ secrets.EXPECTED_AWS_ACCOUNT_ID }}
+  EXPECTED_REPOSITORY_ID: ${{ secrets.EXPECTED_REPOSITORY_ID }}
+  ECS_CLUSTER_NAME: ${{ secrets.ECS_CLUSTER_NAME }}
+  ECS_SERVICE_NAME: ${{ secrets.ECS_SERVICE_NAME }}
+  LOAD_BALANCER_NAME: ${{ secrets.LOAD_BALANCER_NAME }}
+  TARGET_GROUP_NAME: ${{ secrets.TARGET_GROUP_NAME }}
+  ALB_SECURITY_GROUP_ID: ${{ secrets.ALB_SECURITY_GROUP_ID }}
+
+jobs:
+  teardown:
+    if: github.event.inputs.confirm == 'DESTROY-PROJECT-C-STAGING'
+    runs-on: ubuntu-latest
+    environment: teardown
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+
+      - name: Verify protected configuration and repository identity
+        shell: bash
+        env:
+          ACTUAL_REPOSITORY_ID: ${{ github.repository_id }}
+        run: |
+          set -euo pipefail
+          for name in AWS_TEARDOWN_ROLE_ARN EXPECTED_AWS_ACCOUNT_ID EXPECTED_REPOSITORY_ID             ECS_CLUSTER_NAME ECS_SERVICE_NAME LOAD_BALANCER_NAME TARGET_GROUP_NAME             ALB_SECURITY_GROUP_ID; do
+            test -n "${!name:-}" || { echo "Missing protected environment secret: $name" >&2; exit 1; }
+          done
+          test "$ACTUAL_REPOSITORY_ID" = "$EXPECTED_REPOSITORY_ID"
+
+      - name: Configure AWS credentials through OIDC
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          role-to-assume: ${{ env.AWS_TEARDOWN_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: project-c-teardown-${{ github.run_id }}
+          mask-aws-account-id: true
+
+      - name: Verify non-root teardown identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          caller_account="$(aws sts get-caller-identity --query Account --output text)"
+          caller_arn="$(aws sts get-caller-identity --query Arn --output text)"
+          expected_role_name="${AWS_TEARDOWN_ROLE_ARN##*/}"
+          test "$caller_account" = "$EXPECTED_AWS_ACCOUNT_ID"
+          [[ "$caller_arn" =~ ^arn:aws:sts::[0-9]{12}:assumed-role/${expected_role_name}/ ]]
+          echo "Verified expected non-root OIDC role."
+
+      - name: Print deletion plan
+        run: bash scripts/teardown/aws-project-c-teardown.sh
+
+      - name: Execute deletion
+        run: bash scripts/teardown/aws-project-c-teardown.sh --apply
