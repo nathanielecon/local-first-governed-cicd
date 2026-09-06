@@ -57,7 +57,7 @@ jobs:
       - name: Verify GitHub OIDC claims
         shell: bash
         env:
-          EXPECTED_OIDC_SUBJECT: repo:nathanielecon/local-first-governed-cicd:environment:teardown
+          EXPECTED_OIDC_SUBJECT: repo:nathanielecon@177059064/local-first-governed-cicd@1297706807:environment:teardown
         run: |
           set -euo pipefail
           response="$(curl --fail --silent --show-error \
