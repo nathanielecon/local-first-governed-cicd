@@ -75,10 +75,19 @@ jobs:
           payload += "=" * (-len(payload) % 4)
           claims = json.loads(base64.urlsafe_b64decode(payload))
           expected_subject = os.environ["EXPECTED_OIDC_SUBJECT"]
-          assert claims.get("iss") == "https://token.actions.githubusercontent.com"
-          assert claims.get("aud") == "sts.amazonaws.com"
-          assert claims.get("sub") == expected_subject
-          print(f"Verified OIDC subject: {claims['sub']}")
+          actual_issuer = claims.get("iss")
+          actual_audience = claims.get("aud")
+          actual_subject = claims.get("sub")
+          if actual_issuer != "https://token.actions.githubusercontent.com":
+              raise SystemExit(f"Unexpected OIDC issuer: {actual_issuer!r}")
+          if actual_audience != "sts.amazonaws.com":
+              raise SystemExit(f"Unexpected OIDC audience: {actual_audience!r}")
+          if actual_subject != expected_subject:
+              raise SystemExit(
+                  f"Unexpected OIDC subject: {actual_subject!r}; "
+                  f"expected {expected_subject!r}"
+              )
+          print(f"Verified OIDC subject: {actual_subject}")
           PY
 
       - name: Check out repository
